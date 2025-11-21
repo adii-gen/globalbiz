@@ -17,7 +17,7 @@ import ContactCallback from '@/components/globalbiz/homepage/contactus'
 
 const Homepage = () => {
   return (
-    <div><Navbar/>
+    <div>
     <HeroSec />
 
 <AboutUsSec/>
@@ -28,8 +28,7 @@ const Homepage = () => {
 <TestimonialsSection />
 <BlogCarousel />
 <ContactCallback />
-<FooterSection/>
-<OurAssociations />
+{/* <FooterSection/> */}
 </div>
   )
 }

@@ -12,7 +12,7 @@
 //                     {/* Left Column: Offices */}
 //                     <div className="space-y-6">
 //                         <div>
-//                             <h3 className="text-xl font-semibold text-[#0b2b3d]">UAE Office</h3>
+//                             <h3 className="text-xl  text-[#0b2b3d]">UAE Office</h3>
 //                             <div className="mt-4 space-y-3 text-sm">
 //                                 <div className="flex items-start gap-3">
 //                                     <MapPin size={24} />
@@ -42,7 +42,7 @@
 //                         </div>
 
 //                         <div className="pt-6 border-t border-gray-100">
-//                             <h3 className="text-xl font-semibold text-[#0b2b3d]">Noida Office</h3>
+//                             <h3 className="text-xl  text-[#0b2b3d]">Noida Office</h3>
 //                             <div className="mt-4 space-y-3 text-sm">
 //                                 <div className="flex items-start gap-3">
 //                                     <MapPin size={40} />
@@ -68,7 +68,7 @@
 
 //                     {/* Middle Column: UAE Other Contact Address (keeps similar vertical spacing) */}
 //                     <div className="border-l border-r border-gray-100 px-6">
-//                         <h3 className="text-xl font-semibold text-[#0b2b3d]">UAE Other Contact Address</h3>
+//                         <h3 className="text-xl  text-[#0b2b3d]">UAE Other Contact Address</h3>
 //                         <div className="mt-4 space-y-3 text-sm">
 //                             <div className="flex items-start gap-3">
 //                                 <MapPin size={24} />
@@ -101,14 +101,14 @@
 //                     {/* Right Column: Call to Action + Useful Links */}
 //                     <div className="flex flex-col justify-between">
 //                         <div>
-//                             <h2 className="text-2xl font-bold text-[#0b2b3d]">READY TO GET STARTED?</h2>
+//                             <h2 className="text-2xl  text-[#0b2b3d]">READY TO GET STARTED?</h2>
 //                             <p className="mt-2 text-sm text-[#f1a200]">Would like to connect with an expert?</p>
 
 //                             <button className="mt-6 px-6 py-3 bg-[#163a52] text-white rounded-md shadow-md font-medium">Contact Us</button>
 
 //                             <div className="mt-8 grid grid-cols-2 gap-4 text-sm">
 //                                 <div>
-//                                     <h4 className="font-bold text-[#163a52] mb-3">Useful Links</h4>
+//                                     <h4 className=" text-[#163a52] mb-3">Useful Links</h4>
 //                                     <ul className="space-y-2">
 //                                         <li>Home</li>
 //                                         <li>Blog</li>
@@ -117,7 +117,7 @@
 //                                 </div>
 
 //                                 <div>
-//                                     <h4 className="font-semibold text-[#163a52] mb-3">&nbsp;</h4>
+//                                     <h4 className=" text-[#163a52] mb-3">&nbsp;</h4>
 //                                     <ul className="space-y-2">
 //                                         <li>Contact Us</li>
 //                                         <li>About</li>
@@ -201,7 +201,7 @@ const FooterSection: React.FC = () => {
     ];
 
     return (
-        <footer className="bg-white font-raleway text-gray-800">
+        <footer className="bg-white font-oswald text-gray-800">
             <div className="max-w-7xl mx-auto px-6 lg:px-8 py-12">
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
                     {/* Left Column: UAE Office & Noida Office */}
@@ -238,10 +238,10 @@ const FooterSection: React.FC = () => {
 
                         {/* Noida Office */}
                         <div className="pt-6 border-t border-gray-100">
-                            <h3 className="text-xl font-semibold text-[#0b2b3d]">{offices[1].title}</h3>
+                            <h3 className="text-xl  text-[#0b2b3d]">{offices[1].title}</h3>
                             <div className="mt-4 space-y-3 text-sm">
                                 <div className="flex items-start gap-3">
-                                    <MapPin size={40} className="text-[#0b2b3d] flex-shrink-0" />
+                                    <MapPin className="text-[#0b2b3d] flex-shrink-0" />
                                     <div>
                                         {offices[1].address.map((line, idx) => (
                                             <React.Fragment key={idx}>
@@ -266,7 +266,7 @@ const FooterSection: React.FC = () => {
                     </div>
 
                     {/* Middle Column: UAE Other Contact Address */}
-                    <div className="border-l border-r border-gray-100 px-6">
+                    <div className="border-l border-r  border-gray-100 px-6">
                         <h3 className="text-xl font-semibold text-[#0b2b3d]">{offices[2].title}</h3>
                         <div className="mt-4 space-y-3 text-sm">
                             <div className="flex items-start gap-3">
@@ -304,7 +304,7 @@ const FooterSection: React.FC = () => {
                             </button>
 
                             <div className="mt-8">
-                                <h4 className="font-bold text-[#163a52] mb-3">Useful Links</h4>
+                                <h4 className=" text-[#163a52] mb-3">Useful Links</h4>
                                 <div className="grid grid-cols-2 gap-x-4 gap-y-2 text-sm">
                                     {usefulLinks.map((link, idx) => (
                                         <a 

@@ -20,7 +20,7 @@ export const metadata: Metadata = {
 };
 const oswald = Oswald({
   subsets: ["latin"],
-  weight: ["500"],     // you only want 500
+  weight: ["500","400"],     // you only want 500
   variable: "--font-oswald",
 });
 const raleway = Raleway({
