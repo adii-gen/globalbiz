@@ -178,9 +178,18 @@ export const FreezoneDetailsTable = pgTable(
       >(),
 
     // Freezone list pointer style data
-    freezoneList: jsonb("freezone_list")
-      .$type<string[]>(),
-
+    subFreezones: jsonb("sub_freezones").$type<
+      {
+        name: string;
+        description?: string;
+        image?: string;
+        benefits?: string[];
+        businessEntitiesAllowed?: {
+          title: string;
+          description?: string;
+        }[];
+      }[]
+    >(),
     // Business entities mapped as title + short description
     businessEntities: jsonb("business_entities")
       .$type<
@@ -197,3 +206,17 @@ export const FreezoneDetailsTable = pgTable(
     index("freezone_details_freezone_idx").on(table.freezoneId),
   ]
 );
+
+
+subFreezones: jsonb("sub_freezones").$type<
+  {
+    name: string;
+    description?: string;
+    image?: string;
+    benefits?: string[]; // bullet list
+    businessEntitiesAllowed?: {
+      title: string;
+      description?: string;
+    }[];
+  }[]
+>();
