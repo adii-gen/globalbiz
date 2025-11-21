@@ -6,6 +6,8 @@ import type { Metadata } from "next";
 import { SessionProvider } from "next-auth/react";
 import { Inter, Oswald, Raleway } from "next/font/google";
 import "./globals.css";
+import Navbar from '@/components/globalbiz/homepage/navbar';
+import FooterSection from '@/components/globalbiz/homepage/footer';
 
 const inter = Inter({
   subsets: ["latin"],
@@ -37,7 +39,9 @@ export default async function RootLayout({
     <SessionProvider session={session}>
 <html lang="en" className={`${raleway.variable} ${oswald.variable}`}>
         <body className={inter.className}>
+          <Navbar />
             {children} <Toaster />
+            <FooterSection/>
         </body>
       </html>
     </SessionProvider>
