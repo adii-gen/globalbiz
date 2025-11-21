@@ -9,6 +9,12 @@ export default function Navbar() {
   const [isOffshoreOpen, setOffshoreOpen] = useState(false);
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  interface Freezone {
+    id: string;
+    name: string;
+  }
+
+  const [freezones, setFreezones] = useState<Freezone[]>([]);
 
   // Scroll effect handler
   useEffect(() => {
@@ -27,6 +33,15 @@ export default function Navbar() {
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
+  }, []);
+
+  useEffect(() => {
+    async function loadData() {
+      const res = await fetch("/api/freezones");
+      const json = await res.json();
+      setFreezones(json.data);
+    }
+    loadData();
   }, []);
 
   return (
@@ -120,45 +135,34 @@ export default function Navbar() {
             About Us
           </a>
 
-          {/* FREEZONE COMPANY */}
-          <div
-            className="relative cursor-pointer"
-            onMouseEnter={() => setFreezoneOpen(true)}
-            onMouseLeave={() => setFreezoneOpen(false)}
-          >
-            <div
-              className={`flex items-center gap-1 hover:text-[#f6d674] transition-colors duration-300 ${
-                isScrolled ? "text-white" : "text-gray-100"
-              }`}
-            >
-              Freezone Company <ChevronDown size={18} />
-            </div>
+         {/* FREEZONE COMPANY */}
+<div
+  className="relative cursor-pointer"
+  onMouseEnter={() => setFreezoneOpen(true)}
+  onMouseLeave={() => setFreezoneOpen(false)}
+>
+  <div
+    className={`flex items-center gap-1 hover:text-[#f6d674] transition-colors duration-300 ${
+      isScrolled ? "text-white" : "text-gray-100"
+    }`}
+  >
+    Freezone Company <ChevronDown size={18} />
+  </div>
 
-            {isFreezoneOpen && (
-              <div className="absolute left-0 top-full mt-2 bg-white text-black shadow-lg rounded-md min-w-[200px] p-3 z-50">
-                <a
-                  className="block py-2 hover:text-[#1f3b63] transition-colors"
-                  href="/freezone/dubai-freezone-company-formation"
-                >
-                  Dubai Freezone
-                </a>
-
-                <a
-                  className="block py-2 hover:text-[#1f3b63] transition-colors"
-                  href="/freezone/abu-dhabi-freezone-company-formation"
-                >
-                  Abu Dhabi Freezone
-                </a>
-
-                <a
-                  className="block py-2 hover:text-[#1f3b63] transition-colors"
-                  href="/freezone/sharjah-freezone-company-formation"
-                >
-                  Sharjah Freezone
-                </a>
-              </div>
-            )}
-          </div>
+  {isFreezoneOpen && (
+    <div className="absolute left-0 top-full mt-2 bg-white text-black shadow-lg rounded-md min-w-[200px] p-3 z-50">
+      {freezones.map((item) => (
+        <a
+          key={item.id}
+          href={`/freezone/${item.id}`}
+          className="block py-2 hover:text-[#1f3b63] transition-colors"
+        >
+          {item.name}
+        </a>
+      ))}
+    </div>
+  )}
+</div>
 
           {/* MAINLAND COMPANY */}
           <div
@@ -278,43 +282,34 @@ export default function Navbar() {
               About Us
             </a>
 
-            {/* Mobile Freezone Company Dropdown */}
-            <div className="border-b border-gray-600">
-              <button
-                className="flex items-center justify-between w-full py-2 text-left text-white"
-                onClick={() => setFreezoneOpen(!isFreezoneOpen)}
-              >
-                <span>Freezone Company</span>
-                <ChevronDown
-                  size={18}
-                  className={`transform transition-transform ${
-                    isFreezoneOpen ? "rotate-180" : ""
-                  }`}
-                />
-              </button>
-              {isFreezoneOpen && (
-                <div className="ml-4 mt-2 space-y-2 pb-2">
-                  <a
-                    href="#"
-                    className="block py-1 hover:text-[#f6d674] transition-colors text-gray-200"
-                  >
-                    Option 1
-                  </a>
-                  <a
-                    href="#"
-                    className="block py-1 hover:text-[#f6d674] transition-colors text-gray-200"
-                  >
-                    Option 2
-                  </a>
-                  <a
-                    href="#"
-                    className="block py-1 hover:text-[#f6d674] transition-colors text-gray-200"
-                  >
-                    Option 3
-                  </a>
-                </div>
-              )}
-            </div>
+           {/* Mobile Freezone Company Dropdown */}
+<div className="border-b border-gray-600">
+  <button
+    className="flex items-center justify-between w-full py-2 text-left text-white"
+    onClick={() => setFreezoneOpen(!isFreezoneOpen)}
+  >
+    <span>Freezone Company</span>
+    <ChevronDown
+      size={18}
+      className={`transform transition-transform ${
+        isFreezoneOpen ? "rotate-180" : ""
+      }`}
+    />
+  </button>
+  {isFreezoneOpen && (
+    <div className="ml-4 mt-2 space-y-2 pb-2">
+      {freezones.map((item) => (
+        <a
+          key={item.id}
+          href={`/freezone/${item.id}`}
+          className="block py-1 hover:text-[#f6d674] transition-colors text-gray-200"
+        >
+          {item.name}
+        </a>
+      ))}
+    </div>
+  )}
+</div>
 
             {/* Mobile Mainland Company Dropdown */}
             <div className="border-b border-gray-600">
