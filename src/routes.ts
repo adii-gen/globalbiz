@@ -6,7 +6,7 @@ export const DEFAULT_LOGIN_REDIRECT: string = "/dashboard";
 export const apiAuthPrefix: string = "/api/auth";
 
 // Routes which are accessible to all.
-export const publicRoutes: string[] = ["/", "/auth/verify-email","/about"];
+export const publicRoutes: string[] = ["/", "/auth/verify-email","/about","/freezone/dubai-freezone-company-formation"];
 
 // APIs which are accessible to all.
 export const publicApis: string[] = ["/api/uploadthing"];
