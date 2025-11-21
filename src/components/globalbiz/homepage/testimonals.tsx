@@ -128,15 +128,15 @@ const TestimonialsSection: React.FC = () => {
 
       {/* Content Wrapper */}
       <div className="relative max-w-7xl mx-auto px-20 text-center text-white">
-        <p className="text-[#F7C236] text-lg tracking-wider font-semibold uppercase">
+        <p className="text-[#F7C236] text-4xl font-oswald uppercase">
           Testimonials
         </p>
-        <h2 className="text-4xl md:text-5xl font-extrabold tracking-wide mt-2">
+        <h2 className="text-4xl md:text-5xl font-oswald font-semibold uppercase  mt-2">
           From Our Clients
         </h2>
 
         {/* Testimonials Wrapper */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 mt-16">
+        <div className=" font-raleway grid grid-cols-1 md:grid-cols-2 gap-10 mt-16">
           {/* Card 1 */}
           <div className="border border-white/30 rounded-md py-10 px-8 text-left relative">
             {/* Left Arrow */}

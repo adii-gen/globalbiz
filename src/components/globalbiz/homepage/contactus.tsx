@@ -85,7 +85,7 @@ export default function ContactCallback() {
   height="450"
   style={{border:0}}
   loading="lazy"
-  referrerpolicy="no-referrer-when-downgrade"
+  referrerPolicy="no-referrer-when-downgrade"
   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3608.262599330646!2d55.3754807!3d25.1096715!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e5f1504b446cd2d%3A0x87e52c1812b6c3b1!2s25%C2%B006'34.8%22N%2055%C2%B022'41.0%22E!5e0!3m2!1sen!2sae!4v1700000000000!5m2!1sen!2sae">
 </iframe>
 
