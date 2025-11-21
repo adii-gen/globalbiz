@@ -4,7 +4,7 @@ import { auth } from "@/auth";
 import { Toaster } from "@/components/ui/toaster";
 import type { Metadata } from "next";
 import { SessionProvider } from "next-auth/react";
-import { Inter } from "next/font/google";
+import { Inter, Oswald, Raleway } from "next/font/google";
 import "./globals.css";
 
 const inter = Inter({
@@ -16,7 +16,16 @@ export const metadata: Metadata = {
   title: "Document Management System",
   description: "We're here to Increase your Productivity",
 };
-
+const oswald = Oswald({
+  subsets: ["latin"],
+  weight: ["500"],     // you only want 500
+  variable: "--font-oswald",
+});
+const raleway = Raleway({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-raleway",
+});
 export default async function RootLayout({
   children,
 }: {
@@ -26,7 +35,7 @@ export default async function RootLayout({
 
   return (
     <SessionProvider session={session}>
-      <html lang="en">
+<html lang="en" className={`${raleway.variable} ${oswald.variable}`}>
         <body className={inter.className}>
             {children} <Toaster />
         </body>

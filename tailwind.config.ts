@@ -10,6 +10,11 @@ export default withUt({
   ],
   theme: {
     extend: {
+      fontFamily: {
+    raleway: ["var(--font-raleway)"],
+        oswald: ["var(--font-oswald)"],
+
+  },
       colors: {
         // Your custom direct hex colors
         white: '#FEFEFE',
@@ -17,7 +22,8 @@ export default withUt({
         'dark-blue': '#051747',
         'custom-slate': '#535F80', // Renamed to avoid conflict with Tailwind's slate
         'custom-purple': '#081F62', // Renamed to avoid conflict
-        
+        yellow: '#FFC212',
+        blue: '#1f3b63',
         // System colors (typically from a UI library like Shadcn UI)
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
