@@ -3,6 +3,7 @@
 // ===== 1. UPDATED SCHEMA (schema.ts) =====
 import { InferModel } from "drizzle-orm";
 import {
+  boolean,
   index,
   jsonb,
   pgEnum,
@@ -136,3 +137,63 @@ export const PasswordResetTokenTable = pgTable(
 
 
 
+
+// ===== FREEZONES TABLE =====
+export const FreezonesTable = pgTable(
+  "freezones",
+  {
+    id: uuid("id").defaultRandom().primaryKey().notNull(),
+    
+    // Basic Information
+    name: text("name").notNull(),
+  }
+);
+
+
+export const FreezoneDetailsTable = pgTable(
+  "freezone_details",
+  {
+    id: uuid("id").defaultRandom().primaryKey().notNull(),
+
+    // Relation to freezones table
+    freezoneId: uuid("freezone_id")
+      .notNull()
+      .references(() => FreezonesTable.id, { onDelete: "cascade" }),
+
+    // Text long description
+    description: text("description"),
+
+    // Benefits stored as array of bullet points
+    benefits: jsonb("benefits")
+      .$type<string[]>(), // array of strings
+
+    // License types: contains image, heading and small description for each item
+    licenseTypes: jsonb("license_types")
+      .$type<
+        {
+          image?: string;
+          heading: string;
+          description?: string;
+        }[]
+      >(),
+
+    // Freezone list pointer style data
+    freezoneList: jsonb("freezone_list")
+      .$type<string[]>(),
+
+    // Business entities mapped as title + short description
+    businessEntities: jsonb("business_entities")
+      .$type<
+        {
+          title: string;
+          description?: string;
+        }[]
+      >(),
+
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+    updatedAt: timestamp("updated_at").defaultNow().notNull(),
+  },
+  (table) => [
+    index("freezone_details_freezone_idx").on(table.freezoneId),
+  ]
+);
