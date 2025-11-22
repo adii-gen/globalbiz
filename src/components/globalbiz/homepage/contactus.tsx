@@ -26,7 +26,7 @@ export default function ContactCallback() {
 
         {/* ==== LEFT SIDE FORM ==== */}
         <div>
-          <h2 className="text-4xl font-oswald text-blue mb-6 uppercase">
+          <h2 className="text-3xl font-oswald text-blue font-semibold mb-6 uppercase">
             Request a Call Back
           </h2>
 

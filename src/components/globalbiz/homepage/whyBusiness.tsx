@@ -21,13 +21,13 @@ const WhyBusiness = () => {
         <section className="w-full bg-[#1a3a5c] flex items-stretch justify-between">
             {/* LEFT SIDE */}
             <div className="flex-1 text-left text-white px-8 md:px-28 py-20">
-                <h1 className="text-5xl md:text-6xl font-bold font-oswald text-white mb-8 leading-tight">
+                <h1 className="text-4xl md:text-6xl font-bold font-oswald text-white mb-8 leading-tight">
                     WHY SET UP<br />
                     YOUR <span className="text-[#fbb040]">BUSINESS</span> IN<br />
                     THE UAE?
                 </h1>
 
-                <p className="text-base md:text-lg text-white mb-10 leading-relaxed opacity-95">
+                <p className="text-sm md:text-lg font-raleway text-white mb-10  opacity-95">
                     UAE is one of the most developed economies offering a favourable business environment, 
                     exceptional infrastructure, agile amenities, pliable government norms, and state-of-the-art 
                     services to all incoming business ventures, regardless of their country of origin. 
@@ -44,7 +44,7 @@ const WhyBusiness = () => {
                                     <Check className="w-4 h-4 text-[#fbb040]" strokeWidth={3} />
                                 </div>
                             </div>
-                            <p className="text-sm md:text-base text-white leading-relaxed opacity-95">
+                            <p className="text-sm md:text-base font-raleway text-white opacity-95">
                                 {benefit}
                             </p>
                         </div>
