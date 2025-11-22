@@ -98,20 +98,20 @@ export default function SubFreezonePage() {
     <div className="mx-auto py-8">
       {/* Hero Section */}
       <div
-        className="relative h-80 bg-cover bg-center flex items-center justify-center"
+        className="relative h-60 sm:h-72 md:h-80 bg-cover bg-center flex items-center justify-center px-4"
         style={{ backgroundImage: "url('/images/freezone-bg.png')" }}
       >
-        <h1 className="text-4xl font-bold text-white font-oswald mt-20">
+        <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white font-oswald mt-12 sm:mt-16 md:mt-20 text-center">
           {subFreezone.name}
         </h1>
         <div className="absolute inset-0 opacity-60"></div>
       </div>
 
       {/* Description Section */}
-      <section className="bg-gray-50 px-8 md:pl-16 lg:pl-32 xl:pl-48 pt-10 pb-10">
-        <div className="flex flex-col lg:flex-row gap-16 items-start">
-          <div className="flex-1">
-            <h3 className="text-3xl md:text-4xl font-bold font-oswald tracking-wide mb-6">
+      <section className="bg-gray-50 px-4 sm:px-6 md:px-8 lg:pl-16 xl:pl-32 2xl:pl-48 pt-8 sm:pt-10 pb-8 sm:pb-10">
+        <div className="flex flex-col lg:flex-row gap-8 sm:gap-12 lg:gap-16 items-start">
+          <div className="flex-1 w-full">
+            <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold font-oswald tracking-wide mb-4 sm:mb-6">
               <span className="text-blue">
                 {subFreezone.name
                   .split(" ")
@@ -125,12 +125,12 @@ export default function SubFreezonePage() {
             </h3>
 
             <div className="text-justify leading-relaxed space-y-4 font-raleway text-gray-700">
-              <p className="text-base">{subFreezone.description}</p>
+              <p className="text-sm sm:text-base">{subFreezone.description}</p>
             </div>
           </div>
 
-          <div className="flex-1 flex justify-center lg:justify-start">
-            <div className="relative max-w-md">
+          <div className="flex-1 w-full flex justify-center lg:justify-start">
+            <div className="relative w-full max-w-md">
               <img
                 src="/images/abu-dhabi-global-img.jpg"
                 alt={subFreezone.name}
@@ -144,21 +144,21 @@ export default function SubFreezonePage() {
       {/* contact section */}
 
       <section
-        className="bg-gray-50 bg-cover bg-center bg-no-repeat"
+        className="bg-gray-50 bg-cover bg-center bg-no-repeat py-8 sm:py-12 md:py-0"
         style={{ backgroundImage: "url('/images/talk-to-img-bg.png')" }}
       >
-        <div className="grid lg:grid-cols-2 gap-24 items-center">
+        <div className="grid lg:grid-cols-2 gap-8 sm:gap-12 md:gap-16 lg:gap-24 items-center px-4 sm:px-6 md:px-0">
           {/* Left side - Empty for background image to show */}
-          <div className="relative flex justify-center lg:justify-start">
+          <div className="relative hidden lg:flex justify-center lg:justify-start">
             {/* This div is left empty so the background image shows through */}
           </div>
 
           {/* Contact Form */}
-          <div className="bg-white/95 backdrop-blur-sm p-8 max-w-md">
-            <h2 className="text-3xl md:text-4xl font-bold text-blue mb-2 font-oswald tracking-wide text-center">
+          <div className="bg-white/95 backdrop-blur-sm p-6 sm:p-8 max-w-md mx-auto lg:mx-0 w-full">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-blue mb-2 font-oswald tracking-wide text-center">
               TALK TO OUR
             </h2>
-            <h3 className="text-3xl md:text-4xl font-bold text-yellow mb-8 font-oswald tracking-wide text-center">
+            <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold text-yellow mb-6 sm:mb-8 font-oswald tracking-wide text-center">
               BUSINESS SETUP EXPORT
             </h3>
 
@@ -166,13 +166,13 @@ export default function SubFreezonePage() {
               <input
                 type="text"
                 placeholder="Name"
-                className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:border-[#1e3a5f] transition-colors bg-white"
+                className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 rounded-md focus:outline-none focus:border-[#1e3a5f] transition-colors bg-white text-sm sm:text-base"
               />
 
               <input
                 type="email"
                 placeholder="Email"
-                className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:border-[#1e3a5f] transition-colors bg-white"
+                className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 rounded-md focus:outline-none focus:border-[#1e3a5f] transition-colors bg-white text-sm sm:text-base"
               />
 
               <div className="flex gap-3">
@@ -180,7 +180,7 @@ export default function SubFreezonePage() {
                   <input
                     type="tel"
                     placeholder="Phone Number"
-                    className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:border-[#1e3a5f] transition-colors bg-white"
+                    className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 rounded-md focus:outline-none focus:border-[#1e3a5f] transition-colors bg-white text-sm sm:text-base"
                   />
                 </div>
               </div>
@@ -188,12 +188,12 @@ export default function SubFreezonePage() {
               <textarea
                 placeholder="Message"
                 rows={3}
-                className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:border-[#1e3a5f] transition-colors resize-none bg-white"
+                className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 rounded-md focus:outline-none focus:border-[#1e3a5f] transition-colors resize-none bg-white text-sm sm:text-base"
               ></textarea>
 
               <button
                 type="submit"
-                className="w-full bg-[#1e3a5f] text-white font-semibold py-4 rounded-md hover:bg-[#163152] transition-colors duration-300"
+                className="w-full bg-[#1e3a5f] text-white font-semibold py-3 sm:py-4 rounded-md hover:bg-[#163152] transition-colors duration-300 text-sm sm:text-base"
               >
                 Submit
               </button>
@@ -203,10 +203,10 @@ export default function SubFreezonePage() {
       </section>
 
       {/* Benefits Section */}
-      <section className="bg-gray-50 px-8 md:px-16 lg:px-32 xl:px-48 py-16">
-        <div className="grid lg:grid-cols-2 gap-24 items-center">
+      <section className="bg-gray-50 px-4 sm:px-6 md:px-8 lg:px-16 xl:px-32 2xl:px-48 py-12 sm:py-16">
+        <div className="grid lg:grid-cols-2 gap-12 sm:gap-16 lg:gap-24 items-center">
           {/* Left side - Image */}
-          <div className="relative flex justify-center lg:justify-start">
+          <div className="relative flex justify-center lg:justify-start order-2 lg:order-1">
             <div className="relative w-full max-w-lg">
               <img
                 src="/images/benefits.jpg"
@@ -217,11 +217,11 @@ export default function SubFreezonePage() {
           </div>
 
           {/* Right side - Content */}
-          <div>
-            <h2 className="text-3xl md:text-4xl font-bold text-blue mb-2 font-oswald tracking-wide leading-tight">
+          <div className="order-1 lg:order-2">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-blue mb-2 font-oswald tracking-wide leading-tight">
               REASONS WHY ONE SHOULD CONSIDER SETTING UP A
             </h2>
-            <h3 className="text-3xl md:text-4xl font-bold text-yellow mb-10 font-oswald tracking-wide">
+            <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold text-yellow mb-6 sm:mb-8 md:mb-10 font-oswald tracking-wide">
               BUSINESS IN {subFreezone.name.toUpperCase()}
             </h3>
 
@@ -229,7 +229,7 @@ export default function SubFreezonePage() {
               {subFreezone.benefits.map((benefit, index) => (
                 <div key={index} className="flex items-start gap-3">
                   <div className="flex-shrink-0 w-2 h-2 bg-[#1e3a5f] rounded-full mt-2"></div>
-                  <span className="text-gray-700 text-base font-raleway leading-relaxed">
+                  <span className="text-gray-700 text-sm sm:text-base font-raleway leading-relaxed">
                     {benefit}
                   </span>
                 </div>
@@ -240,23 +240,26 @@ export default function SubFreezonePage() {
       </section>
 
       {/* Business Entities Section */}
-      <section className="bg-gray-100 px-8 md:px-16 lg:px-32 xl:px-48 py-16">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-blue font-oswald tracking-wide">
+      <section className="bg-gray-100 px-4 sm:px-6 md:px-8 lg:px-16 xl:px-32 2xl:px-48 py-12 sm:py-16">
+        <div className="text-center mb-8 sm:mb-12">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-blue font-oswald tracking-wide">
             TYPES OF BUSINESS ENTITIES
           </h2>
-          <h3 className="text-3xl md:text-4xl font-bold text-yellow font-oswald tracking-wide">
+          <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold text-yellow font-oswald tracking-wide">
             <span className="text-blue">IN</span>{" "}
             {subFreezone.name.toUpperCase()}
           </h3>
         </div>
 
-        <div className="space-y-16">
+        <div className="space-y-12 sm:space-y-16">
           {subFreezone.businessEntitiesAllowed.map((entity, index) => (
-            <div key={index} className="grid lg:grid-cols-2 gap-8 items-center">
+            <div
+              key={index}
+              className="grid lg:grid-cols-2 gap-6 sm:gap-8 items-center"
+            >
               {/* Text Content */}
               <div className={index % 2 === 0 ? "lg:order-1" : "lg:order-2"}>
-                <h3 className="text-3xl md:text-4xl font-bold font-oswald tracking-wide mb-4">
+                <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold font-oswald tracking-wide mb-3 sm:mb-4">
                   <span className="text-yellow">
                     {entity.title.split(" ").slice(0, -1).join(" ")}
                   </span>{" "}
@@ -266,7 +269,7 @@ export default function SubFreezonePage() {
                 </h3>
 
                 {entity.description && (
-                  <p className="text-gray-600 text-base leading-relaxed font-raleway">
+                  <p className="text-gray-600 text-sm sm:text-base leading-relaxed font-raleway">
                     {entity.description}
                   </p>
                 )}
@@ -292,22 +295,22 @@ export default function SubFreezonePage() {
       {/* why choose section */}
 
       <section
-        className="relative bg-cover bg-center bg-no-repeat px-8 md:px-16 lg:px-32 xl:px-48 py-20"
+        className="relative bg-cover bg-center bg-no-repeat px-4 sm:px-6 md:px-8 lg:px-16 xl:px-32 2xl:px-48 py-12 sm:py-16 md:py-20"
         style={{ backgroundImage: "url('/images/why-choose.png')" }}
       >
         {/* Optional overlay for better text readability */}
         <div className="absolute inset-0 bg-yellow-400/90"></div>
 
         <div className="relative z-10 max-w-4xl">
-          <h2 className="text-3xl md:text-4xl  text-blue font-bold mb-2 font-oswald tracking-wide">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl text-blue font-bold mb-2 font-oswald tracking-wide pt-2">
             WHY CHOOSE
           </h2>
-          <h3 className="text-3xl md:text-4xl font-bold text-white mb-8 font-oswald tracking-wide">
+          <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-6 sm:mb-8 font-oswald tracking-wide">
             GLOBAL BIZ SETUP?
           </h3>
 
-          <div className=" leading-relaxed font-raleway max-w-2xl">
-            <p className="text-base mb-4">
+          <div className="leading-relaxed font-raleway max-w-2xl">
+            <p className="text-sm sm:text-base mb-4">
               The {subFreezone.name} is well known for providing a unique
               environment for the international and local organisations for
               setting up their business. Investors can therefore make the most
@@ -317,7 +320,7 @@ export default function SubFreezonePage() {
               operation of their trade.
             </p>
 
-            <p className="text-base mb-4">
+            <p className="text-sm sm:text-base mb-4">
               However, to channel the resources to the maximum, it is advised to
               seek the consultation of experts in the region. Not only will they
               provide the answers to all of your business needs but will also
@@ -325,7 +328,7 @@ export default function SubFreezonePage() {
               to the best of their ability.
             </p>
 
-            <p className="text-base mb-4">
+            <p className="text-sm sm:text-base mb-4">
               The follow-up support services are the cherry on the cake that
               will help in the expansion of your business further. If you want
               to push the ball in your court then get in touch with the experts
