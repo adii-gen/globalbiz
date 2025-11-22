@@ -23,6 +23,7 @@ interface FreezoneDetails {
   businessEntities: BusinessEntity[];
   createdAt?: string;
   updatedAt?: string;
+  subFreezones?: Array<{ name: string }>;
 }
 
 interface FreezoneData {
@@ -334,7 +335,7 @@ export default function FreezonePage() {
               {subfreezonelist.map((freezone, index) => (
                 <Link
                   key={index}
-                  href={`/freezone/${freezone.slug}`}
+                  href={`/freezone/${freezoneName}/${freezone.slug}`}
                   className="bg-blue  text-yellow px-6 py-4 flex items-center gap-3 transition-all duration-300 hover:shadow-lg group"
                 >
                   <img
