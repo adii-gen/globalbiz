@@ -12,6 +12,7 @@ export default function Navbar() {
   interface Freezone {
     id: string;
     name: string;
+    slug: string;
   }
 
   const [freezones, setFreezones] = useState<Freezone[]>([]);
@@ -161,7 +162,7 @@ export default function Navbar() {
       {freezones.map((item) => (
         <a
           key={item.name}
-          href={`/freezone/${slugify(item.name)}`}
+          href={`/freezone/${slugify(item.slug)}`}
           className="block py-2 hover:text-[#1f3b63] transition-colors"
         >
           {item.name}
@@ -308,7 +309,7 @@ export default function Navbar() {
       {freezones.map((item) => (
         <a
           key={item.name}
-          href={`/freezones/${slugify(item.name)}`}
+          href={`/freezones/${slugify(item.slug)}`}
           className="block py-1 hover:text-[#f6d674] transition-colors text-gray-200"
         >
           {item.name}

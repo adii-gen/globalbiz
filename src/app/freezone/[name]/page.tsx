@@ -28,6 +28,7 @@ interface FreezoneDetails {
 interface FreezoneData {
   id: string;
   name: string;
+  slug: string;
   details: FreezoneDetails;
 }
 
