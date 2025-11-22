@@ -103,12 +103,12 @@ export default function FreezonePage() {
   return (
     <div className=" mx-auto py-8">
       <div
-        className="relative h-80 bg-cover bg-center flex items-center justify-center"
+        className="relative h-60 bg-cover bg-center flex items-center justify-center"
         style={{
           backgroundImage: "url('/images/freezone-bg.png')",
         }}
       >
-        <h1 className="text-4xl font-bold  text-white font-oswald mt-20">
+      <h1 className="absolute bottom-5 left-1/2 -translate-x-1/2 z-10 text-white text-5xl font-oswald">
           {freezoneData?.name || "Freezone Details"}
         </h1>
         <div className="absolute inset-0 opacity-60"></div>
@@ -128,42 +128,45 @@ export default function FreezonePage() {
 
       {!loading && freezoneData && (
         <div className="space-y-6">
-          {details?.description && (
-            <section className="bg-gray-50 px-8 md:pl-16 lg:pl-32 xl:pl-48 pt-10 pb-4">
-              <div className="flex flex-col lg:flex-row gap-12 items-center">
-                {/* Text Content */}
-                <div className="flex-1">
-                  <h2 className="text-3xl md:text-4xl font-bold text-blue mb-2 font-oswald tracking-wide leading-tight">
-                    BUSINESS SETUP
-                  </h2>
-                  <h3 className="text-3xl md:text-4xl font-bold text-yellow mb-8 font-oswald tracking-wide">
-                    IN {freezoneData?.name?.toUpperCase()}
-                  </h3>
+        {details?.description && (
+  <section className="bg-gray-50 px-4 md:pl-16 lg:pl-32 xl:pl-48 pt-10 pb-4">
+    <div className="flex flex-col lg:flex-row gap-12 items-center">
 
-                  <div className="text-justify leading-relaxed space-y-4 font-raleway w-[600]">
-                    {details.description
-                      .split("\\n\\n")
-                      .map((paragraph: string, index: number) => (
-                        <p key={index} className="text-sm">
-                          {paragraph}
-                        </p>
-                      ))}
-                  </div>
-                </div>
+      {/* TEXT CONTENT */}
+      <div className="flex-1 w-full">
+        <h2 className="text-3xl md:text-4xl font-bold text-blue mb-2 font-oswald tracking-wide leading-tight">
+          BUSINESS SETUP
+        </h2>
+        <h3 className="text-3xl md:text-4xl font-bold text-yellow mb-8 font-oswald tracking-wide">
+          IN {freezoneData?.name?.toUpperCase()}
+        </h3>
 
-                {/* Image */}
-                <div className="flex-1 flex justify-center lg:justify-end">
-                  <div className="relative w-full max-w-2xl">
-                    <img
-                      src="/images/dubai-mainland-about.jpg"
-                      alt="Dubai Freezone Business Setup"
-                      className="w-full h-auto object-contain"
-                    />
-                  </div>
-                </div>
-              </div>
-            </section>
-          )}
+        <div className="text-justify leading-relaxed space-y-4 font-raleway">
+          {details.description
+            .split("\n\n")
+            .map((paragraph: string, index: number) => (
+              <p key={index} className="text-sm">
+                {paragraph}
+              </p>
+            ))}
+        </div>
+      </div>
+
+      {/* IMAGE — HIDE ON MOBILE */}
+      <div className="hidden md:flex flex-1 justify-center lg:justify-end">
+        <div className="relative w-full max-w-2xl">
+          <img
+            src="/images/dubai-mainland-about.jpg"
+            alt="Dubai Freezone Business Setup"
+            className="w-full h-auto object-contain"
+          />
+        </div>
+      </div>
+
+    </div>
+  </section>
+)}
+
 
           {/* contact section */}
 

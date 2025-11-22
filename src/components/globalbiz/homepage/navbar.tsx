@@ -1,56 +1,579 @@
+// "use client";
+// import { useState, useEffect } from "react";
+// import Image from "next/image";
+// import { ChevronDown, Menu, X } from "lucide-react";
+
+// export default function Navbar() {
+//   const [isFreezoneOpen, setFreezoneOpen] = useState(false);
+//   const [isMainlandOpen, setMainlandOpen] = useState(false);
+//   const [isOffshoreOpen, setOffshoreOpen] = useState(false);
+//   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
+//   const [isScrolled, setIsScrolled] = useState(false);
+//   interface Freezone {
+//     id: string;
+//     name: string;
+//     slug: string;
+//   }
+
+//   const [freezones, setFreezones] = useState<Freezone[]>([]);
+
+//   // Scroll effect handler
+//   useEffect(() => {
+//     const handleScroll = () => {
+//       // Check if scrolled more than 50px (ek scroll ke baad)
+//       if (window.scrollY > 50) {
+//         setIsScrolled(true);
+//       } else {
+//         setIsScrolled(false);
+//       }
+//     };
+
+//     window.addEventListener("scroll", handleScroll);
+
+//     // Cleanup
+//     return () => {
+//       window.removeEventListener("scroll", handleScroll);
+//     };
+//   }, []);
+
+//   useEffect(() => {
+//     async function loadData() {
+//       const res = await fetch("/api/freezones");
+//       const json = await res.json();
+//       setFreezones(json.data);
+//     }
+//     loadData();
+//   }, []);
+//   function slugify(name: string) {
+//   return name
+//     .toLowerCase()
+//     .replace(/ /g, "-")
+//     .replace(/[^a-z0-9\-]/g, "");
+// }
+
+
+//   return (
+//     <nav
+//       className={`w-full fixed top-0 left-0 right-0 z-50 text-white font-sans text-sm font-semibold transition-all duration-500 ${
+//         isScrolled ? "bg-[#1f3b63] shadow-lg" : "bg-transparent"
+//       }`}
+//     >
+//       {/* Trusted By Banner - Always visible with background */}
+//     <div className="
+//   bg-yellow 
+//   text-black 
+//   py-3 
+//   font-sans 
+//   text-center
+//   px-4          /* mobile */
+//   sm:px-10      /* small screens */
+//   md:px-20      /* medium */
+//   lg:px-32      /* large */
+//   xl:px-52      /* extra large (your old value) */
+// ">
+//   Trusted by thousands of business owners and entrepreneurs worldwide...!
+// </div>
+
+
+//       <div
+//         className={`max-w-[1500px] mx-auto flex items-center justify-between py-3 px-12 transition-all duration-500 ${
+//           isScrolled ? "py-4" : "py-6"
+//         }`}
+//       >
+//         {/* LEFT — Logo & Phone */}
+//         <div className="flex items-center gap-4  md:gap-10">
+//           <Image
+//             src="/global/logo-navbar.png"
+//             alt="Global Biz"
+//             width={120}
+//             height={60}
+//             className={`transition-all duration-500 ${
+//               isScrolled ? "w-24 md:w-32" : "w-28 md:w-36"
+//             }`}
+//           />
+
+//           {/* Call Section - Hidden on mobile */}
+//           <div className="hidden md:flex items-center gap-3">
+//             <Image
+//               src="/global/phone-ic.png"
+//               width={30}
+//               height={30}
+//               alt="phone"
+//             />
+//             <div className="flex flex-col leading-tight">
+//               <span
+//                 className={`text-sm transition-all duration-500 ${
+//                   isScrolled ? "text-white" : "text-gray-200"
+//                 }`}
+//               >
+//                 Call Us
+//               </span>
+//               <span
+//                 className={`text-xl font-semibold transition-all duration-500 ${
+//                   isScrolled ? "text-white" : "text-gray-100"
+//                 }`}
+//               >
+//                 +971 50 2056381
+//               </span>
+//             </div>
+//           </div>
+//         </div>
+
+//         {/* Mobile Call - Visible only on mobile */}
+//         <div className="md:hidden flex items-center gap-2">
+//           <Image
+//             src="/global/phone-ic.png"
+//             width={20}
+//             height={20}
+//             alt="phone"
+//           />
+//           <span
+//             className={`text-xs font-semibold transition-all duration-500 ${
+//               isScrolled ? "text-white" : "text-gray-100"
+//             }`}
+//           >
+//             +971 50 2056381
+//           </span>
+//         </div>
+
+//         {/* Desktop Menu */}
+//         <div className="hidden lg:flex items-center gap-6 text-sm">
+//           <a
+//             href="/"
+//             className={`hover:text-[#f6d674] transition-colors duration-300 ${
+//               isScrolled ? "text-white" : "text-gray-100"
+//             }`}
+//           >
+//             Home
+//           </a>
+//           <a
+//             href="/about"
+//             className={`hover:text-[#f6d674] transition-colors duration-300 ${
+//               isScrolled ? "text-white" : "text-gray-100"
+//             }`}
+//           >
+//             About Us
+//           </a>
+
+//          {/* FREEZONE COMPANY */}
+// <div
+//   className="relative cursor-pointer"
+//   onMouseEnter={() => setFreezoneOpen(true)}
+//   onMouseLeave={() => setFreezoneOpen(false)}
+// >
+//   <div
+//     className={`flex items-center gap-1 hover:text-[#f6d674] transition-colors duration-300 ${
+//       isScrolled ? "text-white" : "text-gray-100"
+//     }`}
+//   >
+//     Freezone Company <ChevronDown size={18} />
+//   </div>
+
+//   {isFreezoneOpen && (
+//     <div className="absolute left-0 top-full mt-2 bg-white text-black shadow-lg rounded-md min-w-[200px] p-3 z-50">
+//       {freezones.map((item) => (
+//         <a
+//           key={item.name}
+//           href={`/freezone/${slugify(item.slug)}`}
+//           className="block py-2 hover:text-[#1f3b63] transition-colors"
+//         >
+//           {item.name}
+//         </a>
+//       ))}
+//     </div>
+//   )}
+// </div>
+
+//           {/* MAINLAND COMPANY */}
+//           <div
+//             className="relative cursor-pointer"
+//             onMouseEnter={() => setMainlandOpen(true)}
+//             onMouseLeave={() => setMainlandOpen(false)}
+//           >
+//             <div
+//               className={`flex items-center gap-1 hover:text-[#f6d674] transition-colors duration-300 ${
+//                 isScrolled ? "text-white" : "text-gray-100"
+//               }`}
+//             >
+//               Mainland Company <ChevronDown size={18} />
+//             </div>
+
+//             {isMainlandOpen && (
+//               <div className="absolute left-0 top-full mt-2 bg-white text-black shadow-lg rounded-md min-w-[200px] p-3 z-50">
+//                 <a
+//                   className="block py-2 hover:text-[#1f3b63] transition-colors"
+//                   href="#"
+//                 >
+//                   Option 1
+//                 </a>
+//                 <a
+//                   className="block py-2 hover:text-[#1f3b63] transition-colors"
+//                   href="#"
+//                 >
+//                   Option 2
+//                 </a>
+//               </div>
+//             )}
+//           </div>
+
+//           {/* OFFSHORE COMPANY */}
+//           <div
+//             className="relative cursor-pointer"
+//             onMouseEnter={() => setOffshoreOpen(true)}
+//             onMouseLeave={() => setOffshoreOpen(false)}
+//           >
+//             <div
+//               className={`flex items-center gap-1 hover:text-[#f6d674] transition-colors duration-300 ${
+//                 isScrolled ? "text-white" : "text-gray-100"
+//               }`}
+//             >
+//               Offshore Company <ChevronDown size={18} />
+//             </div>
+
+//             {isOffshoreOpen && (
+//               <div className="absolute left-0 top-full mt-2 bg-white text-black shadow-lg rounded-md min-w-[200px] p-3 z-50">
+//                 <a
+//                   className="block py-2 hover:text-[#1f3b63] transition-colors"
+//                   href="#"
+//                 >
+//                   Option 1
+//                 </a>
+//               </div>
+//             )}
+//           </div>
+
+//           <a
+//             href="#"
+//             className={`hover:text-[#f6d674] transition-colors duration-300 ${
+//               isScrolled ? "text-white" : "text-gray-100"
+//             }`}
+//           >
+//             Blog
+//           </a>
+//           <a
+//             href="#"
+//             className={`hover:text-[#f6d674] transition-colors duration-300 ${
+//               isScrolled ? "text-white" : "text-gray-100"
+//             }`}
+//           >
+//             Contact Us
+//           </a>
+//         </div>
+
+//         {/* Mobile Menu Button */}
+//         <button
+//           className="lg:hidden p-2"
+//           onClick={() => setMobileMenuOpen(!isMobileMenuOpen)}
+//         >
+//           {isMobileMenuOpen ? (
+//             <X
+//               size={28}
+//               className={isScrolled ? "text-white" : "text-gray-100"}
+//             />
+//           ) : (
+//             <Menu
+//               size={28}
+//               className={isScrolled ? "text-white" : "text-gray-100"}
+//             />
+//           )}
+//         </button>
+//       </div>
+
+//       {/* Mobile Menu */}
+//       {isMobileMenuOpen && (
+//         <div
+//           className={`lg:hidden border-t px-6 py-4 transition-all duration-500 ${
+//             isScrolled
+//               ? "bg-[#1f3b63] border-gray-600"
+//               : "bg-black/80 backdrop-blur-sm border-gray-500"
+//           }`}
+//         >
+//           <div className="flex flex-col space-y-4">
+//             <a
+//               href="#"
+//               className="py-2 hover:text-[#f6d674] transition-colors border-b border-gray-600 text-white"
+//             >
+//               Home
+//             </a>
+//             <a
+//               href="#"
+//               className="py-2 hover:text-[#f6d674] transition-colors border-b border-gray-600 text-white"
+//             >
+//               About Us
+//             </a>
+
+//            {/* Mobile Freezone Company Dropdown */}
+// <div className="border-b border-gray-600">
+//   <button
+//     className="flex items-center justify-between w-full py-2 text-left text-white"
+//     onClick={() => setFreezoneOpen(!isFreezoneOpen)}
+//   >
+//     <span>Freezone Company</span>
+//     <ChevronDown
+//       size={18}
+//       className={`transform transition-transform ${
+//         isFreezoneOpen ? "rotate-180" : ""
+//       }`}
+//     />
+//   </button>
+//   {isFreezoneOpen && (
+//     <div className="ml-4 mt-2 space-y-2 pb-2">
+//       {freezones.map((item) => (
+//         <a
+//           key={item.name}
+//           href={`/freezones/${slugify(item.slug)}`}
+//           className="block py-1 hover:text-[#f6d674] transition-colors text-gray-200"
+//         >
+//           {item.name}
+//         </a>
+//       ))}
+//     </div>
+//   )}
+// </div>
+
+//             {/* Mobile Mainland Company Dropdown */}
+//             <div className="border-b border-gray-600">
+//               <button
+//                 className="flex items-center justify-between w-full py-2 text-left text-white"
+//                 onClick={() => setMainlandOpen(!isMainlandOpen)}
+//               >
+//                 <span>Mainland Company</span>
+//                 <ChevronDown
+//                   size={18}
+//                   className={`transform transition-transform ${
+//                     isMainlandOpen ? "rotate-180" : ""
+//                   }`}
+//                 />
+//               </button>
+//               {isMainlandOpen && (
+//                 <div className="ml-4 mt-2 space-y-2 pb-2">
+//                   <a
+//                     href="#"
+//                     className="block py-1 hover:text-[#f6d674] transition-colors text-gray-200"
+//                   >
+//                     Option 1
+//                   </a>
+//                   <a
+//                     href="#"
+//                     className="block py-1 hover:text-[#f6d674] transition-colors text-gray-200"
+//                   >
+//                     Option 2
+//                   </a>
+//                 </div>
+//               )}
+//             </div>
+
+//             {/* Mobile Offshore Company Dropdown */}
+//             <div className="border-b border-gray-600">
+//               <button
+//                 className="flex items-center justify-between w-full py-2 text-left text-white"
+//                 onClick={() => setOffshoreOpen(!isOffshoreOpen)}
+//               >
+//                 <span>Offshore Company</span>
+//                 <ChevronDown
+//                   size={18}
+//                   className={`transform transition-transform ${
+//                     isOffshoreOpen ? "rotate-180" : ""
+//                   }`}
+//                 />
+//               </button>
+//               {isOffshoreOpen && (
+//                 <div className="ml-4 mt-2 space-y-2 pb-2">
+//                   <a
+//                     href="#"
+//                     className="block py-1 hover:text-[#f6d674] transition-colors text-gray-200"
+//                   >
+//                     Option 1
+//                   </a>
+//                 </div>
+//               )}
+//             </div>
+
+//             <a
+//               href="#"
+//               className="py-2 hover:text-[#f6d674] transition-colors border-b border-gray-600 text-white"
+//             >
+//               Blog
+//             </a>
+//             <a
+//               href="#"
+//               className="py-2 hover:text-[#f6d674] transition-colors border-b border-gray-600 text-white"
+//             >
+//               Contact Us
+//             </a>
+//           </div>
+//         </div>
+//       )}
+//     </nav>
+//   );
+// }
+
+
+
 "use client";
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import { ChevronDown, Menu, X } from "lucide-react";
 
+interface Freezone {
+  id: string;
+  name: string;
+  slug: string;
+}
+
+interface DropdownItem {
+  name: string;
+  href: string;
+}
+
+const slugify = (name: string) => {
+  return name
+    .toLowerCase()
+    .replace(/ /g, "-")
+    .replace(/[^a-z0-9\-]/g, "");
+};
+
 export default function Navbar() {
-  const [isFreezoneOpen, setFreezoneOpen] = useState(false);
-  const [isMainlandOpen, setMainlandOpen] = useState(false);
-  const [isOffshoreOpen, setOffshoreOpen] = useState(false);
+  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  interface Freezone {
-    id: string;
-    name: string;
-    slug: string;
-  }
-
   const [freezones, setFreezones] = useState<Freezone[]>([]);
 
   // Scroll effect handler
   useEffect(() => {
     const handleScroll = () => {
-      // Check if scrolled more than 50px (ek scroll ke baad)
-      if (window.scrollY > 50) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
-      }
+      setIsScrolled(window.scrollY > 50);
     };
 
     window.addEventListener("scroll", handleScroll);
-
-    // Cleanup
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Fetch freezones data
   useEffect(() => {
     async function loadData() {
-      const res = await fetch("/api/freezones");
-      const json = await res.json();
-      setFreezones(json.data);
+      try {
+        const res = await fetch("/api/freezones");
+        const json = await res.json();
+        setFreezones(json.data || []);
+      } catch (error) {
+        console.error("Failed to load freezones:", error);
+      }
     }
     loadData();
   }, []);
-  function slugify(name: string) {
-  return name
-    .toLowerCase()
-    .replace(/ /g, "-")
-    .replace(/[^a-z0-9\-]/g, "");
-}
 
+  // Close mobile menu when route changes
+  useEffect(() => {
+    setMobileMenuOpen(false);
+  }, []);
+
+  const mainlandOptions: DropdownItem[] = [
+    { name: "Option 1", href: "/mainland/option-1" },
+    { name: "Option 2", href: "/mainland/option-2" },
+  ];
+
+  const offshoreOptions: DropdownItem[] = [
+    { name: "Option 1", href: "/offshore/option-1" },
+  ];
+
+  const navLinks = [
+    { name: "Home", href: "/" },
+    { name: "About Us", href: "/about" },
+  ];
+
+  const endLinks = [
+    { name: "Blog", href: "/blogs" },
+    { name: "Contact Us", href: "/contactus" },
+  ];
+
+  // Desktop Dropdown Component
+  const DesktopDropdown = ({
+    label,
+    items,
+    dropdownKey,
+  }: {
+    label: string;
+    items: DropdownItem[];
+    dropdownKey: string;
+  }) => (
+    <div
+      className="relative cursor-pointer"
+      onMouseEnter={() => setOpenDropdown(dropdownKey)}
+      onMouseLeave={() => setOpenDropdown(null)}
+    >
+      <div
+        className={`flex items-center gap-1 hover:text-[#f6d674] transition-colors duration-300 ${
+          isScrolled ? "text-white" : "text-gray-100"
+        }`}
+      >
+        {label} <ChevronDown size={18} />
+      </div>
+
+      {openDropdown === dropdownKey && (
+        <div className="absolute left-0 top-full mt-2 bg-white text-black shadow-lg rounded-md min-w-[200px] p-3 z-50">
+          {items.map((item) => (
+            <a
+              key={item.name}
+              href={item.href}
+              className="block py-2 hover:text-[#1f3b63] transition-colors"
+            >
+              {item.name}
+            </a>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+
+  // Mobile Dropdown Component
+  const MobileDropdown = ({
+    label,
+    items,
+    dropdownKey,
+  }: {
+    label: string;
+    items: DropdownItem[];
+    dropdownKey: string;
+  }) => {
+    const isOpen = openDropdown === dropdownKey;
+
+    return (
+      <div className="border-b border-gray-600">
+        <button
+          className="flex items-center justify-between w-full py-2 text-left text-white"
+          onClick={() => setOpenDropdown(isOpen ? null : dropdownKey)}
+        >
+          <span>{label}</span>
+          <ChevronDown
+            size={18}
+            className={`transform transition-transform ${
+              isOpen ? "rotate-180" : ""
+            }`}
+          />
+        </button>
+        {isOpen && (
+          <div className="ml-4 mt-2 space-y-2 pb-2">
+            {items.map((item) => (
+              <a
+                key={item.name}
+                href={item.href}
+                className="block py-1 hover:text-[#f6d674] transition-colors text-gray-200"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                {item.name}
+              </a>
+            ))}
+          </div>
+        )}
+      </div>
+    );
+  };
+
+  const freezoneItems: DropdownItem[] = freezones.map((item) => ({
+    name: item.name,
+    href: `/freezone/${slugify(item.slug)}`,
+  }));
 
   return (
     <nav
@@ -58,41 +581,31 @@ export default function Navbar() {
         isScrolled ? "bg-[#1f3b63] shadow-lg" : "bg-transparent"
       }`}
     >
-      {/* Trusted By Banner - Always visible with background */}
-    <div className="
-  bg-yellow 
-  text-black 
-  py-3 
-  font-sans 
-  text-center
-  px-4          /* mobile */
-  sm:px-10      /* small screens */
-  md:px-20      /* medium */
-  lg:px-32      /* large */
-  xl:px-52      /* extra large (your old value) */
-">
-  Trusted by thousands of business owners and entrepreneurs worldwide...!
-</div>
-
+      {/* Trusted By Banner */}
+      <div className="bg-yellow text-black py-2 sm:py-3 font-sans text-center px-4 sm:px-10 md:px-20 lg:px-32 xl:px-52 text-xs sm:text-sm">
+        Trusted by thousands of business owners and entrepreneurs worldwide...!
+      </div>
 
       <div
-        className={`max-w-[1500px] mx-auto flex items-center justify-between py-3 px-12 transition-all duration-500 ${
-          isScrolled ? "py-4" : "py-6"
+        className={`max-w-[1500px] mx-auto flex items-center justify-between px-4 sm:px-6 md:px-12 transition-all duration-500 ${
+          isScrolled ? "py-3 sm:py-4" : "py-4 sm:py-6"
         }`}
       >
-        {/* LEFT — Logo & Phone */}
-        <div className="flex items-center gap-4  md:gap-10">
-          <Image
-            src="/global/logo-navbar.png"
-            alt="Global Biz"
-            width={120}
-            height={60}
-            className={`transition-all duration-500 ${
-              isScrolled ? "w-24 md:w-32" : "w-28 md:w-36"
-            }`}
-          />
+        {/* Logo & Phone */}
+        <div className="flex items-center gap-3 sm:gap-4 md:gap-10">
+          <a href="/">
+            <Image
+              src="/global/logo-navbar.png"
+              alt="Global Biz"
+              width={120}
+              height={60}
+              className={`transition-all duration-500 ${
+                isScrolled ? "w-20 sm:w-24 md:w-32" : "w-24 sm:w-28 md:w-36"
+              }`}
+            />
+          </a>
 
-          {/* Call Section - Hidden on mobile */}
+          {/* Desktop Call Section */}
           <div className="hidden md:flex items-center gap-3">
             <Image
               src="/global/phone-ic.png"
@@ -108,171 +621,95 @@ export default function Navbar() {
               >
                 Call Us
               </span>
-              <span
-                className={`text-xl font-semibold transition-all duration-500 ${
+              <a
+                href="tel:+97150205638"
+                className={`text-xl font-semibold transition-all duration-500 hover:text-[#f6d674] ${
                   isScrolled ? "text-white" : "text-gray-100"
                 }`}
               >
                 +971 50 2056381
-              </span>
+              </a>
             </div>
           </div>
         </div>
 
-        {/* Mobile Call - Visible only on mobile */}
+        {/* Mobile Call */}
         <div className="md:hidden flex items-center gap-2">
           <Image
             src="/global/phone-ic.png"
-            width={20}
-            height={20}
+            width={18}
+            height={18}
             alt="phone"
           />
-          <span
-            className={`text-xs font-semibold transition-all duration-500 ${
+          <a
+            href="tel:+971502056381"
+            className={`text-xs font-semibold transition-all duration-500 hover:text-[#f6d674] ${
               isScrolled ? "text-white" : "text-gray-100"
             }`}
           >
             +971 50 2056381
-          </span>
+          </a>
         </div>
 
         {/* Desktop Menu */}
         <div className="hidden lg:flex items-center gap-6 text-sm">
-          <a
-            href="/"
-            className={`hover:text-[#f6d674] transition-colors duration-300 ${
-              isScrolled ? "text-white" : "text-gray-100"
-            }`}
-          >
-            Home
-          </a>
-          <a
-            href="about"
-            className={`hover:text-[#f6d674] transition-colors duration-300 ${
-              isScrolled ? "text-white" : "text-gray-100"
-            }`}
-          >
-            About Us
-          </a>
-
-         {/* FREEZONE COMPANY */}
-<div
-  className="relative cursor-pointer"
-  onMouseEnter={() => setFreezoneOpen(true)}
-  onMouseLeave={() => setFreezoneOpen(false)}
->
-  <div
-    className={`flex items-center gap-1 hover:text-[#f6d674] transition-colors duration-300 ${
-      isScrolled ? "text-white" : "text-gray-100"
-    }`}
-  >
-    Freezone Company <ChevronDown size={18} />
-  </div>
-
-  {isFreezoneOpen && (
-    <div className="absolute left-0 top-full mt-2 bg-white text-black shadow-lg rounded-md min-w-[200px] p-3 z-50">
-      {freezones.map((item) => (
-        <a
-          key={item.name}
-          href={`/freezone/${slugify(item.slug)}`}
-          className="block py-2 hover:text-[#1f3b63] transition-colors"
-        >
-          {item.name}
-        </a>
-      ))}
-    </div>
-  )}
-</div>
-
-          {/* MAINLAND COMPANY */}
-          <div
-            className="relative cursor-pointer"
-            onMouseEnter={() => setMainlandOpen(true)}
-            onMouseLeave={() => setMainlandOpen(false)}
-          >
-            <div
-              className={`flex items-center gap-1 hover:text-[#f6d674] transition-colors duration-300 ${
+          {navLinks.map((link) => (
+            <a
+              key={link.name}
+              href={link.href}
+              className={`hover:text-[#f6d674] transition-colors duration-300 ${
                 isScrolled ? "text-white" : "text-gray-100"
               }`}
             >
-              Mainland Company <ChevronDown size={18} />
-            </div>
+              {link.name}
+            </a>
+          ))}
 
-            {isMainlandOpen && (
-              <div className="absolute left-0 top-full mt-2 bg-white text-black shadow-lg rounded-md min-w-[200px] p-3 z-50">
-                <a
-                  className="block py-2 hover:text-[#1f3b63] transition-colors"
-                  href="#"
-                >
-                  Option 1
-                </a>
-                <a
-                  className="block py-2 hover:text-[#1f3b63] transition-colors"
-                  href="#"
-                >
-                  Option 2
-                </a>
-              </div>
-            )}
-          </div>
+          <DesktopDropdown
+            label="Freezone Company"
+            items={freezoneItems}
+            dropdownKey="freezone"
+          />
 
-          {/* OFFSHORE COMPANY */}
-          <div
-            className="relative cursor-pointer"
-            onMouseEnter={() => setOffshoreOpen(true)}
-            onMouseLeave={() => setOffshoreOpen(false)}
-          >
-            <div
-              className={`flex items-center gap-1 hover:text-[#f6d674] transition-colors duration-300 ${
+          <DesktopDropdown
+            label="Mainland Company"
+            items={mainlandOptions}
+            dropdownKey="mainland"
+          />
+
+          <DesktopDropdown
+            label="Offshore Company"
+            items={offshoreOptions}
+            dropdownKey="offshore"
+          />
+
+          {endLinks.map((link) => (
+            <a
+              key={link.name}
+              href={link.href}
+              className={`hover:text-[#f6d674] transition-colors duration-300 ${
                 isScrolled ? "text-white" : "text-gray-100"
               }`}
             >
-              Offshore Company <ChevronDown size={18} />
-            </div>
-
-            {isOffshoreOpen && (
-              <div className="absolute left-0 top-full mt-2 bg-white text-black shadow-lg rounded-md min-w-[200px] p-3 z-50">
-                <a
-                  className="block py-2 hover:text-[#1f3b63] transition-colors"
-                  href="#"
-                >
-                  Option 1
-                </a>
-              </div>
-            )}
-          </div>
-
-          <a
-            href="#"
-            className={`hover:text-[#f6d674] transition-colors duration-300 ${
-              isScrolled ? "text-white" : "text-gray-100"
-            }`}
-          >
-            Blog
-          </a>
-          <a
-            href="#"
-            className={`hover:text-[#f6d674] transition-colors duration-300 ${
-              isScrolled ? "text-white" : "text-gray-100"
-            }`}
-          >
-            Contact Us
-          </a>
+              {link.name}
+            </a>
+          ))}
         </div>
 
         {/* Mobile Menu Button */}
         <button
           className="lg:hidden p-2"
           onClick={() => setMobileMenuOpen(!isMobileMenuOpen)}
+          aria-label="Toggle menu"
         >
           {isMobileMenuOpen ? (
             <X
-              size={28}
+              size={24}
               className={isScrolled ? "text-white" : "text-gray-100"}
             />
           ) : (
             <Menu
-              size={28}
+              size={24}
               className={isScrolled ? "text-white" : "text-gray-100"}
             />
           )}
@@ -289,118 +726,45 @@ export default function Navbar() {
           }`}
         >
           <div className="flex flex-col space-y-4">
-            <a
-              href="#"
-              className="py-2 hover:text-[#f6d674] transition-colors border-b border-gray-600 text-white"
-            >
-              Home
-            </a>
-            <a
-              href="#"
-              className="py-2 hover:text-[#f6d674] transition-colors border-b border-gray-600 text-white"
-            >
-              About Us
-            </a>
-
-           {/* Mobile Freezone Company Dropdown */}
-<div className="border-b border-gray-600">
-  <button
-    className="flex items-center justify-between w-full py-2 text-left text-white"
-    onClick={() => setFreezoneOpen(!isFreezoneOpen)}
-  >
-    <span>Freezone Company</span>
-    <ChevronDown
-      size={18}
-      className={`transform transition-transform ${
-        isFreezoneOpen ? "rotate-180" : ""
-      }`}
-    />
-  </button>
-  {isFreezoneOpen && (
-    <div className="ml-4 mt-2 space-y-2 pb-2">
-      {freezones.map((item) => (
-        <a
-          key={item.name}
-          href={`/freezones/${slugify(item.slug)}`}
-          className="block py-1 hover:text-[#f6d674] transition-colors text-gray-200"
-        >
-          {item.name}
-        </a>
-      ))}
-    </div>
-  )}
-</div>
-
-            {/* Mobile Mainland Company Dropdown */}
-            <div className="border-b border-gray-600">
-              <button
-                className="flex items-center justify-between w-full py-2 text-left text-white"
-                onClick={() => setMainlandOpen(!isMainlandOpen)}
+            {navLinks.map((link) => (
+              <a
+                key={link.name}
+                href={link.href}
+                className="py-2 hover:text-[#f6d674] transition-colors border-b border-gray-600 text-white"
+                onClick={() => setMobileMenuOpen(false)}
               >
-                <span>Mainland Company</span>
-                <ChevronDown
-                  size={18}
-                  className={`transform transition-transform ${
-                    isMainlandOpen ? "rotate-180" : ""
-                  }`}
-                />
-              </button>
-              {isMainlandOpen && (
-                <div className="ml-4 mt-2 space-y-2 pb-2">
-                  <a
-                    href="#"
-                    className="block py-1 hover:text-[#f6d674] transition-colors text-gray-200"
-                  >
-                    Option 1
-                  </a>
-                  <a
-                    href="#"
-                    className="block py-1 hover:text-[#f6d674] transition-colors text-gray-200"
-                  >
-                    Option 2
-                  </a>
-                </div>
-              )}
-            </div>
+                {link.name}
+              </a>
+            ))}
 
-            {/* Mobile Offshore Company Dropdown */}
-            <div className="border-b border-gray-600">
-              <button
-                className="flex items-center justify-between w-full py-2 text-left text-white"
-                onClick={() => setOffshoreOpen(!isOffshoreOpen)}
+            <MobileDropdown
+              label="Freezone Company"
+              items={freezoneItems}
+              dropdownKey="freezone-mobile"
+            />
+
+            <MobileDropdown
+              label="Mainland Company"
+              items={mainlandOptions}
+              dropdownKey="mainland-mobile"
+            />
+
+            <MobileDropdown
+              label="Offshore Company"
+              items={offshoreOptions}
+              dropdownKey="offshore-mobile"
+            />
+
+            {endLinks.map((link) => (
+              <a
+                key={link.name}
+                href={link.href}
+                className="py-2 hover:text-[#f6d674] transition-colors border-b border-gray-600 text-white"
+                onClick={() => setMobileMenuOpen(false)}
               >
-                <span>Offshore Company</span>
-                <ChevronDown
-                  size={18}
-                  className={`transform transition-transform ${
-                    isOffshoreOpen ? "rotate-180" : ""
-                  }`}
-                />
-              </button>
-              {isOffshoreOpen && (
-                <div className="ml-4 mt-2 space-y-2 pb-2">
-                  <a
-                    href="#"
-                    className="block py-1 hover:text-[#f6d674] transition-colors text-gray-200"
-                  >
-                    Option 1
-                  </a>
-                </div>
-              )}
-            </div>
-
-            <a
-              href="#"
-              className="py-2 hover:text-[#f6d674] transition-colors border-b border-gray-600 text-white"
-            >
-              Blog
-            </a>
-            <a
-              href="#"
-              className="py-2 hover:text-[#f6d674] transition-colors border-b border-gray-600 text-white"
-            >
-              Contact Us
-            </a>
+                {link.name}
+              </a>
+            ))}
           </div>
         </div>
       )}
