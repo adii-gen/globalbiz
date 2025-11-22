@@ -127,7 +127,7 @@ export default function Navbar() {
         {/* Desktop Menu */}
         <div className="hidden lg:flex items-center gap-6 text-sm">
           <a
-            href="#"
+            href="/"
             className={`hover:text-[#f6d674] transition-colors duration-300 ${
               isScrolled ? "text-white" : "text-gray-100"
             }`}
@@ -135,7 +135,7 @@ export default function Navbar() {
             Home
           </a>
           <a
-            href="#"
+            href="/about"
             className={`hover:text-[#f6d674] transition-colors duration-300 ${
               isScrolled ? "text-white" : "text-gray-100"
             }`}
@@ -231,7 +231,7 @@ export default function Navbar() {
           </div>
 
           <a
-            href="#"
+            href="/blogs"
             className={`hover:text-[#f6d674] transition-colors duration-300 ${
               isScrolled ? "text-white" : "text-gray-100"
             }`}
@@ -239,7 +239,7 @@ export default function Navbar() {
             Blog
           </a>
           <a
-            href="#"
+            href="/contactus"
             className={`hover:text-[#f6d674] transition-colors duration-300 ${
               isScrolled ? "text-white" : "text-gray-100"
             }`}
