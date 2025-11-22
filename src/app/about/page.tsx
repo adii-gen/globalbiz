@@ -5,14 +5,16 @@ export default function AboutPage() {
     <div className="min-h-screen bg-white">
       {/* Hero Section with Background */}
     <div 
-  className="relative h-80 bg-cover bg-center flex items-center justify-center"
+  className="relative h-60 bg-cover bg-center flex items-center justify-center"
   style={{
     backgroundImage: "url('/images/about-banner.jpg')",
     // backgroundColor: '#1e3a5f'
   }}
 >
   <div className="absolute inset-0 opacity-60"></div>
-  <h1 className="relative z-10 text-white text-5xl font-bold">About Us</h1>
+<h1 className="absolute bottom-5 left-1/2 -translate-x-1/2 z-10 text-white text-5xl font-oswald
+        ">
+About Us                </h1>
 </div>
 
       {/* At A Glance Section */}
