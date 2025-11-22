@@ -146,6 +146,8 @@ export const FreezonesTable = pgTable(
     
     // Basic Information
     name: text("name").notNull(),
+        slug: text("slug").notNull(), // NEW
+
   }
 );
 
