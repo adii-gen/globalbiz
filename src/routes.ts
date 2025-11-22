@@ -6,10 +6,10 @@ export const DEFAULT_LOGIN_REDIRECT: string = "/dashboard";
 export const apiAuthPrefix: string = "/api/auth";
 
 // Routes which are accessible to all.
-export const publicRoutes: string[] = ["/", "/auth/verify-email","/about"];
-export const publicRoutePatterns: RegExp[] = [
-  /^\/freezone\/[^/]+$/,
-];
+export const publicRoutes: (string|RegExp)[] = ["/", "/auth/verify-email","/about",/^\/freezone\/[^/]+$/];
+// export const publicRoutePatterns: RegExp[] = [
+//   /^\/freezone\/[^/]+$/,
+// ];
 
 
 // APIs which are accessible to all.

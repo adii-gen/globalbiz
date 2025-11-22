@@ -43,6 +43,13 @@ export default function Navbar() {
     }
     loadData();
   }, []);
+  function slugify(name: string) {
+  return name
+    .toLowerCase()
+    .replace(/ /g, "-")
+    .replace(/[^a-z0-9\-]/g, "");
+}
+
 
   return (
     <nav
@@ -153,8 +160,8 @@ export default function Navbar() {
     <div className="absolute left-0 top-full mt-2 bg-white text-black shadow-lg rounded-md min-w-[200px] p-3 z-50">
       {freezones.map((item) => (
         <a
-          key={item.id}
-          href={`/freezone/${item.id}`}
+          key={item.name}
+          href={`/freezone/${slugify(item.name)}`}
           className="block py-2 hover:text-[#1f3b63] transition-colors"
         >
           {item.name}
@@ -300,8 +307,8 @@ export default function Navbar() {
     <div className="ml-4 mt-2 space-y-2 pb-2">
       {freezones.map((item) => (
         <a
-          key={item.id}
-          href={`/freezone/${item.id}`}
+          key={item.name}
+          href={`/freezones/${slugify(item.name)}`}
           className="block py-1 hover:text-[#f6d674] transition-colors text-gray-200"
         >
           {item.name}
