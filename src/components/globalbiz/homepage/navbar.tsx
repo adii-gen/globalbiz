@@ -59,9 +59,21 @@ export default function Navbar() {
       }`}
     >
       {/* Trusted By Banner - Always visible with background */}
-      <div className="bg-yellow text-black py-3  font-sans text-center px-52">
-        Trusted by thousands of business owners and entrepreneurs worldwide...!
-      </div>
+    <div className="
+  bg-yellow 
+  text-black 
+  py-3 
+  font-sans 
+  text-center
+  px-4          /* mobile */
+  sm:px-10      /* small screens */
+  md:px-20      /* medium */
+  lg:px-32      /* large */
+  xl:px-52      /* extra large (your old value) */
+">
+  Trusted by thousands of business owners and entrepreneurs worldwide...!
+</div>
+
 
       <div
         className={`max-w-[1500px] mx-auto flex items-center justify-between py-3 px-12 transition-all duration-500 ${
