@@ -1,13 +1,13 @@
 import { db } from "@/db";
-import { MainlandTable } from "@/db/schema";
+import { offshoreTable } from "@/db/schema";
 import { NextResponse } from "next/server";
 
 export async function GET(){
     try {
-        const mainland= await db.select().from(MainlandTable);
+        const offshore= await db.select().from(offshoreTable);
         return NextResponse.json({
             success:true,
-            data:mainland,
+            data:offshore,
         })
     } catch (error) {
         return NextResponse.json({

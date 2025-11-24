@@ -59,7 +59,7 @@ export default function ContactCallback() {
     </h2>
 
     <p className="text-gray-600 font-raleway mb-6">
-      Interested in working on a project with us? Fill the form below, and we'll get back to you at the earliest.
+      Interested in working on a project with us? Fill the form below, and we&apos;ll get back to you at the earliest.
     </p>
 
     <form onSubmit={handleSubmit} className="space-y-4">

@@ -1,30 +1,5 @@
-// import BlogCarousel from '@/components/globalbiz/homepage/blogs';
-// import React from 'react';
-
-// export default function Blogs() {
-//     return (
-//         <div className="min-h-screen bg-white">
-//             {/* Hero Section with Background */}
-//             <div
-//                 className="relative h-64 bg-cover bg-center"
-//                 style={{
-//                     backgroundImage: "url('/global/breadcrumbs.png')",
-//                 }}
-//             >
-//                 <div className="absolute inset-0 opacity-60"></div>
-
-//                 {/* Bottom-center aligned heading */}
-//                 <h1 className="absolute bottom-5 left-1/2 -translate-x-1/2 z-10 text-white text-5xl font-oswald
-//         ">
-//                     Blogs
-//                 </h1>
-//             </div>
-//             <BlogCarousel />
-//         </div>
-//     );
-// }
-
-// app/blogs/page.tsx
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 
 import React, { useState } from 'react';

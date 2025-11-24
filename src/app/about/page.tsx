@@ -284,7 +284,7 @@ export default function AboutPage() {
                   </h3>
                   <p className="text-white text-xs sm:text-sm leading-relaxed font-raleway">
                     A competent and result-oriented professional, Mr Pawan Gupta
-                    is the man behind the management of Global Biz Setup's
+                    is the man behind the management of Global Biz Setup&apos;s
                     financial operations and strategy. With his experience and
                     articulate sense of detail, he is known to preserve our
                     assets and manage the books successfully.
@@ -341,7 +341,7 @@ export default function AboutPage() {
                     (Director of Sales, Services and Sourcing)
                   </h4>
                   <p className="text-white text-xs sm:text-sm leading-relaxed">
-                    Mrs Ranjana's world revolves around targets, and she leads
+                    Mrs Ranjana&apos;s world revolves around targets, and she leads
                     our Sales squad. With her analytical bend of mind, she
                     develops and executes strategic plans to achieve our sales
                     targets- while expanding our customer base.
@@ -364,7 +364,7 @@ export default function AboutPage() {
                   <p className="text-white text-xs sm:text-sm leading-relaxed">
                     Critical support to Global Biz Setup, Ms Sonika Bharti,
                     works towards maintaining the integrity and efficiency of
-                    the organisation. She's the centre of effective project
+                    the organisation. She&apos;s the centre of effective project
                     delivery and oversees finance, human resources, risk, legal
                     and compliance functions.
                   </p>

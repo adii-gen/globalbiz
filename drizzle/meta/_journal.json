@@ -85,6 +85,27 @@
       "when": 1763962834633,
       "tag": "0011_flippant_bushwacker",
       "breakpoints": true
+    },
+    {
+      "idx": 12,
+      "version": "7",
+      "when": 1763969982702,
+      "tag": "0012_quick_red_skull",
+      "breakpoints": true
+    },
+    {
+      "idx": 13,
+      "version": "7",
+      "when": 1763971631191,
+      "tag": "0013_motionless_stryfe",
+      "breakpoints": true
+    },
+    {
+      "idx": 14,
+      "version": "7",
+      "when": 1763976481512,
+      "tag": "0014_material_bishop",
+      "breakpoints": true
     }
   ]
 }

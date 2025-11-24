@@ -1,7 +1,7 @@
 
 
 import { db } from "@/db";
-import {  MainlandTable, mainlandDetailsTable } from "@/db/schema";
+import {  offshoreTable, offshoreDetailsTable } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import { NextResponse } from "next/server";
 
@@ -18,15 +18,15 @@ export async function GET(req: Request, context: { params: Promise<{ slug: strin
     }
 
     // Fetch main freezone by slug
-    const mainland = await db
+    const offshore = await db
       .select()
-      .from(MainlandTable)
-      .where(eq(MainlandTable.slug, slug))
+      .from(offshoreTable)
+      .where(eq(offshoreTable.slug, slug))
       .limit(1);
 
-    if (!mainland.length) {
+    if (!offshore.length) {
       return NextResponse.json(
-        { success: false, message: "Freezone not found" },
+        { success: false, message: "offshore not found" },
         { status: 404 }
       );
     }
@@ -34,14 +34,14 @@ export async function GET(req: Request, context: { params: Promise<{ slug: strin
     // Fetch details using freezone id
     const details = await db
       .select()
-      .from(mainlandDetailsTable)
-      .where(eq(mainlandDetailsTable.mainlandId, mainland[0].id))
+      .from(offshoreDetailsTable)
+      .where(eq(offshoreDetailsTable.offshoreId , offshore[0].id))
       .limit(1);
 
     return NextResponse.json({
       success: true,
       data: {
-        ...mainland[0],
+        ...offshore[0],
         details: details.length ? details[0] : null,
       },
     });
