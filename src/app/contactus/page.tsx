@@ -45,7 +45,7 @@ export default function ContactCallback() {
 
     <div className="hidden md:block mt-4">
       <img
-        src="/global/contactform.png"
+        src="/global/Contactform.png"
         alt="Hero Illustration"
         className="w-[460px] h-auto object-contain drop-shadow-2xl"
       />
