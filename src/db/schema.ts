@@ -222,3 +222,81 @@ subFreezones: jsonb("sub_freezones").$type<
     }[];
   }[]
 >();
+
+
+export const MainlandTable = pgTable(
+  "mainland",
+  {
+    id: uuid("id").defaultRandom().primaryKey().notNull(),
+    
+    // Basic Information
+    name: text("name").notNull(),
+        slug: text("slug").notNull(), // NEW
+
+  }
+);
+
+export const mainlandDetailsTable = pgTable(
+  "mainland_details",
+  {
+    id: uuid("id").defaultRandom().primaryKey().notNull(),
+
+    // Relation to mainlands table
+    mainlandId: uuid("mainland_id")
+      .notNull()
+      .references(() => MainlandTable.id, { onDelete: "cascade" }),
+
+    // Text long description
+    description: text("description"),
+
+    // Benefits stored as array of bullet points
+    benefits: jsonb("benefits")
+      .$type<string[]>(), // array of strings
+
+    // License types: contains image, heading and small description for each item
+    licenseTypes: jsonb("license_types")
+      .$type<
+        {
+          image?: string;
+          heading: string;
+          description?: string;
+        }[]
+      >(),
+buesinessProcess: jsonb("business_process")
+      .$type<
+        {
+          image?: string;
+          heading: string;
+          description?: string;
+        }[]
+      >(),
+    // mainland list pointer style data
+    // submainlands: jsonb("sub_mainlands").$type<
+    //   {
+    //     name: string;
+    //     description?: string;
+    //     image?: string;
+    //     benefits?: string[];
+    //     businessEntitiesAllowed?: {
+    //       title: string;
+    //       description?: string;
+    //     }[];
+    //   }[]
+    // >(),
+    // Business entities mapped as title + short description
+    // businessEntities: jsonb("business_entities")
+    //   .$type<
+    //     {
+    //       title: string;
+    //       description?: string;
+    //     }[]
+    //   >(),
+
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+    updatedAt: timestamp("updated_at").defaultNow().notNull(),
+  },
+  (table) => [
+    index("mainland_details_mainland_idx").on(table.mainlandId),
+  ]
+);
+
