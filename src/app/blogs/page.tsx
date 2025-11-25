@@ -2,114 +2,127 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import Image from "next/image";
+
+
 import { CalendarSearch, Eye } from 'lucide-react';
 
 interface Blog {
-  id: number;
+  id: string;
   title: string;
-  date: string;
-  excerpt: string;
+  created: string;
+  short_description: string;
   image: string;
-  category?: string;
-  readTime?: string;
+  tags?: string;
+  author_name?: string;
+  view: number;
+  status: boolean;
+  meta_title?: string;
+  meta_description?: string;
+  url: string;
 }
 
-const blogs: Blog[] = [
-  {
-    id: 1,
-    title: "Start A New Business In Umm-Al-Quwain: Process To Follow",
-    date: "28th, Aug 2022",
-    excerpt: "Let's know more about the process to start a new business in Umm-Al-Quwain in an in-depth guide covering all requirements and procedures.",
-    image: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=600&h=400&fit=crop",
-    category: "Business Setup",
-    readTime: "5 min read"
-  },
-  {
-    id: 2,
-    title: "6 Things to Keep in Mind While Setting Up a Business in UAE",
-    date: "27th, Aug 2022",
-    excerpt: "Are you planning to set up a business? then before making the huge step towards entrepreneurship, consider these crucial factors...",
-    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=400&fit=crop",
-    category: "Business Tips",
-    readTime: "4 min read"
-  },
-  {
-    id: 3,
-    title: "Perks Of Hiring Business Setup Consultants In Dubai, UAE",
-    date: "27th, Aug 2022",
-    excerpt: "Dig deep to know the advantages of engaging a business setup expert for your Dubai venture and how it can save you time and resources...",
-    image: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&h=400&fit=crop",
-    category: "Consulting",
-    readTime: "6 min read"
-  },
-  {
-    id: 4,
-    title: "Guide to Company Formation in Dubai Free Zones",
-    date: "26th, Aug 2022",
-    excerpt: "Discover the benefits and step-by-step process of setting up your company in Dubai's thriving free zones with complete licensing details...",
-    image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=600&h=400&fit=crop",
-    category: "Free Zones",
-    readTime: "7 min read"
-  },
-  {
-    id: 5,
-    title: "Understanding VAT Registration Requirements in UAE",
-    date: "25th, Aug 2022",
-    excerpt: "Everything you need to know about VAT registration and compliance for businesses in the UAE, including thresholds and documentation...",
-    image: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=600&h=400&fit=crop",
-    category: "Taxation",
-    readTime: "5 min read"
-  },
-  {
-    id: 6,
-    title: "Latest Updates in UAE Commercial Companies Law",
-    date: "24th, Aug 2022",
-    excerpt: "Stay updated with the recent changes in UAE commercial companies law and how they impact foreign ownership and business operations...",
-    image: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=600&h=400&fit=crop",
-    category: "Legal",
-    readTime: "8 min read"
-  },
-  {
-    id: 7,
-    title: "Benefits of Establishing in Abu Dhabi Industrial Zone",
-    date: "23rd, Aug 2022",
-    excerpt: "Explore the competitive advantages and incentives offered by Abu Dhabi's industrial zones for manufacturing and logistics businesses...",
-    image: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=600&h=400&fit=crop",
-    category: "Industrial",
-    readTime: "6 min read"
-  },
-  {
-    id: 8,
-    title: "Digital Transformation for SMEs in the UAE Market",
-    date: "22nd, Aug 2022",
-    excerpt: "Learn how small and medium enterprises can leverage digital transformation to compete effectively in the rapidly evolving UAE market...",
-    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop",
-    category: "Technology",
-    readTime: "5 min read"
-  },
-  {
-    id: 9,
-    title: "Sustainable Business Practices in the Middle East",
-    date: "21st, Aug 2022",
-    excerpt: "Discover how businesses can adopt sustainable practices while operating in the Middle East and the benefits of going green...",
-    image: "https://images.unsplash.com/photo-1569163139394-de44cb54d5ce?w=600&h=400&fit=crop",
-    category: "Sustainability",
-    readTime: "4 min read"
-  }
-];
-
 export default function BlogsPage() {
-  const [hoveredId, setHoveredId] = useState<number | null>(null);
+  const [hoveredId, setHoveredId] = useState<string | null>(null);
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
+  const [blogs, setBlogs] = useState<Blog[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+const [imageSrc, setImageSrc] = useState(`/global/${blog.image}`);
 
-  // Get unique categories
-  const categories = ['All', ...Array.from(new Set(blogs.map(blog => blog.category)))].filter(Boolean) as string[];
+  // Fetch blogs from API
+  useEffect(() => {
+    const fetchBlogs = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch('/api/blogs');
+        
+        if (!response.ok) {
+          throw new Error('Failed to fetch blogs');
+        }
+        
+        const data = await response.json();
+        
+        if (data.success && data.blog) {
+          // Filter only published blogs with status true
+          const publishedBlogs = data.blog.filter((blog: Blog) => blog.status === true);
+          setBlogs(publishedBlogs);
+        } else {
+          throw new Error('Invalid response format');
+        }
+      } catch (err) {
+        setError(err instanceof Error ? err.message : 'Failed to load blogs');
+        console.error('Error fetching blogs:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchBlogs();
+  }, []);
+
+  // Format date to more readable format
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    const day = date.getDate();
+    const month = date.toLocaleString('en-US', { month: 'short' });
+    const year = date.getFullYear();
+    
+    // Add ordinal suffix to day
+    const getOrdinalSuffix = (day: number) => {
+      if (day > 3 && day < 21) return 'th';
+      switch (day % 10) {
+        case 1: return 'st';
+        case 2: return 'nd';
+        case 3: return 'rd';
+        default: return 'th';
+      }
+    };
+    
+    return `${day}${getOrdinalSuffix(day)}, ${month} ${year}`;
+  };
+
+  // Get unique categories from tags
+  const categories = ['All', ...Array.from(new Set(
+    blogs.flatMap(blog => 
+      blog.tags ? blog.tags.split(',').map(tag => tag.trim()).filter(tag => tag) : []
+    )
+  ))].filter(Boolean) as string[];
 
   // Filter blogs by category
   const filteredBlogs = selectedCategory === 'All' 
     ? blogs 
-    : blogs.filter(blog => blog.category === selectedCategory);
+    : blogs.filter(blog => 
+        blog.tags && blog.tags.split(',').map(tag => tag.trim()).includes(selectedCategory)
+      );
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-white flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-yellow mx-auto"></div>
+          <p className="mt-4 text-gray-600">Loading blogs...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen bg-white flex items-center justify-center">
+        <div className="text-center text-red-600">
+          <p>Error: {error}</p>
+          <button 
+            onClick={() => window.location.reload()}
+            className="mt-4 bg-yellow text-black px-4 py-2 rounded hover:bg-yellow-600 transition-colors"
+          >
+            Retry
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-white">
@@ -132,8 +145,8 @@ export default function BlogsPage() {
       <div className="w-full bg-[#F5F5F5] py-16 px-4 sm:px-8">
         <div className="max-w-7xl mx-auto">
           
-          {/* Category Filter
-          <div className="flex flex-wrap justify-center gap-4 mb-12">
+          {/* Category Filter - Uncomment if you want to use it */}
+          {/* <div className="flex flex-wrap justify-center gap-4 mb-12">
             {categories.map((category) => (
               <button
                 key={category}
@@ -159,43 +172,42 @@ export default function BlogsPage() {
                 onMouseLeave={() => setHoveredId(null)}
               >
                 {/* Image Container */}
-                <div className="relative h-48 overflow-hidden">
-                  <img
-                    src={blog.image}
-                    alt={blog.title}
-                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
-                  />
-                  
-                  {/* Category Badge */}
-                  {blog.category && (
-                    <div className="absolute top-4 left-4 bg-yellow text-black px-3 py-1 rounded-full text-sm font-medium">
-                      {blog.category}
-                    </div>
-                  )}
-                  
-                  {/* Blue Overlay on Hover */}
-                  <div
-                    className={`absolute inset-0 bg-blue-900 transition-opacity duration-300 flex items-center justify-center ${
-                      hoveredId === blog.id ? 'opacity-80' : 'opacity-0'
-                    }`}
-                  >
-                    <Eye size={48} className="text-white" />
-                  </div>
-                </div>
+               <div className="relative h-48 overflow-hidden">
+  <Image
+  src={imageSrc}
+  alt={blog.title}
+  fill
+  className="object-cover transition-transform duration-300 group-hover:scale-110"
+  onError={() => setImageSrc("https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=600&h=400&fit=crop")}
+/>
+
+  {blog.tags && (
+    <div className="absolute top-4 left-4 bg-yellow text-black px-3 py-1 rounded-full text-sm font-medium">
+      {blog.tags.split(',')[0].trim()}
+    </div>
+  )}
+
+  <div
+    className={`absolute inset-0 bg-blue-900 transition-opacity duration-300 flex items-center justify-center ${
+      hoveredId === blog.id ? "opacity-80" : "opacity-0"
+    }`}
+  >
+    <Eye size={48} className="text-white" />
+  </div>
+</div>
+
 
                 {/* Content */}
                 <div className="p-6">
-                  {/* Date and Read Time */}
+                  {/* Date and Views */}
                   <div className="flex items-center justify-between text-gray-500 text-sm mb-3">
                     <div className="flex items-center">
                       <CalendarSearch size={16} className="mr-2" />
-                      {blog.date}
+                      {formatDate(blog.created)}
                     </div>
-                    {blog.readTime && (
-                      <span className="text-xs bg-gray-100 px-2 py-1 rounded">
-                        {blog.readTime}
-                      </span>
-                    )}
+                    <span className="text-xs bg-gray-100 px-2 py-1 rounded">
+                      {blog.view} views
+                    </span>
                   </div>
 
                   {/* Title */}
@@ -205,12 +217,12 @@ export default function BlogsPage() {
 
                   {/* Excerpt */}
                   <p className="text-gray-600 text-sm mb-4 line-clamp-3">
-                    {blog.excerpt}
+                    {blog.short_description}
                   </p>
 
                   {/* View More Link */}
                   <a
-                    href={`/blogs/${blog.id}`}
+                    href={`/blogs/${blog.url}`}
                     className="text-gray-700 font-medium text-sm inline-flex items-center hover:text-yellow-500 transition-colors group/link"
                   >
                     View More
