@@ -29,7 +29,7 @@ export default function BlogsPage() {
   const [blogs, setBlogs] = useState<Blog[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-const [imageSrc, setImageSrc] = useState(`/global/${blog.image}`);
+const [imageSrc, setImageSrc] = useState('');
 
   // Fetch blogs from API
   useEffect(() => {

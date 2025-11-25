@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import { useState, useEffect } from "react";
 
@@ -30,10 +32,10 @@ export default function AboutPage() {
       console.log("API Response:", data);
       setTeamMembers(data);
     } catch (err: any) {
-      console.error("Error fetching team members:", err);
-      setError(err.message);
-      setTeamMembers([]);
-    } finally {
+  console.error("Error fetching team members:", err);
+  setError(err.message);
+  setTeamMembers([]);
+} finally {
       setLoading(false);
     }
   };

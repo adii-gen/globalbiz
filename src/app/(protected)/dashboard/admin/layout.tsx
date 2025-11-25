@@ -1,6 +1,5 @@
 // app/admin/layout.tsx
 import Sidebar from "@/components/Sidebar";
-import { Bell, Search, ChevronDown } from "lucide-react";
 
 export default function AdminLayout({
   children,

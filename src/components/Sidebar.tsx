@@ -27,7 +27,7 @@ const Sidebar = () => {
   const menuItems = [
     { title: "Dashboard", icon: LayoutDashboard, href: "/admin/dashboard" },
     { title: "Team Management", icon: UserPlus, href: "/admin/team" },
-    { title: "Clients", icon: Users, href: "/admin/clients" },
+    { title: "Address", icon: Users, href: "/admin/address" },
     {
       title: "Company Formation",
       icon: Building2,

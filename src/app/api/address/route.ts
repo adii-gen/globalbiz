@@ -12,6 +12,14 @@ export async function POST(request: Request) {
 
     const { officeName, officeAddress, phone, email } = body;
 
+    // Basic validation
+    if (!officeName || !officeAddress || !phone || !email) {
+      return NextResponse.json(
+        { success: false, error: "All fields are required" },
+        { status: 400 }
+      );
+    }
+
     const newAddress = await db
       .insert(Address)
       .values({
@@ -24,8 +32,9 @@ export async function POST(request: Request) {
 
     return NextResponse.json({ success: true, data: newAddress[0] });
   } catch (error) {
+    console.error("POST Address Error:", error);
     return NextResponse.json(
-      { success: false, error: 'unable to post' },
+      { success: false, error: "Unable to create address" },
       { status: 500 }
     );
   }
@@ -47,8 +56,9 @@ export async function GET(request: Request) {
     const all = await db.select().from(Address);
     return NextResponse.json({ success: true, data: all });
   } catch (error) {
+    console.error("GET Address Error:", error);
     return NextResponse.json(
-      { success: false, error:'sorry no data found'},
+      { success: false, error: "Unable to fetch addresses" },
       { status: 500 }
     );
   }
@@ -71,6 +81,14 @@ export async function PUT(request: Request) {
 
     const data = await request.json();
 
+    // Basic validation
+    if (!data.officeName || !data.officeAddress || !data.phone || !data.email) {
+      return NextResponse.json(
+        { success: false, error: "All fields are required" },
+        { status: 400 }
+      );
+    }
+
     const updated = await db
       .update(Address)
       .set({
@@ -83,10 +101,18 @@ export async function PUT(request: Request) {
       .where(eq(Address.id, id))
       .returning();
 
+    if (updated.length === 0) {
+      return NextResponse.json(
+        { success: false, error: "Address not found" },
+        { status: 404 }
+      );
+    }
+
     return NextResponse.json({ success: true, data: updated[0] });
   } catch (error) {
+    console.error("PUT Address Error:", error);
     return NextResponse.json(
-      { success: false, error: 'unable to update the request' },
+      { success: false, error: "Unable to update address" },
       { status: 500 }
     );
   }
@@ -112,10 +138,18 @@ export async function DELETE(request: Request) {
       .where(eq(Address.id, id))
       .returning();
 
+    if (deleted.length === 0) {
+      return NextResponse.json(
+        { success: false, error: "Address not found" },
+        { status: 404 }
+      );
+    }
+
     return NextResponse.json({ success: true, data: deleted[0] });
   } catch (error) {
+    console.error("DELETE Address Error:", error);
     return NextResponse.json(
-      { success: false, error: 'unable to delete ' },
+      { success: false, error: "Unable to delete address" },
       { status: 500 }
     );
   }
