@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 // ===== 1. UPDATED SCHEMA (schema.ts) =====
+import { Description } from "@radix-ui/react-toast";
 import { InferModel } from "drizzle-orm";
 import {
   boolean,
@@ -385,4 +386,17 @@ export const PricingPlanTable = pgTable(
     orderIdx: index("pricing_plans_order_idx").on(table.order),
     planNameKey: uniqueIndex("pricing_plans_plan_name_key").on(table.planName),
   })
+);
+
+export const ManagementDetails = pgTable(
+  "management_details",
+  {
+    id: uuid("id").defaultRandom().primaryKey().notNull(),
+    Name: varchar("name", { length: 255 }).notNull(),
+    Designation: varchar("designation", { length: 255 }),
+    Description: varchar("description", { length: 255 }),
+    
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+    updatedAt: timestamp("updated_at").defaultNow().notNull(),
+  }
 );
