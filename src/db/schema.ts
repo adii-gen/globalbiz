@@ -400,3 +400,39 @@ export const ManagementDetails = pgTable(
     updatedAt: timestamp("updated_at").defaultNow().notNull(),
   }
 );
+export const Address=pgTable(
+  "address",{
+    id:uuid("id").defaultRandom().primaryKey().notNull(),
+    officeName: varchar("office_name",{length:255}).notNull(),
+    officeAddress:varchar("office_address",{length:255}).notNull(),
+    phone: text("phone"),
+    email: text("email").notNull(),
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+    updatedAt: timestamp("updated_at").defaultNow().notNull(),
+  }
+);
+
+
+
+export const blogs = pgTable('blogs', {
+    id:uuid("id").defaultRandom().primaryKey().notNull(),
+  url: text('url').notNull(),
+  title: text('title').notNull(),
+  short_description: text('short_description'),
+  description: text('description'),
+  image: varchar('image', { length: 255 }).notNull(),
+  meta_title: text('meta_title'),
+  meta_keywords: text('meta_keywords'),
+  meta_description: text('meta_description'),
+  tags: text('tags').notNull(),
+  author_name: varchar('author_name', { length: 255 }),
+  added_by: integer('added_by').notNull(),
+  view: integer('view').notNull().default(0),
+  is_featured: boolean('is_featured').notNull().default(false),
+  is_editor: boolean('is_editor').notNull().default(false),
+  status: boolean('status').notNull().default(true),
+  created: timestamp('created').notNull(),
+  modified: timestamp('modified'),
+  published: timestamp('published')
+});
+

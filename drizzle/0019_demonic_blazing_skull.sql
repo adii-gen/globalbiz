@@ -1,0 +1,21 @@
+CREATE TABLE "blogs" (
+	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+	"url" text NOT NULL,
+	"title" text NOT NULL,
+	"short_description" text,
+	"description" text,
+	"image" varchar(255) NOT NULL,
+	"meta_title" text,
+	"meta_keywords" text,
+	"meta_description" text,
+	"tags" text NOT NULL,
+	"author_name" varchar(255),
+	"added_by" integer NOT NULL,
+	"view" integer DEFAULT 0 NOT NULL,
+	"is_featured" boolean DEFAULT false NOT NULL,
+	"is_editor" boolean DEFAULT false NOT NULL,
+	"status" boolean DEFAULT true NOT NULL,
+	"created" timestamp NOT NULL,
+	"modified" timestamp,
+	"published" timestamp
+);
