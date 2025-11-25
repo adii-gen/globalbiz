@@ -96,7 +96,7 @@ const AboutUsSec = () => {
 
         <p className="text-sm md:text-base font-raleway opacity-90 mb-8 leading-relaxed">
           Global Biz Setup is a renowned online business setup company extending
-          compelling and customised solutions that match our client's vision and
+          compelling and customised solutions that match our client&apos;s vision and
           budget. Since our inception, we have worked towards offering the best
           possible assistance to help locals and expatriates set up a business
           across the UAE seamlessly.<br /><br />

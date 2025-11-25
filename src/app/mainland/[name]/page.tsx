@@ -1,117 +1,102 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/no-explicit-any */
+// /app/mainland/[name]/page.tsx
 "use client";
 
 import React, { useEffect, useState } from "react";
-import Link from "next/link";
-import { useParams, useRouter } from "next/navigation";
-import { ProcessCards } from "@/components/freezone/ProcessCards";
+import { useParams } from "next/navigation";
+import { ProcessCards } from "@/components/mainland/process";
 
 interface LicenseType {
+  image: string;
   heading: string;
   description: string;
 }
 
-interface BusinessEntity {
-  title: string;
+interface BusinessProcess {
+  image: string;
+  heading: string;
   description: string;
 }
 
-interface FreezoneDetails {
+interface MainlandDetails {
+  id: string;
+  mainlandId: string;
   description: string;
   benefits: string[];
   licenseTypes: LicenseType[];
-  businessEntities: BusinessEntity[];
-  createdAt?: string;
-  updatedAt?: string;
-  subFreezones?: Array<{ name: string }>;
+  buesinessProcess: BusinessProcess[];
+  createdAt: string;
+  updatedAt: string;
 }
 
-interface FreezoneData {
+interface MainlandData {
   id: string;
   name: string;
   slug: string;
-  details: FreezoneDetails;
+  details: MainlandDetails;
 }
 
 interface ApiResponse {
   success: boolean;
-  data: FreezoneData;
+  data: MainlandData;
 }
 
-export default function FreezonePage() {
+export default function MainlandPage() {
   const params = useParams();
-  const router = useRouter();
-  const freezoneName = params.name as string;
+  const mainlandSlug = params.name as string;
 
   const [data, setData] = useState<ApiResponse | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
-  const [subfreezonelist, setSubfreezoneList] = useState<
-    Array<{ name: string; slug: string }>
-  >([]);
- 
 
   useEffect(() => {
-    const fetchFreezoneData = async () => {
+    const fetchMainlandData = async () => {
       try {
         setLoading(true);
         setError(null);
-        const res = await fetch(`/api/freezones/${freezoneName}`);
+        const res = await fetch(`/api/mainland/${mainlandSlug}`);
 
         if (!res.ok) {
-          throw new Error(`Failed to fetch freezone data: ${res.status}`);
+          throw new Error(`Failed to fetch mainland data: ${res.status}`);
         }
 
         const responseData = await res.json();
-        console.log("Fetched freezone data:", responseData);
+        console.log("Fetched mainland data:", responseData);
 
         if (!responseData?.success) {
           throw new Error("API returned unsuccessful response");
         }
 
         setData(responseData);
-
-        // Extract and format subfreezones
-        if (responseData.data?.details?.subFreezones) {
-          const formatted = responseData.data.details.subFreezones.map(
-            (sub: any) => ({
-              name: sub.name,
-              slug: sub.name.toLowerCase().replace(/\s+/g, "-"),
-            })
-          );
-          setSubfreezoneList(formatted);
-        }
       } catch (err) {
-        console.error("Error loading freezone details:", err);
+        console.error("Error loading mainland details:", err);
         setError(
           err instanceof Error
             ? err.message
-            : "An error occurred while loading freezone details"
+            : "An error occurred while loading mainland details"
         );
       } finally {
         setLoading(false);
       }
     };
 
-    if (freezoneName) {
-      fetchFreezoneData();
+    if (mainlandSlug) {
+      fetchMainlandData();
     }
-  }, [freezoneName]);
+  }, [mainlandSlug]);
 
-  const freezoneData = data?.data;
-  const details = freezoneData?.details;
+  const mainlandData = data?.data;
+  const details = mainlandData?.details;
 
   return (
-    <div className=" mx-auto py-8">
+    <div className="mx-auto py-8">
       <div
         className="relative h-60 bg-cover bg-center flex items-center justify-center"
         style={{
           backgroundImage: "url('/images/freezone-bg.png')",
         }}
       >
-      <h1 className="absolute bottom-5 left-1/2 -translate-x-1/2 z-10 text-white text-5xl font-oswald">
-          {freezoneData?.name || "Freezone Details"}
+        <h1 className="absolute bottom-5 left-1/2 -translate-x-1/2 z-10 text-white text-5xl font-oswald">
+          {mainlandData?.name || "Mainland Details"}
         </h1>
         <div className="absolute inset-0 opacity-60"></div>
       </div>
@@ -124,54 +109,51 @@ export default function FreezonePage() {
 
       {loading && (
         <div className="text-center py-12">
-          <div className="text-gray-500">Loading freezone details...</div>
+          <div className="text-gray-500">Loading mainland details...</div>
         </div>
       )}
 
-      {!loading && freezoneData && (
+      {!loading && mainlandData && (
         <div className="space-y-6">
-        {details?.description && (
-  <section className="bg-gray-50 px-4 md:pl-16 lg:pl-32 xl:pl-48 pt-10 pb-4">
-    <div className="flex flex-col lg:flex-row gap-12 items-center">
+          {/* Description Section */}
+          {details?.description && (
+            <section className="bg-gray-50 px-4 md:pl-16 lg:pl-32 xl:pl-48 pt-10 pb-4">
+              <div className="flex flex-col lg:flex-row gap-12 items-center">
+                {/* TEXT CONTENT */}
+                <div className="flex-1 w-full">
+                  <h2 className="text-3xl md:text-4xl font-bold text-blue mb-2 font-oswald tracking-wide leading-tight">
+                    BUSINESS SETUP
+                  </h2>
+                  <h3 className="text-3xl md:text-4xl font-bold text-yellow mb-8 font-oswald tracking-wide">
+                    IN {mainlandData?.name?.toUpperCase()}
+                  </h3>
 
-      {/* TEXT CONTENT */}
-      <div className="flex-1 w-full">
-        <h2 className="text-3xl md:text-4xl font-bold text-blue mb-2 font-oswald tracking-wide leading-tight">
-          BUSINESS SETUP
-        </h2>
-        <h3 className="text-3xl md:text-4xl font-bold text-yellow mb-8 font-oswald tracking-wide">
-          IN {freezoneData?.name?.toUpperCase()}
-        </h3>
+                  <div className="text-justify leading-relaxed space-y-4 font-raleway">
+                    {details.description
+                      .split("\n\n")
+                      .map((paragraph: string, index: number) => (
+                        <p key={index} className="text-sm">
+                          {paragraph}
+                        </p>
+                      ))}
+                  </div>
+                </div>
 
-        <div className="text-justify leading-relaxed space-y-4 font-raleway">
-          {details.description
-            .split("\n\n")
-            .map((paragraph: string, index: number) => (
-              <p key={index} className="text-sm">
-                {paragraph}
-              </p>
-            ))}
-        </div>
-      </div>
+                {/* IMAGE — HIDE ON MOBILE */}
+                <div className="hidden md:flex flex-1 justify-center lg:justify-end">
+                  <div className="relative w-full max-w-2xl">
+                    <img
+                      src="/images/dubai-mainland-about.jpg"
+                      alt="Dubai Mainland Business Setup"
+                      className="w-full h-auto object-contain"
+                    />
+                  </div>
+                </div>
+              </div>
+            </section>
+          )}
 
-      {/* IMAGE — HIDE ON MOBILE */}
-      <div className="hidden md:flex flex-1 justify-center lg:justify-end">
-        <div className="relative w-full max-w-2xl">
-          <img
-            src="/images/dubai-mainland-about.jpg"
-            alt="Dubai Freezone Business Setup"
-            className="w-full h-auto object-contain"
-          />
-        </div>
-      </div>
-
-    </div>
-  </section>
-)}
-
-
-          {/* contact section */}
-
+          {/* Contact Section */}
           <section className="bg-gray-50 px-8 md:px-16 lg:px-32 xl:px-48">
             <div className="grid lg:grid-cols-2 gap-12 items-center">
               <div className="relative flex justify-center lg:justify-start">
@@ -245,7 +227,7 @@ export default function FreezonePage() {
                     BENEFITS OF SETTING UP A
                   </h2>
                   <h3 className="text-3xl md:text-4xl font-bold text-yellow mb-10 font-oswald tracking-wide">
-                    BUSINESS IN THE {freezoneData?.name?.toUpperCase()}
+                    BUSINESS IN {mainlandData?.name?.toUpperCase()}
                   </h3>
 
                   <div className="space-y-2">
@@ -286,7 +268,7 @@ export default function FreezonePage() {
                   TYPES OF LICENCES FOR BUSINESS SETUP
                 </h2>
                 <h3 className="text-3xl md:text-4xl font-bold text-yellow font-oswald tracking-wide">
-                  IN {freezoneData?.name?.toUpperCase()}
+                  IN {mainlandData?.name?.toUpperCase()}
                 </h3>
               </div>
 
@@ -323,96 +305,16 @@ export default function FreezonePage() {
             </section>
           )}
 
-          <section className="bg-gray-50 px-8 md:px-16 lg:px-32 xl:px-48 py-16">
-            {/* Title */}
-            <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold text-blue font-oswald tracking-wide">
-                LIST OF FREEZONE
-              </h2>
-            </div>
+          {/* Business Process Section */}
+        
 
-            {/* Freezone Grid */}
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-6xl mx-auto">
-              {subfreezonelist.map((freezone, index) => (
-                <Link
-                  key={index}
-                  href={`/freezone/${freezoneName}/${freezone.slug}`}
-                  className="bg-blue  text-yellow px-6 py-4 flex items-center gap-3 transition-all duration-300 hover:shadow-lg group"
-                >
-                  <img
-                    src="https://images.emojiterra.com/google/android-12l/512px/1f449.png"
-                    className="w-5 h-5"
-                  />
+         <ProcessCards 
+  processes={details?.buesinessProcess || []} 
+  mainlandName={mainlandData?.name} 
+/>
 
-                  <span className="font-raleway font-medium text-base">
-                    {freezone.name}
-                  </span>
-                </Link>
-              ))}
-            </div>
-          </section>
-
-          {/* Business Entities Section */}
-          {details?.businessEntities && details.businessEntities.length > 0 && (
-            <section className="bg-gray-100 px-8 md:px-16 lg:px-32 xl:px-48 py-16">
-              {/* Title */}
-              <div className="text-center mb-12">
-                <h2 className="text-3xl md:text-4xl font-bold text-blue mb-2 font-oswald tracking-wide">
-                  TYPES OF BUSINESS ENTITIES ALLOWED
-                </h2>
-                <h3 className="text-3xl md:text-4xl font-bold text-yellow font-oswald tracking-wide">
-                  IN {freezoneData?.name?.toUpperCase()}
-                </h3>
-              </div>
-
-              {/* Business Entity Cards */}
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-                {details.businessEntities.map(
-                  (entity: BusinessEntity, index: number) => (
-                    <div key={index} className="bg-white relative pb-12">
-                      <div
-                        className={`${
-                          index === 0
-                            ? "bg-blue"
-                            : index === 1
-                            ? "bg-yellow"
-                            : "bg-blue"
-                        } text-white px-6 py-4`}
-                      >
-                        <h3 className="text-xl font-oswald">{entity.title}</h3>
-                      </div>
-
-                      {/* Content */}
-                      <div className="px-6 py-6">
-                        <p className="text-gray-600 text-base leading-relaxed font-oswald">
-                          {entity.description}
-                        </p>
-                      </div>
-
-                      {/* V-shape pointing up at bottom */}
-                      <div className="absolute bottom-0 left-0 w-full h-12 overflow-hidden">
-                        <svg
-                          viewBox="0 0 400 60"
-                          preserveAspectRatio="none"
-                          className="w-full h-full"
-                        >
-                          <path
-                            d="M0,60 L200,0 L400,60 L400,60 L0,60 Z"
-                            fill="#f3f4f6"
-                          />
-                        </svg>
-                      </div>
-                    </div>
-                  )
-                )}
-              </div>
-            </section>
-          )}
-
-          <ProcessCards/>
-
-          {/* Additional Info Section */}
-          <section className="bg-white px-8 md:px-16 lg:px-32 xl:px-48 py-16">
+          {/* Why Choose Section */}
+          <section className="bg-white px-8 md:px-12 lg:px-12 xl:px-12 py-12">
             <div className="flex flex-col lg:flex-row gap-12 items-center">
               {/* Image */}
               <div className="flex-1 flex justify-center lg:justify-start">
@@ -436,25 +338,31 @@ export default function FreezonePage() {
 
                 <div className="text-gray-700 leading-relaxed font-raleway">
                   <p className="text-base mb-4">
+                    The {mainlandData?.name} is well known for providing a
+                    unique environment for international and local organisations
+                    for setting up their business. Investors can therefore make
+                    the most of their money after considering it as their
+                    business location. Being one of the fastest-growing business
+                    destinations, one can make use of the facilities and
+                    strategic advantages offered.
+                  </p>
+                  <p className="text-base mb-4">
+                    However, to channel the resources to the maximum, it is
+                    advised to seek the consultation of experts in the region.
+                    Not only will they provide the answers to all of your
+                    business needs but will also ensure to cater to your needs
+                    by helping you learn about the mainland to the best of their
+                    ability.
+                  </p>
+                  <p className="text-base">
+                    The follow-up support services are the cherry on the cake
+                    that will help in the expansion of your business further. If
+                    you want to push the ball in your court then get in touch
+                    with the experts from{" "}
                     <span className="text-[#00a8a8] font-semibold">
                       Global Biz Setup
-                    </span>{" "}
-                    is known for offering top-notch services in the industry for
-                    Freezone company formation in UAE. Our services cover the
-                    whole range of procedures and assistance that you may
-                    require in{" "}
-                    <span className="font-bold text-gray-900">
-                      free zone business setup in Dubai
                     </span>
-                    . Our team comprises certified and experienced consultants
-                    who will assist you with every step of the procedure,
-                    including registration, trade licence acquisition, and
-                    notarization of documents. Schedule an appointment with us
-                    to know more about the{" "}
-                    <span className="font-bold text-gray-900">
-                      Dubai Freezone company formation
-                    </span>
-                    .
+                    . We at Global Biz will be happy to assist you.
                   </p>
                 </div>
               </div>

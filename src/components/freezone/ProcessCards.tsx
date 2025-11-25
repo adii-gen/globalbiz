@@ -160,7 +160,7 @@ export const ProcessCards = () => {
 
                   {/* Hover State */}
                   <div
-                    className={`absolute inset-0 bg-transparent p-8 flex flex-col justify-center text-white transition-opacity duration-300 ${
+                    className={`absolute inset-0 bg-gradient-to-t from-transparent to-blue p-8 flex flex-col justify-center text-white transition-opacity duration-300 ${
                       hoveredCard === displayIndex ? "opacity-100" : "opacity-0"
                     }`}
                   >

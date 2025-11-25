@@ -1,0 +1,1 @@
+ALTER TABLE "mainland_details" ADD COLUMN "business_process" jsonb;
