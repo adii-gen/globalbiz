@@ -1,0 +1,1 @@
+ALTER TABLE "management_details" RENAME COLUMN "department" TO "description";
