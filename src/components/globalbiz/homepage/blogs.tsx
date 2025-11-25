@@ -2,6 +2,7 @@
 'use client'
 import React, { useState, useRef } from 'react';
 import { CalendarSearch, ChevronLeft, ChevronRight, Eye } from 'lucide-react';
+import Image from 'next/image';
 
 interface Blog {
   id: number;
@@ -100,10 +101,12 @@ const BlogCarousel: React.FC = () => {
               >
                 {/* Image Container */}
                 <div className="relative h-40 md:h-48 overflow-hidden">
-                  <img
+                  <Image
                     src={blog.image}
                     alt={blog.title}
                     className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+                      height={192}
+                      width={192}
                   />
                   
                   {/* Blue Overlay on Hover */}

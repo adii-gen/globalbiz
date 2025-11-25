@@ -3,6 +3,7 @@
 
 import React, { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
+import Image from "next/image";
 import { ProcessCards } from "@/components/mainland/process";
 
 interface LicenseType {
@@ -142,7 +143,7 @@ export default function MainlandPage() {
                 {/* IMAGE — HIDE ON MOBILE */}
                 <div className="hidden md:flex flex-1 justify-center lg:justify-end">
                   <div className="relative w-full max-w-2xl">
-                    <img
+                    <Image
                       src="/images/dubai-mainland-about.jpg"
                       alt="Dubai Mainland Business Setup"
                       className="w-full h-auto object-contain"
@@ -159,7 +160,7 @@ export default function MainlandPage() {
               <div className="relative flex justify-center lg:justify-start">
                 {/* Main circular image */}
                 <div className="relative z-10 w-full max-w-lg">
-                  <img
+                  <Image
                     src="/images/talk-to-img.png"
                     alt="Business Consultation"
                     className="w-full h-auto"
@@ -282,7 +283,7 @@ export default function MainlandPage() {
                     >
                       {/* Icon */}
                       <div className="flex justify-center mb-6">
-                        <img
+                        <Image
                           src={`/images/license-icon-${index + 1}.png`}
                           alt={license.heading}
                           className="w-20 h-20 object-contain"
@@ -319,7 +320,7 @@ export default function MainlandPage() {
               {/* Image */}
               <div className="flex-1 flex justify-center lg:justify-start">
                 <div className="relative w-full max-w-2xl">
-                  <img
+                  <Image
                     src="/images/sin-why-choose.png"
                     alt="Why Choose Global Biz Setup"
                     className="w-full h-auto object-contain"

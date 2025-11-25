@@ -1,10 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import React, { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
-
+import Image from "next/image";
 interface BusinessEntity {
   title: string;
   description?: string;
@@ -132,7 +131,7 @@ export default function SubFreezonePage() {
 
           <div className="flex-1 flex justify-center lg:justify-start">
             <div className="relative max-w-md">
-              <img
+              <Image
                 src="/images/abu-dhabi-global-img.jpg"
                 alt={subFreezone.name}
                 className="w-full h-auto object-contain"
@@ -209,7 +208,7 @@ export default function SubFreezonePage() {
           {/* Left side - Image */}
           <div className="relative flex justify-center lg:justify-start">
             <div className="relative w-full max-w-lg">
-              <img
+              <Image
                 src="/images/benefits.jpg"
                 alt={subFreezone.name}
                 className="w-full h-auto object-contain"
@@ -275,7 +274,7 @@ export default function SubFreezonePage() {
 
               {/* Image - Same image for even positions, same image for odd positions */}
               <div className={index % 2 === 0 ? "lg:order-2" : "lg:order-1"}>
-                <img
+                <Image
                   src={
                     index % 2 === 0
                       ? "/images/entity-inner-1.jpg"

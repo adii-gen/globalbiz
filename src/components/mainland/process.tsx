@@ -120,7 +120,7 @@
 //                       hoveredCard === displayIndex ? "opacity-0" : "opacity-100"
 //                     }`}
 //                   >
-//                     <img
+//                     <Image
 //                       src={process.image || `/images/process-${displayIndex + 1}.png`}
 //                       alt={process.heading}
 //                       className="w-20 h-20 mb-6"
@@ -163,7 +163,7 @@
 "use client";
 import { useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-
+import Image from "next/image";
 interface BusinessProcess {
   image: string;
   heading: string;
@@ -288,7 +288,7 @@ export const ProcessCards = ({ processes, mainlandName }: ProcessCardsProps) => 
                       hoveredCard === displayIndex ? "opacity-0" : "opacity-100"
                     }`}
                   >
-                    <img
+                    <Image
                       src={process.image || `/images/process-${displayIndex + 1}.png`}
                       alt={process.heading}
                       className="w-20 h-20 mb-6"

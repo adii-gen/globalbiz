@@ -25,7 +25,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ success: true, data: newAddress[0] });
   } catch (error) {
     return NextResponse.json(
-      { success: false, error: 'unable to post' },
+      { success: false, error: error},
       { status: 500 }
     );
   }
@@ -48,7 +48,7 @@ export async function GET(request: Request) {
     return NextResponse.json({ success: true, data: all });
   } catch (error) {
     return NextResponse.json(
-      { success: false, error:'sorry no data found'},
+      { success: false, error:error},
       { status: 500 }
     );
   }
@@ -86,7 +86,7 @@ export async function PUT(request: Request) {
     return NextResponse.json({ success: true, data: updated[0] });
   } catch (error) {
     return NextResponse.json(
-      { success: false, error: 'unable to update the request' },
+      { success: false, error: error },
       { status: 500 }
     );
   }
@@ -115,7 +115,7 @@ export async function DELETE(request: Request) {
     return NextResponse.json({ success: true, data: deleted[0] });
   } catch (error) {
     return NextResponse.json(
-      { success: false, error: 'unable to delete ' },
+      { success: false, error: error },
       { status: 500 }
     );
   }

@@ -18,7 +18,10 @@ export async function GET(req:Request) {
              return NextResponse.json({ success: true, blog });
 
     } catch (error) {
-        
+        return NextResponse.json(
+      { success: false, error:error},
+      { status: 500 }
+    );
     }
     
 }

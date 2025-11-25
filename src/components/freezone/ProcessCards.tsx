@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import Image from "next/image";
 
 export const ProcessCards = () => {
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
@@ -145,7 +146,7 @@ export const ProcessCards = () => {
                       hoveredCard === displayIndex ? "opacity-0" : "opacity-100"
                     }`}
                   >
-                    <img
+                    <Image
                       src={process.icon}
                       alt={process.title}
                       className="w-20 h-20 mb-6"

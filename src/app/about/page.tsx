@@ -199,6 +199,7 @@
 
 
 import React from "react";
+import Image from "next/image";
 
 export default function AboutPage() {
   return (
@@ -237,11 +238,14 @@ export default function AboutPage() {
             </div>
           </div>
           <div className="lg:w-1/2 w-full">
-            <img
-              src="/images/about-sec.png"
-              alt="Business meeting"
-              className="rounded-lg w-full"
-            />
+           <Image
+  src="/images/about-sec.png"
+  alt="Business meeting"
+  width={800}      // put any width
+  height={600}     // and height (required)
+  className="rounded-lg w-full"
+  priority         // optional: loads image fast
+/>
           </div>
         </div>
       </div>

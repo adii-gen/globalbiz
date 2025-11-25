@@ -2,7 +2,7 @@
 
 import React from "react";
 import { Check } from "lucide-react";
-
+import Image from "next/image";
 const WhyBusiness = () => {
     const benefits = [
         "As a growing and diversified market, UAE has a high global demand for imports & exports and offers vast opportunities for suppliers.",
@@ -52,10 +52,12 @@ const WhyBusiness = () => {
 
             {/* RIGHT IMAGE */}
             <div className="hidden lg:block flex-1 relative overflow-hidden -ml-8">
-                <img
+                <Image
                     src="/global/why-business.jpg"
                     alt="Business Analytics Dashboard"
                     className="w-full h-full object-cover"
+                        width={192}
+    height={192}
                 />
             </div>
         </section>
