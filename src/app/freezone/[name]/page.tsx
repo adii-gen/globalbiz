@@ -6,6 +6,7 @@ import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import { ProcessCards } from "@/components/freezone/ProcessCards";
+import Image from "next/image";
 
 interface LicenseType {
   heading: string;
@@ -157,7 +158,7 @@ export default function FreezonePage() {
       {/* IMAGE — HIDE ON MOBILE */}
       <div className="hidden md:flex flex-1 justify-center lg:justify-end">
         <div className="relative w-full max-w-2xl">
-          <img
+          <Image
             src="/images/dubai-mainland-about.jpg"
             alt="Dubai Freezone Business Setup"
             className="w-full h-auto object-contain"
@@ -177,7 +178,7 @@ export default function FreezonePage() {
               <div className="relative flex justify-center lg:justify-start">
                 {/* Main circular image */}
                 <div className="relative z-10 w-full max-w-lg">
-                  <img
+                  <Image
                     src="/images/talk-to-img.png"
                     alt="Business Consultation"
                     className="w-full h-auto"
@@ -300,7 +301,7 @@ export default function FreezonePage() {
                     >
                       {/* Icon */}
                       <div className="flex justify-center mb-6">
-                        <img
+                        <Image
                           src={`/images/license-icon-${index + 1}.png`}
                           alt={license.heading}
                           className="w-20 h-20 object-contain"
@@ -339,10 +340,9 @@ export default function FreezonePage() {
                   href={`/freezone/${freezoneName}/${freezone.slug}`}
                   className="bg-blue  text-yellow px-6 py-4 flex items-center gap-3 transition-all duration-300 hover:shadow-lg group"
                 >
-                  <img
+                  <Image
                     src="https://images.emojiterra.com/google/android-12l/512px/1f449.png"
-                    className="w-5 h-5"
-                  />
+                    className="w-5 h-5" alt={"icom"}                  />
 
                   <span className="font-raleway font-medium text-base">
                     {freezone.name}
@@ -417,7 +417,7 @@ export default function FreezonePage() {
               {/* Image */}
               <div className="flex-1 flex justify-center lg:justify-start">
                 <div className="relative w-full max-w-2xl">
-                  <img
+                  <Image
                     src="/images/sin-why-choose.png"
                     alt="Why Choose Global Biz Setup"
                     className="w-full h-auto object-contain"

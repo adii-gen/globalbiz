@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 import React from 'react'
-
+import Image from 'next/image'
 const HeroSec = () => {
     return (
         // <section className="relative overflow-hidden bg-gradient-to-br from-amber-50 via-orange-50 to-amber-100">
@@ -51,7 +51,7 @@ const HeroSec = () => {
 
         //             {/* RIGHT SIDE IMAGE */}
         //             <div className="hidden md:block">
-        //                 <img
+        //                 <Image
         //                     src="/global/Hero-side-logo.png"
         //                     alt="Hero Illustration"
         //                     className="w-[420px] h-auto object-contain drop-shadow-2xl"
@@ -108,10 +108,12 @@ const HeroSec = () => {
 
             {/* RIGHT IMAGE */}
           <div className="hidden md:block">
-  <img
+  <Image
     src="/global/Hero-side-logo.png"
     alt="Hero Illustration"
     className="w-[420px] h-auto object-contain drop-shadow-2xl"
+    width={192}
+    height={192}
   />
 </div>
 

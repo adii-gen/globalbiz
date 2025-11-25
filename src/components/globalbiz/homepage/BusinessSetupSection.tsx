@@ -110,6 +110,7 @@
 
 import React from "react";
 import { Check } from "lucide-react";
+import Image from "next/image";
 
 const BusinessSetupSection = () => {
     const steps = [
@@ -134,10 +135,12 @@ const BusinessSetupSection = () => {
                     {/* Left Image with Yellow Accent */}
                     <div className="w-full lg:w-1/2 relative bg-white p-8 lg:p-12">
                         <div className="relative max-w-md mx-auto lg:ml-auto lg:mr-0">
-                            <img
+                            <Image
                                 src="/global/businesssetup.png"
                                 alt="Dubai Business Setup"
                                 className="w-full h-auto object-cover relative z-10"
+                                    width={192}
+    height={192}
                             />
                             {/* Yellow accent box - bottom left */}
                             <div className="absolute bottom-0 left-0 w-32 h-32 lg:w-40 lg:h-40 bg-[#fbb040] -z-0"></div>
@@ -193,10 +196,12 @@ const BusinessSetupSection = () => {
                     {/* Right Image */}
                     <div className="w-full lg:w-1/2 relative bg-white p-8 lg:p-12 order-1 lg:order-2">
                         <div className="relative max-w-md mx-auto lg:mr-auto lg:ml-0">
-                            <img
+                            <Image
                                 src="/global/girl.png"
                                 alt="Professional Woman Working"
                                 className="w-full h-auto object-cover relative z-10"
+                                    width={192}
+    height={192}
                             />
                             {/* Yellow accent box - bottom right */}
                             <div className="absolute bottom-0 right-0 w-32 h-32 lg:w-40 lg:h-40 bg-[#fbb040] -z-0"></div>

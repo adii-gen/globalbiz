@@ -12,7 +12,7 @@
 
 //       {/* RIGHT IMAGE */}
 //       <div className="hidden md:block">
-//         <img
+//         <Image
 //           src="/global/aboutus.png"
 //           alt="Hero Illustration"
 //           className="w-[460px] h-auto object-contain drop-shadow-2xl"
@@ -64,7 +64,7 @@
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import React from "react";
-
+import Image from "next/image";
 const AboutUsSec = () => {
   return (
     <section
@@ -80,10 +80,12 @@ const AboutUsSec = () => {
     >
       {/* RIGHT IMAGE (desktop only) */}
       <div className="block">
-        <img
+        <Image
           src="/global/aboutus.png"
           alt="Hero Illustration"
           className="w-[460px] h-auto object-contain drop-shadow-2xl"
+              width={192}
+    height={192}
         />
       </div>
 

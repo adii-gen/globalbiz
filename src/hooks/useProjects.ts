@@ -1,6 +1,5 @@
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/no-explicit-any */
 // ===== 6. REACT HOOK (hooks/useProjects.ts) =====
 import { Project, ProjectContent } from '@/db/schema';
 import { useState, useEffect } from 'react';

@@ -34,7 +34,7 @@ export async function POST(request: Request) {
   } catch (error) {
     console.error("POST Address Error:", error);
     return NextResponse.json(
-      { success: false, error: "Unable to create address" },
+      { success: false, error: error},
       { status: 500 }
     );
   }
@@ -58,7 +58,7 @@ export async function GET(request: Request) {
   } catch (error) {
     console.error("GET Address Error:", error);
     return NextResponse.json(
-      { success: false, error: "Unable to fetch addresses" },
+      { success: false, error:error},
       { status: 500 }
     );
   }
@@ -112,7 +112,7 @@ export async function PUT(request: Request) {
   } catch (error) {
     console.error("PUT Address Error:", error);
     return NextResponse.json(
-      { success: false, error: "Unable to update address" },
+      { success: false, error: error },
       { status: 500 }
     );
   }
@@ -149,7 +149,7 @@ export async function DELETE(request: Request) {
   } catch (error) {
     console.error("DELETE Address Error:", error);
     return NextResponse.json(
-      { success: false, error: "Unable to delete address" },
+      { success: false, error: error },
       { status: 500 }
     );
   }

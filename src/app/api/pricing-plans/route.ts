@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { NextRequest, NextResponse } from 'next/server';
-import { eq, asc, and } from 'drizzle-orm';
+import { asc } from 'drizzle-orm';
 import { PricingPlanTable } from '@/db/schema';
 import { db } from '@/db';
 

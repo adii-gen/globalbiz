@@ -3,6 +3,7 @@
 
 import React, { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
+import Image from "next/image";
 
 interface Perk {
     image: string;
@@ -128,7 +129,7 @@ export default function OffshorePage() {
                                 {/* IMAGE — HIDE ON MOBILE */}
                                 <div className="hidden md:flex flex-1 justify-center lg:justify-end">
                                     <div className="relative w-full max-w-2xl">
-                                        <img
+                                        <Image
                                             src="/images/dubai-mainland-about.jpg"
                                             alt="Dubai Offshore Business Setup"
                                             className="w-full h-auto object-contain"
@@ -145,7 +146,7 @@ export default function OffshorePage() {
                             <div className="relative flex justify-center lg:justify-start">
                                 {/* Main circular image */}
                                 <div className="relative z-10 w-full max-w-lg">
-                                    <img
+                                    <Image
                                         src="/images/talk-to-img.png"
                                         alt="Business Consultation"
                                         className="w-full h-auto"
@@ -305,7 +306,7 @@ export default function OffshorePage() {
                                         >
                                             {/* Icon */}
                                             <div className="flex justify-center mb-6">
-                                                <img
+                                                <Image
                                                     src={`/images/license-icon-${index + 1}.png`}
                                                     alt='image'
                                                     className="w-40 h-20 object-contain"
@@ -333,7 +334,7 @@ export default function OffshorePage() {
                   {/* LEFT IMAGE */}
                   <div className="flex justify-center lg:justify-start">
                     <div className="relative w-full max-w-md">
-                      <img
+                      <Image
                         src="/global/offshore.png"
                         alt="Dubai Offshore Business Setup"
                         className="w-full h-auto object-contain drop-shadow-2xl"
@@ -375,7 +376,7 @@ export default function OffshorePage() {
                             {/* Image */}
                             <div className="flex-1 flex justify-center lg:justify-start">
                                 <div className="relative w-full max-w-2xl">
-                                    <img
+                                    <Image
                                         src="/images/sin-why-choose.png"
                                         alt="Why Choose Global Biz Setup"
                                         className="w-full h-auto object-contain"
