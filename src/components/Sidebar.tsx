@@ -9,8 +9,7 @@ import {
   Users,
   Menu, 
   X,
-  LocateFixedIcon,
-  LocateIcon,
+ 
   MapPin,
 } from "lucide-react";
 import Image from "next/image";
@@ -23,6 +22,7 @@ const Sidebar = () => {
     { title: "Dashboard", icon: LayoutDashboard, href: "/dashboard/admin" },
     { title: "Team Management", icon: UserPlus, href: "/dashboard/admin/team" },
     { title: "Address", icon:MapPin, href: "/dashboard/admin/address" },
+    {title:"Blogs", icon: Users, href:"/dashboard/admin/blogs" },
   ];
 
   const isActive = (href: string) => pathname === href;
