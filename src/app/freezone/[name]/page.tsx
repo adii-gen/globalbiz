@@ -154,21 +154,25 @@ export default function FreezonePage() {
                   </div>
                 </div>
 
-                {/* IMAGE — HIDE ON MOBILE */}
-                <div className="hidden md:flex flex-1 justify-center lg:justify-end">
-                  <div className="relative w-full max-w-2xl">
-                    <Image
-                      src="/images/dubai-mainland-about.jpg"
-                      alt="Dubai Freezone Business Setup"
-                      className="w-full h-auto object-contain"
-                      width={800}
-                      height={600}
-                    />
-                  </div>
-                </div>
-              </div>
-            </section>
-          )}
+      {/* IMAGE — HIDE ON MOBILE */}
+      <div className="hidden md:flex flex-1 justify-center lg:justify-end">
+        <div className="relative w-full max-w-2xl">
+         <Image
+  src="/images/dubai-mainland-about.jpg"
+  alt="City Skyline"
+  width={958}
+  height={538}
+  sizes="100vw"
+  className="w-full h-auto object-cover"
+/>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+)}
+
 
           {/* contact section */}
 
