@@ -335,10 +335,19 @@ export const offshoreDetailsTable = pgTable(
     // Benefits stored as array of bullet points
     understanding: jsonb("understanding")
       .$type<string[]>(), // array of strings
+ benefits: jsonb("benefits")
+      .$type<string[]>(), // array of strings
 
     prerequisites: jsonb("prerequisites")
       .$type<string[]>(), // array of strings
-
+ buesinessProcess: jsonb("business_process")
+      .$type<
+        {
+          image?: string;
+          heading: string;
+          description?: string;
+        }[]
+      >(),
        perks: jsonb("perks")
       .$type<
         {

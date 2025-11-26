@@ -133,6 +133,8 @@ export default function OffshorePage() {
                                             src="/images/dubai-mainland-about.jpg"
                                             alt="Dubai Offshore Business Setup"
                                             className="w-full h-auto object-contain"
+                                            width={200}
+                                            height={200}
                                         />
                                     </div>
                                 </div>
