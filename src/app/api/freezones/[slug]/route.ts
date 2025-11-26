@@ -55,6 +55,9 @@
 
 
 
+
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { db } from "@/db";
 import { FreezonesTable, FreezoneDetailsTable } from "@/db/schema";
 import { eq } from "drizzle-orm";
@@ -192,7 +195,9 @@ export async function POST(
       message: "All cache cleared",
     });
   } catch (error) {
+    console.error("Error Occured to create freezone:", error);
     return NextResponse.json(
+      
       { success: false, message: "Failed to clear cache" },
       { status: 500 }
     );
