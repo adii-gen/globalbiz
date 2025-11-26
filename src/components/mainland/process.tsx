@@ -172,6 +172,7 @@ import { useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
 
+
 interface BusinessProcess {
   image: string;
   heading: string;
@@ -188,14 +189,27 @@ export const ProcessCards = ({ processes, mainlandName }: ProcessCardsProps) => 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
 
-  if (!processes || processes.length === 0) return null;
-
-  const fixImageURL = (url: string) => {
-    if (!url) return "/images/default.png"; // fallback
-    if (url.startsWith("http")) return url;
-    if (url.startsWith("/")) return url;
-    return "/" + url; // Auto-correct missing slash
+  // Safe image URL handler
+  const getSafeImageUrl = (imagePath: string | undefined, fallback: string = "/images/global.png") => {
+    if (!imagePath) return fallback;
+    
+    // If it's already a full URL or data URL, return as is
+    if (imagePath.startsWith('http') || imagePath.startsWith('data:')) {
+      return imagePath;
+    }
+    
+    // Ensure local paths start with a slash
+    if (!imagePath.startsWith("/")) {
+      return `/${imagePath}`;
+    }
+    
+    return imagePath;
   };
+
+  // Return early if no processes
+  if (!processes || processes.length === 0) {
+    return null;
+  }
 
   const handleNext = () => {
     if (isAnimating) return;
@@ -223,7 +237,11 @@ export const ProcessCards = ({ processes, mainlandName }: ProcessCardsProps) => 
 
     for (let i = 0; i < 3; i++) {
       const index = (currentIndex + i) % processes.length;
-      cards.push({ ...processes[index], originalIndex: index });
+      cards.push({ 
+        ...processes[index], 
+        image: getSafeImageUrl(processes[index]?.image),
+        originalIndex: index 
+      });
     }
 
     return cards;
@@ -266,34 +284,52 @@ export const ProcessCards = ({ processes, mainlandName }: ProcessCardsProps) => 
             </button>
           </div>
 
-          {/* Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2">
-            {visibleCards.map((process, displayIndex) => (
-              <div
-                key={`${process.heading}-${displayIndex}`}
-                className={`relative h-80 bg-transparent overflow-hidden cursor-pointer transition-all duration-300 border-r border-white/50 ${
-                  displayIndex > 0 && isAnimating
-                    ? "transform transition-transform duration-500 ease-in-out"
-                    : ""
-                }`}
-                onMouseEnter={() => setHoveredCard(displayIndex)}
-                onMouseLeave={() => setHoveredCard(null)}
-                style={{
-                  transform:
-                    hoveredCard === displayIndex
-                      ? "translateY(-10px)"
-                      : "translateY(0)",
-                }}
-              >
-                <div className="relative w-full h-1/2">
-                  <Image
-                    src={fixImageURL(process.image)}
-                    alt={process.heading}
-                    fill
-                    className="object-contain p-4"
-                    unoptimized
-                  />
-                </div>
+            {/* Cards Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2">
+              {visibleCards.map((process, displayIndex) => (
+                <div
+                  key={`${process.heading}-${displayIndex}-${process.originalIndex}`}
+                  className={`relative h-80 bg-transparent overflow-hidden cursor-pointer transition-all duration-300 border-r border-white/50 ${
+                    displayIndex > 0 && isAnimating
+                      ? "transform transition-transform duration-500 ease-in-out"
+                      : ""
+                  }`}
+                  onMouseEnter={() => setHoveredCard(displayIndex)}
+                  onMouseLeave={() => setHoveredCard(null)}
+                  style={{
+                    transform:
+                      hoveredCard === displayIndex
+                        ? "translateY(-10px)"
+                        : "translateY(0)",
+                    boxShadow:
+                      hoveredCard === displayIndex
+                        ? "0 20px 40px rgba(0,0,0,0.3)"
+                        : "0 4px 6px rgba(0,0,0,0.1)",
+                  }}
+                >
+                  {/* Default State */}
+                  <div
+                    className={`absolute inset-0 flex flex-col items-center justify-center p-8 transition-opacity duration-300 ${
+                      hoveredCard === displayIndex ? "opacity-0" : "opacity-100"
+                    }`}
+                  >
+                    <Image
+                      src={getSafeImageUrl(process.image, `/images/process-${displayIndex + 1}.png`)}
+                      alt={process.heading}
+                      className="w-20 h-20 mb-6 object-contain"
+                      width={80}
+                      height={80}
+                      onError={(e) => {
+                        e.currentTarget.src = "/images/global.png";
+                      }}
+                    />
+                    <span className="text-yellow text-5xl font-bold font-oswald mb-4">
+                      {process.originalIndex === -1 ? "" : String(process.originalIndex + 1).padStart(2, "0")}
+                    </span>
+                    <h4 className="text-white text-xl font-oswald text-center leading-tight">
+                      {process.heading}
+                    </h4>
+                  </div>
 
                 <div className="p-4 text-white">
                   <h4 className="text-xl font-bold mb-2">{process.heading}</h4>
