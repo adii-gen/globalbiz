@@ -7,6 +7,7 @@ import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import { ProcessCards } from "@/components/freezone/ProcessCards";
 import Image from "next/image";
+import { ArrowRight} from "lucide-react";
 
 interface LicenseType {
   heading: string;
@@ -51,7 +52,6 @@ export default function FreezonePage() {
   const [subfreezonelist, setSubfreezoneList] = useState<
     Array<{ name: string; slug: string }>
   >([]);
- 
 
   useEffect(() => {
     const fetchFreezoneData = async () => {
@@ -111,7 +111,7 @@ export default function FreezonePage() {
           backgroundImage: "url('/images/freezone-bg.png')",
         }}
       >
-      <h1 className="absolute bottom-5 left-1/2 -translate-x-1/2 z-10 text-white text-5xl font-oswald">
+        <h1 className="absolute bottom-5 left-1/2 -translate-x-1/2 z-10 text-white text-5xl font-oswald">
           {freezoneData?.name || "Freezone Details"}
         </h1>
         <div className="absolute inset-0 opacity-60"></div>
@@ -131,45 +131,44 @@ export default function FreezonePage() {
 
       {!loading && freezoneData && (
         <div className="space-y-6">
-        {details?.description && (
-  <section className="bg-gray-50 px-4 md:pl-16 lg:pl-32 xl:pl-48 pt-10 pb-4">
-    <div className="flex flex-col lg:flex-row gap-12 items-center">
+          {details?.description && (
+            <section className="bg-gray-50 px-4 md:pl-8 lg:pl-12 xl:pl-16 pt-8 pb-4">
+              <div className="flex flex-col lg:flex-row gap-12 items-center">
+                {/* TEXT CONTENT */}
+                <div className="flex-1 w-full">
+                  <h2 className="text-3xl md:text-4xl font-bold text-blue mb-2 font-oswald tracking-wide leading-tight">
+                    BUSINESS SETUP
+                  </h2>
+                  <h3 className="text-3xl md:text-4xl font-bold text-yellow mb-8 font-oswald tracking-wide">
+                    IN {freezoneData?.name?.toUpperCase()}
+                  </h3>
 
-      {/* TEXT CONTENT */}
-      <div className="flex-1 w-full">
-        <h2 className="text-3xl md:text-4xl font-bold text-blue mb-2 font-oswald tracking-wide leading-tight">
-          BUSINESS SETUP
-        </h2>
-        <h3 className="text-3xl md:text-4xl font-bold text-yellow mb-8 font-oswald tracking-wide">
-          IN {freezoneData?.name?.toUpperCase()}
-        </h3>
+                  <div className="text-justify leading-relaxed space-y-4 font-raleway">
+                    {details.description
+                      .split("\n\n")
+                      .map((paragraph: string, index: number) => (
+                        <p key={index} className="text-sm">
+                          {paragraph}
+                        </p>
+                      ))}
+                  </div>
+                </div>
 
-        <div className="text-justify leading-relaxed space-y-4 font-raleway">
-          {details.description
-            .split("\n\n")
-            .map((paragraph: string, index: number) => (
-              <p key={index} className="text-sm">
-                {paragraph}
-              </p>
-            ))}
-        </div>
-      </div>
-
-      {/* IMAGE — HIDE ON MOBILE */}
-      <div className="hidden md:flex flex-1 justify-center lg:justify-end">
-        <div className="relative w-full max-w-2xl">
-          <Image
-            src="/images/dubai-mainland-about.jpg"
-            alt="Dubai Freezone Business Setup"
-            className="w-full h-auto object-contain"
-          />
-        </div>
-      </div>
-
-    </div>
-  </section>
-)}
-
+                {/* IMAGE — HIDE ON MOBILE */}
+                <div className="hidden md:flex flex-1 justify-center lg:justify-end">
+                  <div className="relative w-full max-w-2xl">
+                    <Image
+                      src="/images/dubai-mainland-about.jpg"
+                      alt="Dubai Freezone Business Setup"
+                      className="w-full h-auto object-contain"
+                      width={800}
+                      height={600}
+                    />
+                  </div>
+                </div>
+              </div>
+            </section>
+          )}
 
           {/* contact section */}
 
@@ -182,6 +181,8 @@ export default function FreezonePage() {
                     src="/images/talk-to-img.png"
                     alt="Business Consultation"
                     className="w-full h-auto"
+                    width={800}
+                    height={600}
                   />
                 </div>
               </div>
@@ -234,44 +235,59 @@ export default function FreezonePage() {
           {/* Benefits Section */}
           {details?.benefits && details.benefits.length > 0 && (
             <section
-              className="relative bg-cover bg-center bg-no-repeat px-8 md:px-16 lg:px-32 xl:px-48 py-16"
+              className="relative bg-cover bg-center bg-no-repeat px-4 md:px-8 lg:px-18 xl:px-24 py-16"
               style={{ backgroundImage: "url('/images/business-type-bg.jpg')" }}
             >
               <div className="absolute inset-0 opacity-90"></div>
 
               <div className="relative z-10 flex flex-col lg:flex-row gap-12 items-center">
                 {/* Benefits List */}
-                <div className="flex-1">
-                  <h2 className="text-3xl md:text-4xl font-bold text-white mb-2 font-oswald tracking-wide leading-tight">
-                    BENEFITS OF SETTING UP A
-                  </h2>
-                  <h3 className="text-3xl md:text-4xl font-bold text-yellow mb-10 font-oswald tracking-wide">
-                    BUSINESS IN THE {freezoneData?.name?.toUpperCase()}
-                  </h3>
+                <div className="flex flex-col lg:flex-row items-center gap-10">
+                  <div className="flex-1">
+                    <h2 className="text-3xl md:text-4xl font-bold text-white mb-2 font-oswald tracking-wide leading-tight">
+                      BENEFITS OF SETTING UP A
+                    </h2>
+                    <h3 className="text-3xl md:text-4xl font-bold text-yellow mb-10 font-oswald tracking-wide">
+                      BUSINESS IN THE {freezoneData?.name?.toUpperCase()}
+                    </h3>
 
-                  <div className="space-y-2">
-                    {details.benefits.map((benefit: string, index: number) => (
-                      <div key={index} className="flex items-start gap-4">
-                        <div className="flex-shrink-0 w-8 h-8 bg-yellow rounded-full flex items-center justify-center">
-                          <svg
-                            className="w-5 h-5 text-[#1e3a5f]"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="3"
-                            viewBox="0 0 24 24"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              d="M5 13l4 4L19 7"
-                            />
-                          </svg>
-                        </div>
-                        <span className="text-white text-xm lg:text-xm font-raleway leading-relaxed">
-                          {benefit}
-                        </span>
-                      </div>
-                    ))}
+                    <div className="space-y-2">
+                      {details.benefits.map(
+                        (benefit: string, index: number) => (
+                          <div key={index} className="flex items-start gap-4">
+                            <div className="flex-shrink-0 w-8 h-8 bg-yellow rounded-full flex items-center justify-center">
+                              <svg
+                                className="w-5 h-5 text-blue"
+                                fill="none"
+                                stroke="currentColor"
+                                strokeWidth="3"
+                                viewBox="0 0 24 24"
+                              >
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  d="M5 13l4 4L19 7"
+                                />
+                              </svg>
+                            </div>
+                            <span className="text-white text-xm lg:text-xm font-raleway leading-relaxed">
+                              {benefit}
+                            </span>
+                          </div>
+                        )
+                      )}
+                    </div>
+                  </div>
+
+                  {/* RIGHT SIDE – IMAGE */}
+                  <div className="flex-1 flex justify-center">
+                    <Image
+                      src="/images/benefits.jpg"
+                      alt="Benefits Image"
+                      width={800}
+                      height={1200}
+                      className="rounded-lg object-cover"
+                    />
                   </div>
                 </div>
               </div>
@@ -292,7 +308,7 @@ export default function FreezonePage() {
               </div>
 
               {/* License Cards Grid */}
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto">
                 {details.licenseTypes.map(
                   (license: LicenseType, index: number) => (
                     <div
@@ -305,6 +321,8 @@ export default function FreezonePage() {
                           src={`/images/license-icon-${index + 1}.png`}
                           alt={license.heading}
                           className="w-20 h-20 object-contain"
+                          width={20}
+                          height={20}
                         />
                       </div>
 
@@ -324,7 +342,7 @@ export default function FreezonePage() {
             </section>
           )}
 
-          <section className="bg-gray-50 px-8 md:px-16 lg:px-32 xl:px-48 py-16">
+          <section className="bg-gray-50 px-8 md:px-16 lg:px-32 xl:px-48 py-12">
             {/* Title */}
             <div className="text-center mb-12">
               <h2 className="text-3xl md:text-4xl font-bold text-blue font-oswald tracking-wide">
@@ -340,9 +358,14 @@ export default function FreezonePage() {
                   href={`/freezone/${freezoneName}/${freezone.slug}`}
                   className="bg-blue  text-yellow px-6 py-4 flex items-center gap-3 transition-all duration-300 hover:shadow-lg group"
                 >
-                  <Image
-                    src="https://images.emojiterra.com/google/android-12l/512px/1f449.png"
-                    className="w-5 h-5" alt={"icom"}                  />
+                  {/* <Image
+                    src="/images/thumb-point.webp"
+                    className="w-5 h-5"
+                    alt={"icom"}
+                    width={5}
+                    height={5}
+                  /> */}
+                  <ArrowRight className="w-6 h-6 text-yellow-500" />
 
                   <span className="font-raleway font-medium text-base">
                     {freezone.name}
@@ -354,7 +377,7 @@ export default function FreezonePage() {
 
           {/* Business Entities Section */}
           {details?.businessEntities && details.businessEntities.length > 0 && (
-            <section className="bg-gray-100 px-8 md:px-16 lg:px-32 xl:px-48 py-16">
+            <section className="bg-gray-100 px-4 md:px-8 lg:px-16 xl:px-24 py-16">
               {/* Title */}
               <div className="text-center mb-12">
                 <h2 className="text-3xl md:text-4xl font-bold text-blue mb-2 font-oswald tracking-wide">
@@ -366,7 +389,7 @@ export default function FreezonePage() {
               </div>
 
               {/* Business Entity Cards */}
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
                 {details.businessEntities.map(
                   (entity: BusinessEntity, index: number) => (
                     <div key={index} className="bg-white relative pb-12">
@@ -409,7 +432,7 @@ export default function FreezonePage() {
             </section>
           )}
 
-          <ProcessCards/>
+          <ProcessCards />
 
           {/* Additional Info Section */}
           <section className="bg-white px-8 md:px-16 lg:px-32 xl:px-48 py-16">
@@ -421,6 +444,8 @@ export default function FreezonePage() {
                     src="/images/sin-why-choose.png"
                     alt="Why Choose Global Biz Setup"
                     className="w-full h-auto object-contain"
+                    width={800}
+                    height={600}
                   />
                 </div>
               </div>

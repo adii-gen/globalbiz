@@ -164,6 +164,7 @@
 import { useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
+
 interface BusinessProcess {
   image: string;
   heading: string;
@@ -179,6 +180,23 @@ export const ProcessCards = ({ processes, mainlandName }: ProcessCardsProps) => 
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
+
+  // Safe image URL handler
+  const getSafeImageUrl = (imagePath: string | undefined, fallback: string = "/images/global.png") => {
+    if (!imagePath) return fallback;
+    
+    // If it's already a full URL or data URL, return as is
+    if (imagePath.startsWith('http') || imagePath.startsWith('data:')) {
+      return imagePath;
+    }
+    
+    // Ensure local paths start with a slash
+    if (!imagePath.startsWith("/")) {
+      return `/${imagePath}`;
+    }
+    
+    return imagePath;
+  };
 
   // Return early if no processes
   if (!processes || processes.length === 0) {
@@ -215,7 +233,11 @@ export const ProcessCards = ({ processes, mainlandName }: ProcessCardsProps) => 
     // Get the next 3 cards from ALL the API processes
     for (let i = 0; i < 3; i++) {
       const index = (currentIndex + i) % processes.length;
-      cards.push({ ...processes[index], originalIndex: index });
+      cards.push({ 
+        ...processes[index], 
+        image: getSafeImageUrl(processes[index]?.image),
+        originalIndex: index 
+      });
     }
 
     return cards;
@@ -263,7 +285,7 @@ export const ProcessCards = ({ processes, mainlandName }: ProcessCardsProps) => 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2">
               {visibleCards.map((process, displayIndex) => (
                 <div
-                  key={`${process.heading}-${displayIndex}`}
+                  key={`${process.heading}-${displayIndex}-${process.originalIndex}`}
                   className={`relative h-80 bg-transparent overflow-hidden cursor-pointer transition-all duration-300 border-r border-white/50 ${
                     displayIndex > 0 && isAnimating
                       ? "transform transition-transform duration-500 ease-in-out"
@@ -289,9 +311,14 @@ export const ProcessCards = ({ processes, mainlandName }: ProcessCardsProps) => 
                     }`}
                   >
                     <Image
-                      src={process.image || `/images/process-${displayIndex + 1}.png`}
+                      src={getSafeImageUrl(process.image, `/images/process-${displayIndex + 1}.png`)}
                       alt={process.heading}
-                      className="w-20 h-20 mb-6"
+                      className="w-20 h-20 mb-6 object-contain"
+                      width={80}
+                      height={80}
+                      onError={(e) => {
+                        e.currentTarget.src = "/images/global.png";
+                      }}
                     />
                     <span className="text-yellow text-5xl font-bold font-oswald mb-4">
                       {process.originalIndex === -1 ? "" : String(process.originalIndex + 1).padStart(2, "0")}
