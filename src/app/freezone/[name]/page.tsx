@@ -10,6 +10,7 @@ import Image from "next/image";
 import { ArrowBigRightDash } from "lucide-react";
 
 interface LicenseType {
+  image:string;
   heading: string;
   description: string;
 }
@@ -53,7 +54,13 @@ export default function FreezonePage() {
     Array<{ name: string; slug: string }>
   >([]);
  
-
+const fallbackImages = [
+  "/licenses/GeneralLicense.png",
+  "/licenses/IndustrialLicense.png",
+  "/licenses/PremiumConsultancy.png",
+  "/licenses/ServiceLicense.png",
+  "/licenses/TradingLicense.png",
+];
   useEffect(() => {
     const fetchFreezoneData = async () => {
       try {
@@ -286,53 +293,88 @@ export default function FreezonePage() {
           )}
 
           {/* License Types Section */}
-          {details?.licenseTypes && details.licenseTypes.length > 0 && (
-            <section className="bg-gray-50 px-8 md:px-16 lg:px-32 xl:px-48 py-16">
-              {/* Title */}
-              <div className="text-center mb-12">
-                <h2 className="text-3xl md:text-4xl font-bold text-blue mb-2 font-oswald tracking-wide">
-                  TYPES OF LICENCES FOR BUSINESS SETUP
-                </h2>
-                <h3 className="text-3xl md:text-4xl font-bold text-yellow font-oswald tracking-wide">
-                  IN {freezoneData?.name?.toUpperCase()}
-                </h3>
+{details?.licenseTypes && details.licenseTypes.length > 0 && (
+  <section className="bg-gray-50 px-8 md:px-16 lg:px-32 xl:px-48 py-16">
+    {/* Title */}
+    <div className="text-center mb-12">
+      <h2 className="text-3xl md:text-4xl font-bold text-blue mb-2 font-oswald tracking-wide">
+        TYPES OF LICENCES FOR BUSINESS SETUP
+      </h2>
+      <h3 className="text-3xl md:text-4xl font-bold text-yellow font-oswald tracking-wide">
+        IN {freezoneData?.name?.toUpperCase()}
+      </h3>
+    </div>
+
+    {/* License Cards Grid */}
+    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+      {details.licenseTypes.map((license: LicenseType, index: number) => {
+        const fallbackImages = [
+          "/licenses/GeneralLicense.png",
+          "/licenses/IndustrialLicense.png",
+          "/licenses/PremiumConsultancy.png",
+          "/licenses/ServiceLicense.png",
+          "/licenses/TradingLicense.png",
+        ];
+
+        // Select fallback by index
+        const fallback = fallbackImages[index % fallbackImages.length];
+        
+        // Determine the image source with better validation
+        let imageSrc = fallback; // Default to fallback
+        
+        if (license.image && typeof license.image === 'string' && license.image.trim() !== '') {
+          // If it's already a full path starting with /
+          if (license.image.startsWith('/')) {
+            imageSrc = license.image;
+          } 
+          // If it's just a filename
+          else {
+            imageSrc = `/licenses/${license.image}`;
+          }
+        }
+
+        // Debug log (remove after fixing)
+        
+
+        return (
+          <div
+            key={index}
+            className="bg-white rounded-lg p-8 text-center hover:shadow-xl transition-shadow duration-300"
+          >
+            {/* Icon */}
+            <div className="flex justify-center mb-6 mx-auto">
+              <div className="relative h-20 w-20">
+                <Image
+                  src={imageSrc}
+                  alt={license.heading || 'License icon'}
+                  fill
+                  sizes="80px"
+                  className="object-contain"
+                  unoptimized={true}
+                  onError={(e) => {
+                    // console.error(`Failed to load image for ${license.heading}:`, imageSrc);
+                    // Try fallback
+                    const img = e.currentTarget as HTMLImageElement;
+                    if (img.src !== fallback) {
+                      img.src = fallback;
+                    }
+                  }}
+                />
               </div>
+            </div>
 
-              {/* License Cards Grid */}
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-                {details.licenseTypes.map(
-                  (license: LicenseType, index: number) => (
-                    <div
-                      key={index}
-                      className="bg-white rounded-lg p-8 text-center hover:shadow-xl transition-shadow duration-300"
-                    >
-                      {/* Icon */}
-                      <div className="flex justify-center mb-6">
-                        <Image
-                          src={`/images/license-icon-${index + 1}.png`}
-                          alt={license.heading}
-                          className="w-20 h-20 object-contain"
-                          height={1024}
-                          width={1024}
-                        />
-                      </div>
+            {/* Title */}
+            <h3 className="text-xl font-semibold mb-4">{license.heading}</h3>
 
-                      {/* Heading */}
-                      <h3 className="text-xl font-semibold mb-4 font-oswald tracking-wide">
-                        {license.heading}
-                      </h3>
-
-                      {/* Description */}
-                      <p className="text-gray-600 text-base leading-relaxed font-raleway">
-                        {license.description}
-                      </p>
-                    </div>
-                  )
-                )}
-              </div>
-            </section>
-          )}
-
+            {/* Description */}
+            <p className="text-gray-600">{license.description}</p>
+          </div>
+        );
+      })}
+    </div>
+  </section>
+)}
+ {details?.subFreezones && details.subFreezones.length > 0 && (
           <section className="bg-gray-50 px-8 md:px-16 lg:px-32 xl:px-48 py-16">
             {/* Title */}
             <div className="text-center mb-12">
@@ -357,7 +399,7 @@ export default function FreezonePage() {
                 </Link>
               ))}
             </div>
-          </section>
+          </section>)}
 
           {/* Business Entities Section */}
           {details?.businessEntities && details.businessEntities.length > 0 && (
