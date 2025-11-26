@@ -1,0 +1,86 @@
+INSERT INTO mainland_details (
+    id,
+    mainland_id,
+    description,
+    benefits,
+    license_types,
+    business_process
+) VALUES (
+    gen_random_uuid(),
+
+    '949b2221-2202-4c26-82f6-8f76c263b11d',
+
+    'Over the past few years, the UAE has expanded its industry to provide worldwide business opportunities in various areas. Now it has become incredibly adaptable, and it continues to increase the number of incentives available to new, established, and growing businesses. The Department of Economic Development (DED) is the regulatory authority for the issue of mainland licences. Mainland refers to the territory beyond the free zones. Business setup in Dubai Mainland is permitted to conduct business freely throughout the UAE and globally. Further, having a mainland licence in Dubai gives you the most freedom and flexibility in growing and operating your business.',
+
+    to_jsonb(ARRAY[
+        'There is no initial capital required for forming a business.',
+        'The signup process is easy and quick.',
+        'Capacity to operate in both the private and public sectors',
+        'There is no limit on the number of visas that can be given (subject to office size)',
+        'Extremely low tax, with corporate taxes being practically zero',
+        'Allowing 100% foreign-owned businesses',
+        'the ability to diversify their enterprises into new areas'
+    ]),
+
+    '[
+        {
+            "image": "global",
+            "heading": "Professional Licence",
+            "description": "The ex-pat partner owns 100 percent of the shares in a professional licence, and a UAE national is appointed as the Local Service Agent. Non-physical services, such as consulting, are covered by the licence."
+        },
+        {
+            "image": "global",
+            "heading": "Commercial Licence",
+            "description": "To operate in the UAE, a company that deals with the purchasing and selling of products and commodities, or any other type of trading activity, needs a commercial trade licence. Further, one can use this licence to establish a limited liability company (LLC) or a single business in the UAE, and it can be used for both specialised and general trading."
+        },
+        {
+            "image": "global",
+            "heading": "Industrial Licence",
+            "description": "Businesses wishing to engage in industrial or manufacturing-related activities in the UAE must first get an industrial trade licence, which allows them to engage in activities such as processing natural materials or combining natural resources into their end products."
+        }
+    ]'::jsonb,
+
+    '[
+        {
+            "image": "global",
+            "heading": "Go for selecting business activity & name approval.",
+            "description": "Our consultants, who are experts in mainland company formation in Dubai, will advise you on the precise business activity or several business activities that will satisfy both your current and future needs."
+        },
+        {
+            "image": "global",
+            "heading": "Select the company structure",
+            "description": "To assist you in forming the right firm on the UAE's mainland, our expert business managers conduct feasibility studies, due diligence, and corporate structuring/restructuring:"
+        },
+        {
+            "image": "global",
+            "heading": "Register Trade Name",
+            "description": "Obtain a trademark registration. A trade name separates one company from another. It also represents the company's nature and structure. An entrepreneur can apply for a trading name through each emirate's economic department's website or mobile application."
+        },
+        {
+            "image": "global",
+            "heading": "Get initial approval",
+            "description": "An early approval indicates that the UAE government has no objections to the company's operation in the country. It also permits the investor to move on to the next steps in the business setup process. It does not, however, give you permission to run or practice your business."
+        },
+        {
+            "image": "global",
+            "heading": "Choose a location for your company",
+            "description": "To operate in the UAE, all firms must have a physical address. The commercial properties and area must meet the requirements set forth by the Department of Economic Development of each emirate and local municipality land planning legislation."
+        },
+        {
+            "image": "global",
+            "heading": "Create a bank account",
+            "description": "Opening a corporate bank account is required to form a corporation on the UAE mainland. Businesses are obligated by law to keep personal and professional funds separate. The UAE has a diverse range of financial institutions, including prominent foreign banks, well-established local banks, and digital-only banks. Entrepreneurs, start-ups, small enterprises, and huge international firms all benefit from each."
+        },
+        {
+            "image": "global",
+            "heading": "Obtain the business licence.",
+            "description": "After completing the following requirements, investors can obtain a business licence via the economic departments' service centres or through their websites."
+        },
+        {
+            "image": "global",
+            "heading": "Worker's file",
+            "description": "Suppose you prefer not to go through the method of getting visas on your own. In that case, our immigration teams will take care of everything for you, including opening an official governmental file, processing your Establishment Card, and implementing the correct amount of employment and/or residence visas for staff and family representatives."
+        }
+    ]'::jsonb
+
+);
