@@ -135,6 +135,8 @@ export default function SubFreezonePage() {
                 src="/images/abu-dhabi-global-img.jpg"
                 alt={subFreezone.name}
                 className="w-full h-auto object-contain"
+                height={1024}
+                width={1024}
               />
             </div>
           </div>
@@ -212,6 +214,8 @@ export default function SubFreezonePage() {
                 src="/images/benefits.jpg"
                 alt={subFreezone.name}
                 className="w-full h-auto object-contain"
+                                height={1024}
+                width={1024}
               />
             </div>
           </div>
@@ -282,7 +286,10 @@ export default function SubFreezonePage() {
                     index % 2 === 0
                       ? "/images/entity-inner-1.jpg"
                       : "/images/entity-inner-2.jpg"
+                      
                   }
+                                  height={1024}
+                width={1024}
                   alt={entity.title}
                   className="w-full h-auto object-cover"
                 />

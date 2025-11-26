@@ -1,24 +1,60 @@
 "use client";
 
 import { useState } from "react";
-
+import Swal from "sweetalert2";
 export default function ContactCallback() {
   const [form, setForm] = useState({
     name: "",
     phone: "",
     email: "",
     service: "",
+    message:"",
   });
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+const [loading, setLoading] = useState(false);
+   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log(form);
-    alert("Submitted!");
-  };
+
+const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+  setLoading(true);
+
+  try {
+    const res = await fetch("/api/send-inquiry", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(form),
+    });
+
+    const data = await res.json();
+    setLoading(false);
+
+    if (data.success) {
+      Swal.fire({
+        icon: "success",
+        title: "Inquiry Sent",
+        text: "We have received your inquiry and will contact you soon.",
+        confirmButtonColor: "#3085d6",
+      });
+    } else {
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Something went wrong while sending your inquiry.",
+      });
+    }
+  } catch (err) {
+    setLoading(false);
+    Swal.fire({
+      icon: "error",
+      title: "Server Error",
+      text: "Unable to send inquiry right now. Try again later.",
+    });
+  }
+};
 
   return (
     <div className="w-full bg-[#fafafa] py-10 px-6 lg:px-24">
@@ -70,7 +106,12 @@ export default function ContactCallback() {
             </div>
 
           
-
+  <textarea
+              name="message"
+              placeholder="Message"
+              className="p-3 border border-gray-300 rounded w-full h-28"
+              onChange={handleChange}
+            />
             <button className="bg-yellow text-black font-raleway w-full py-3 rounded">
               Submit
             </button>

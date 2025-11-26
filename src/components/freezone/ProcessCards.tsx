@@ -150,7 +150,8 @@ export const ProcessCards = () => {
                       src={process.icon}
                       alt={process.title}
                       className="w-20 h-20 mb-6"
-                    />
+                   height={64}
+            width={64} />
                     <span className="text-yellow text-5xl font-bold font-oswald mb-4">
                       {process.number}
                     </span>

@@ -147,6 +147,8 @@ export default function MainlandPage() {
                       src="/images/dubai-mainland-about.jpg"
                       alt="Dubai Mainland Business Setup"
                       className="w-full h-auto object-contain"
+                                      height={1024}
+                width={1024}
                     />
                   </div>
                 </div>
@@ -164,6 +166,8 @@ export default function MainlandPage() {
                     src="/images/talk-to-img.png"
                     alt="Business Consultation"
                     className="w-full h-auto"
+                                    height={1024}
+                width={1024}
                   />
                 </div>
               </div>
@@ -287,6 +291,8 @@ export default function MainlandPage() {
                           src={`/images/license-icon-${index + 1}.png`}
                           alt={license.heading}
                           className="w-20 h-20 object-contain"
+                                          height={1024}
+                width={1024}
                         />
                       </div>
 
@@ -324,6 +330,8 @@ export default function MainlandPage() {
                     src="/images/sin-why-choose.png"
                     alt="Why Choose Global Biz Setup"
                     className="w-full h-auto object-contain"
+                                    height={1024}
+                width={1024}
                   />
                 </div>
               </div>
