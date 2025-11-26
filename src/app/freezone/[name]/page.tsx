@@ -300,7 +300,7 @@ export default function FreezonePage() {
 
           {/* License Types Section */}
           {details?.licenseTypes && details.licenseTypes.length > 0 && (
-            <section className="bg-gray-50 px-8 md:px-16 lg:px-32 xl:px-48 py-16">
+            <section className="bg-gray-50 px-4 md:px-8 lg:px-16 xl:px-24 py-16">
               {/* Title */}
               <div className="text-center mb-12">
                 <h2 className="text-3xl md:text-4xl font-bold text-blue mb-2 font-oswald tracking-wide">
@@ -312,7 +312,7 @@ export default function FreezonePage() {
               </div>
 
               {/* License Cards Grid */}
-              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto">
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-8xl mx-auto">
                 {details.licenseTypes.map(
                   (license: LicenseType, index: number) => (
                     <div
@@ -439,7 +439,7 @@ export default function FreezonePage() {
           <ProcessCards />
 
           {/* Additional Info Section */}
-          <section className="bg-white px-8 md:px-16 lg:px-32 xl:px-48 py-16">
+          <section className="bg-white px-8 md:px-12 lg:px-12 xl:px-12 py-12">
             <div className="flex flex-col lg:flex-row gap-12 items-center">
               {/* Image */}
               <div className="flex-1 flex justify-center lg:justify-start">
@@ -448,8 +448,8 @@ export default function FreezonePage() {
                     src="/images/sin-why-choose.png"
                     alt="Why Choose Global Biz Setup"
                     className="w-full h-auto object-contain"
-                    width={800}
-                    height={600}
+                    width={500}
+                    height={400}
                   />
                 </div>
               </div>

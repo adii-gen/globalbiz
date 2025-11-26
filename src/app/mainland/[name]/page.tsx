@@ -118,7 +118,7 @@ export default function MainlandPage() {
         <div className="space-y-6">
           {/* Description Section */}
           {details?.description && (
-            <section className="bg-gray-50 px-4 md:pl-16 lg:pl-32 xl:pl-48 pt-10 pb-4">
+            <section className="bg-gray-50 px-4 md:pl-8 lg:pl-12 xl:pl-16 pt-8 pb-4">
               <div className="flex flex-col lg:flex-row gap-12 items-center">
                 {/* TEXT CONTENT */}
                 <div className="flex-1 w-full">
@@ -218,55 +218,70 @@ export default function MainlandPage() {
           </section>
 
           {/* Benefits Section */}
-          {details?.benefits && details.benefits.length > 0 && (
-            <section
-              className="relative bg-cover bg-center bg-no-repeat px-8 md:px-16 lg:px-32 xl:px-48 py-16"
-              style={{ backgroundImage: "url('/images/business-type-bg.jpg')" }}
-            >
-              <div className="absolute inset-0 opacity-90"></div>
-
-              <div className="relative z-10 flex flex-col lg:flex-row gap-12 items-center">
-                {/* Benefits List */}
-                <div className="flex-1">
-                  <h2 className="text-3xl md:text-4xl font-bold text-white mb-2 font-oswald tracking-wide leading-tight">
-                    BENEFITS OF SETTING UP A
-                  </h2>
-                  <h3 className="text-3xl md:text-4xl font-bold text-yellow mb-10 font-oswald tracking-wide">
-                    BUSINESS IN {mainlandData?.name?.toUpperCase()}
-                  </h3>
-
-                  <div className="space-y-2">
-                    {details.benefits.map((benefit: string, index: number) => (
-                      <div key={index} className="flex items-start gap-4">
-                        <div className="flex-shrink-0 w-8 h-8 bg-yellow rounded-full flex items-center justify-center">
-                          <svg
-                            className="w-5 h-5 text-[#1e3a5f]"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="3"
-                            viewBox="0 0 24 24"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              d="M5 13l4 4L19 7"
-                            />
-                          </svg>
+           {details?.benefits && details.benefits.length > 0 && (
+                      <section
+                        className="relative bg-cover bg-center bg-no-repeat px-4 md:px-8 lg:px-18 xl:px-24 py-16"
+                        style={{ backgroundImage: "url('/images/business-type-bg.jpg')" }}
+                      >
+                        <div className="absolute inset-0 opacity-90"></div>
+          
+                        <div className="relative z-10 flex flex-col lg:flex-row gap-12 items-center">
+                          {/* Benefits List */}
+                          <div className="flex flex-col lg:flex-row items-center gap-10">
+                            <div className="flex-1">
+                              <h2 className="text-3xl md:text-4xl font-bold text-white mb-2 font-oswald tracking-wide leading-tight">
+                                BENEFITS OF SETTING UP A
+                              </h2>
+                              <h3 className="text-3xl md:text-4xl font-bold text-yellow mb-10 font-oswald tracking-wide">
+                                BUSINESS IN THE {mainlandData?.name?.toUpperCase()}
+                              </h3>
+          
+                              <div className="space-y-2">
+                                {details.benefits.map(
+                                  (benefit: string, index: number) => (
+                                    <div key={index} className="flex items-start gap-4">
+                                      <div className="flex-shrink-0 w-8 h-8 bg-yellow rounded-full flex items-center justify-center">
+                                        <svg
+                                          className="w-5 h-5 text-blue"
+                                          fill="none"
+                                          stroke="currentColor"
+                                          strokeWidth="3"
+                                          viewBox="0 0 24 24"
+                                        >
+                                          <path
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            d="M5 13l4 4L19 7"
+                                          />
+                                        </svg>
+                                      </div>
+                                      <span className="text-white text-xm lg:text-xm font-raleway leading-relaxed">
+                                        {benefit}
+                                      </span>
+                                    </div>
+                                  )
+                                )}
+                              </div>
+                            </div>
+          
+                            {/* RIGHT SIDE – IMAGE */}
+                            <div className="flex-1 flex justify-center">
+                              <Image
+                                src="/images/benefits.jpg"
+                                alt="Benefits Image"
+                                width={800}
+                                height={1200}
+                                className="rounded-lg object-cover"
+                              />
+                            </div>
+                          </div>
                         </div>
-                        <span className="text-white text-xm lg:text-xm font-raleway leading-relaxed">
-                          {benefit}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </section>
-          )}
+                      </section>
+                    )}
 
           {/* License Types Section */}
           {details?.licenseTypes && details.licenseTypes.length > 0 && (
-            <section className="bg-gray-50 px-8 md:px-16 lg:px-32 xl:px-48 py-16">
+            <section className="bg-gray-50 px-4 md:px-8 lg:px-16 xl:px-24 py-16">
               {/* Title */}
               <div className="text-center mb-12">
                 <h2 className="text-3xl md:text-4xl font-bold text-blue mb-2 font-oswald tracking-wide">
@@ -278,7 +293,7 @@ export default function MainlandPage() {
               </div>
 
               {/* License Cards Grid */}
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-8xl mx-auto">
                 {details.licenseTypes.map(
                   (license: LicenseType, index: number) => (
                     <div
