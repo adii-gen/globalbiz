@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
+import Image from "next/image";
 import { useState, useEffect } from "react";
 import Image from "next/image";
 
@@ -33,10 +34,10 @@ export default function AboutPage() {
       console.log("API Response:", data);
       setTeamMembers(data);
     } catch (err: any) {
-  console.error("Error fetching team members:", err);
-  setError(err.message);
-  setTeamMembers([]);
-} finally {
+      console.error("Error fetching team members:", err);
+      setError(err.message);
+      setTeamMembers([]);
+    } finally {
       setLoading(false);
     }
   };
@@ -90,14 +91,14 @@ export default function AboutPage() {
             </div>
           </div>
           <div className="lg:w-1/2 w-full">
-           <Image
-  src="/images/about-sec.png"
-  alt="Business meeting"
-  width={800}      // put any width
-  height={600}     // and height (required)
-  className="rounded-lg w-full"
-  priority         // optional: loads image fast
-/>
+            <Image
+              src="/images/about-sec.png"
+              alt="Business meeting"
+              width={800} // put any width
+              height={600} // and height (required)
+              className="rounded-lg w-full"
+              priority // optional: loads image fast
+            />
           </div>
         </div>
       </div>
@@ -140,8 +141,8 @@ export default function AboutPage() {
                   A competent and result-oriented professional, Mr Pawan Gupta
                   is the man behind the management of Global Biz Setup&apos;s
                   financial operations and strategy. With his experience and
-                  articulate sense of detail, he is known to preserve our
-                  assets and manage the books successfully.
+                  articulate sense of detail, he is known to preserve our assets
+                  and manage the books successfully.
                 </p>
               </div>
             </div>
@@ -154,11 +155,11 @@ export default function AboutPage() {
                   </span>
                 </h3>
                 <p className="text-white text-xs sm:text-sm leading-relaxed font-raleway">
-                  The Techno Head of Global Biz Digital, Mr Amit, loves to
-                  stay on top of emerging tech trends and implements new
-                  software to assist our firm in scaling growth. With his
-                  skills and abilities, he ensures that the tech strategy
-                  aligns with our overall goals.
+                  The Techno Head of Global Biz Digital, Mr Amit, loves to stay
+                  on top of emerging tech trends and implements new software to
+                  assist our firm in scaling growth. With his skills and
+                  abilities, he ensures that the tech strategy aligns with our
+                  overall goals.
                 </p>
               </div>
             </div>
@@ -166,56 +167,58 @@ export default function AboutPage() {
 
           {/* Dynamic Team Members Rows - WITH continuous vertical line */}
           <div className="relative mt-6">
+            {/* Continuous vertical line in center */}
+            <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-[2px] bg-white -translate-x-1/2 z-0"></div>
 
-  {/* Continuous vertical line in center */}
-  <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-[2px] bg-white -translate-x-1/2 z-0"></div>
+            {loading ? (
+              <div className="text-center text-white py-8 text-lg">
+                Loading team members...
+              </div>
+            ) : teamRows.length > 0 ? (
+              teamRows.map((row, rowIndex) => (
+                <div
+                  key={rowIndex}
+                  className="flex flex-col md:flex-row md:items-start md:justify-between gap-8 py-2 relative z-10"
+                >
+                  {/* Left Member */}
+                  {row[0] && (
+                    <div className="flex-1 text-right pr-10 md:pr-8">
+                      <h3 className="text-yellow font-oswald font-bold text-xl md:text-2xl mb-1">
+                        {row[0].Name}
+                      </h3>
+                      <h4 className="text-yellow tracking-wide font-oswald text-xl md:text-2xl mb-3 opacity-90">
+                        ({row[0].Designation})
+                      </h4>
+                      <p className="text-white text-xs md:text-sm leading-relaxed opacity-90">
+                        {row[0].Description}
+                      </p>
+                    </div>
+                  )}
 
-  {loading ? (
-    <div className="text-center text-white py-8 text-lg">Loading team members...</div>
-  ) : teamRows.length > 0 ? (
-    teamRows.map((row, rowIndex) => (
-      <div
-        key={rowIndex}
-        className="flex flex-col md:flex-row md:items-start md:justify-between gap-8 py-2 relative z-10"
-      >
-        {/* Left Member */}
-        {row[0] && (
-          <div className="flex-1 text-right pr-10 md:pr-8">
-            <h3 className="text-yellow font-oswald font-bold text-xl md:text-2xl mb-1">
-              {row[0].Name}
-            </h3>
-            <h4 className="text-yellow tracking-wide font-oswald text-xl md:text-2xl mb-3 opacity-90">
-              ({row[0].Designation})
-            </h4>
-            <p className="text-white text-xs md:text-sm leading-relaxed opacity-90">
-              {row[0].Description}
-            </p>
+                  {/* Right Member */}
+                  {row[1] ? (
+                    <div className="flex-1 text-left pl-10 md:pl-8">
+                      <h3 className="text-yellow font-oswald font-bold text-xl md:text-2xl mb-1">
+                        {row[1].Name}
+                      </h3>
+                      <h4 className="text-yellow tracking-wide font-oswald text-xl md:text-2xl mb-3 opacity-90">
+                        ({row[1].Designation})
+                      </h4>
+                      <p className="text-white text-xs md:text-sm leading-relaxed opacity-90">
+                        {row[1].Description}
+                      </p>
+                    </div>
+                  ) : (
+                    <div className="flex-1"></div>
+                  )}
+                </div>
+              ))
+            ) : (
+              <div className="text-center text-white py-12">
+                No additional team members found.
+              </div>
+            )}
           </div>
-        )}
-
-        {/* Right Member */}
-        {row[1] ? (
-          <div className="flex-1 text-left pl-10 md:pl-8">
-            <h3 className="text-yellow font-oswald font-bold text-xl md:text-2xl mb-1">
-              {row[1].Name}
-            </h3>
-            <h4 className="text-yellow tracking-wide font-oswald text-xl md:text-2xl mb-3 opacity-90">
-              ({row[1].Designation})
-            </h4>
-            <p className="text-white text-xs md:text-sm leading-relaxed opacity-90">
-              {row[1].Description}
-            </p>
-          </div>
-        ) : (
-          <div className="flex-1"></div>
-        )}
-      </div>
-    ))
-  ) : (
-    <div className="text-center text-white py-12">No additional team members found.</div>
-  )}
-</div>
-
         </div>
       </div>
     </div>
