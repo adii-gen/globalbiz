@@ -110,7 +110,7 @@ export default function OffshorePage() {
                 <div className="space-y-6">
                     {/* Description Section */}
                     {details?.description && (
-                        <section className="bg-gray-50 px-4 md:pl-16 lg:pl-32 xl:pl-48 pt-10 pb-4">
+                        <section className="bg-gray-50 px-4 md:pl-8 lg:pl-12 xl:pl-16 pt-8 pb-4">
                             <div className="flex flex-col lg:flex-row gap-12 items-center">
                                 {/* TEXT CONTENT */}
                                 <div className="flex-1 w-full">
@@ -133,8 +133,8 @@ export default function OffshorePage() {
                                             src="/images/dubai-mainland-about.jpg"
                                             alt="Dubai Offshore Business Setup"
                                             className="w-full h-auto object-contain"
-                                            width={200}
-                                            height={200}
+                                            width={300}
+                                            height={400}
                                         />
                                     </div>
                                 </div>
@@ -152,6 +152,8 @@ export default function OffshorePage() {
                                         src="/images/talk-to-img.png"
                                         alt="Business Consultation"
                                         className="w-full h-auto"
+                                        width={400}
+                                        height={400}
                                     />
                                 </div>
                             </div>
@@ -287,7 +289,7 @@ export default function OffshorePage() {
 
 
                     {details?.perks && details.perks.length > 0 && (
-                        <section className="bg-gray-50 px-8 md:px-16 lg:px-32 xl:px-48 py-16">
+                        <section className="bg-gray-50 px-4 md:px-8 lg:px-16 xl:px-24 py-16">
                             {/* Title */}
                             <div className="text-center mb-12">
                                 <h2 className="text-3xl md:text-4xl font-bold text-blue mb-2 font-oswald tracking-wide uppercase ">
@@ -312,6 +314,8 @@ export default function OffshorePage() {
                                                     src={`/images/license-icon-${index + 1}.png`}
                                                     alt='image'
                                                     className="w-40 h-20 object-contain"
+                                                    width={40}
+                                                    height={20}
                                                 />
                                             </div>
 
@@ -340,6 +344,8 @@ export default function OffshorePage() {
                         src="/global/offshore.png"
                         alt="Dubai Offshore Business Setup"
                         className="w-full h-auto object-contain drop-shadow-2xl"
+                        width={500}
+                        height={600}
                       />
                     </div>
                   </div>
@@ -373,7 +379,7 @@ export default function OffshorePage() {
           )}
 
                     {/* Why Choose Section */}
-                    <section className="bg-white px-8 md:px-16 lg:px-32 xl:px-48 py-8">
+                    <section className="bg-white px-8 md:px-12 lg:px-12 xl:px-12 py-12">
                         <div className="flex flex-col lg:flex-row gap-12 items-center">
                             {/* Image */}
                             <div className="flex-1 flex justify-center lg:justify-start">
@@ -382,6 +388,8 @@ export default function OffshorePage() {
                                         src="/images/sin-why-choose.png"
                                         alt="Why Choose Global Biz Setup"
                                         className="w-full h-auto object-contain"
+                                        width={500}
+                                        height={400}
                                     />
                                 </div>
                             </div>

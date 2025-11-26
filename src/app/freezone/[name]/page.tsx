@@ -7,10 +7,10 @@ import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import { ProcessCards } from "@/components/freezone/ProcessCards";
 import Image from "next/image";
-import { ArrowRight} from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 interface LicenseType {
-  image:string;
+  image: string;
   heading: string;
   description: string;
 }
@@ -53,14 +53,14 @@ export default function FreezonePage() {
   const [subfreezonelist, setSubfreezoneList] = useState<
     Array<{ name: string; slug: string }>
   >([]);
- 
-const fallbackImages = [
-  "/licenses/GeneralLicense.png",
-  "/licenses/IndustrialLicense.png",
-  "/licenses/PremiumConsultancy.png",
-  "/licenses/ServiceLicense.png",
-  "/licenses/TradingLicense.png",
-];
+
+  const fallbackImages = [
+    "/licenses/GeneralLicense.png",
+    "/licenses/IndustrialLicense.png",
+    "/licenses/PremiumConsultancy.png",
+    "/licenses/ServiceLicense.png",
+    "/licenses/TradingLicense.png",
+  ];
   useEffect(() => {
     const fetchFreezoneData = async () => {
       try {
@@ -162,25 +162,22 @@ const fallbackImages = [
                   </div>
                 </div>
 
-      {/* IMAGE — HIDE ON MOBILE */}
-      <div className="hidden md:flex flex-1 justify-center lg:justify-end">
-        <div className="relative w-full max-w-2xl">
-         <Image
-  src="/images/dubai-mainland-about.jpg"
-  alt="City Skyline"
-  width={958}
-  height={538}
-  sizes="100vw"
-  className="w-full h-auto object-cover"
-/>
-
-        </div>
-      </div>
-
-    </div>
-  </section>
-)}
-
+                {/* IMAGE — HIDE ON MOBILE */}
+                <div className="hidden md:flex flex-1 justify-center lg:justify-end">
+                  <div className="relative w-full max-w-2xl">
+                    <Image
+                      src="/images/dubai-mainland-about.jpg"
+                      alt="City Skyline"
+                      width={958}
+                      height={538}
+                      sizes="100vw"
+                      className="w-full h-auto object-cover"
+                    />
+                  </div>
+                </div>
+              </div>
+            </section>
+          )}
 
           {/* contact section */}
 
@@ -307,120 +304,129 @@ const fallbackImages = [
           )}
 
           {/* License Types Section */}
-{details?.licenseTypes && details.licenseTypes.length > 0 && (
-  <section className="bg-gray-50 px-8 md:px-16 lg:px-32 xl:px-48 py-16">
-    {/* Title */}
-    <div className="text-center mb-12">
-      <h2 className="text-3xl md:text-4xl font-bold text-blue mb-2 font-oswald tracking-wide">
-        TYPES OF LICENCES FOR BUSINESS SETUP
-      </h2>
-      <h3 className="text-3xl md:text-4xl font-bold text-yellow font-oswald tracking-wide">
-        IN {freezoneData?.name?.toUpperCase()}
-      </h3>
-    </div>
-
-    {/* License Cards Grid */}
-    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-      {details.licenseTypes.map((license: LicenseType, index: number) => {
-        const fallbackImages = [
-          "/licenses/GeneralLicense.png",
-          "/licenses/IndustrialLicense.png",
-          "/licenses/PremiumConsultancy.png",
-          "/licenses/ServiceLicense.png",
-          "/licenses/TradingLicense.png",
-        ];
-
-        // Select fallback by index
-        const fallback = fallbackImages[index % fallbackImages.length];
-        
-        // Determine the image source with better validation
-        let imageSrc = fallback; // Default to fallback
-        
-        if (license.image && typeof license.image === 'string' && license.image.trim() !== '') {
-          // If it's already a full path starting with /
-          if (license.image.startsWith('/')) {
-            imageSrc = license.image;
-          } 
-          // If it's just a filename
-          else {
-            imageSrc = `/licenses/${license.image}`;
-          }
-        }
-
-        // Debug log (remove after fixing)
-        
-
-        return (
-          <div
-            key={index}
-            className="bg-white rounded-lg p-8 text-center hover:shadow-xl transition-shadow duration-300"
-          >
-            {/* Icon */}
-            <div className="flex justify-center mb-6 mx-auto">
-              <div className="relative h-20 w-20">
-                <Image
-                  src={imageSrc}
-                  alt={license.heading || 'License icon'}
-                  fill
-                  sizes="80px"
-                  className="object-contain"
-                  unoptimized={true}
-                  onError={(e) => {
-                    // console.error(`Failed to load image for ${license.heading}:`, imageSrc);
-                    // Try fallback
-                    const img = e.currentTarget as HTMLImageElement;
-                    if (img.src !== fallback) {
-                      img.src = fallback;
-                    }
-                  }}
-                />
+          {details?.licenseTypes && details.licenseTypes.length > 0 && (
+            <section className="bg-gray-50 px-8 md:px-16 lg:px-32 xl:px-48 py-16">
+              {/* Title */}
+              <div className="text-center mb-12">
+                <h2 className="text-3xl md:text-4xl font-bold text-blue mb-2 font-oswald tracking-wide">
+                  TYPES OF LICENCES FOR BUSINESS SETUP
+                </h2>
+                <h3 className="text-3xl md:text-4xl font-bold text-yellow font-oswald tracking-wide">
+                  IN {freezoneData?.name?.toUpperCase()}
+                </h3>
               </div>
-            </div>
 
-            {/* Title */}
-            <h3 className="text-xl font-semibold mb-4">{license.heading}</h3>
+              {/* License Cards Grid */}
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                {details.licenseTypes.map(
+                  (license: LicenseType, index: number) => {
+                    const fallbackImages = [
+                      "/licenses/GeneralLicense.png",
+                      "/licenses/IndustrialLicense.png",
+                      "/licenses/PremiumConsultancy.png",
+                      "/licenses/ServiceLicense.png",
+                      "/licenses/TradingLicense.png",
+                    ];
 
-            {/* Description */}
-            <p className="text-gray-600">{license.description}</p>
-          </div>
-        );
-      })}
-    </div>
-  </section>
-)}
- {details?.subFreezones && details.subFreezones.length > 0 && (
-          <section className="bg-gray-50 px-8 md:px-16 lg:px-32 xl:px-48 py-16">
-            {/* Title */}
-            <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold text-blue font-oswald tracking-wide">
-                LIST OF FREEZONE
-              </h2>
-            </div>
+                    // Select fallback by index
+                    const fallback =
+                      fallbackImages[index % fallbackImages.length];
 
-            {/* Freezone Grid */}
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-6xl mx-auto">
-              {subfreezonelist.map((freezone, index) => (
-                <Link
-                  key={index}
-                  href={`/freezone/${freezoneName}/${freezone.slug}`}
-                  className="bg-blue  text-yellow px-6 py-4 flex items-center gap-3 transition-all duration-300 hover:shadow-lg group"
-                >
-                  {/* <Image
+                    // Determine the image source with better validation
+                    let imageSrc = fallback; // Default to fallback
+
+                    if (
+                      license.image &&
+                      typeof license.image === "string" &&
+                      license.image.trim() !== ""
+                    ) {
+                      // If it's already a full path starting with /
+                      if (license.image.startsWith("/")) {
+                        imageSrc = license.image;
+                      }
+                      // If it's just a filename
+                      else {
+                        imageSrc = `/licenses/${license.image}`;
+                      }
+                    }
+
+                    // Debug log (remove after fixing)
+
+                    return (
+                      <div
+                        key={index}
+                        className="bg-white rounded-lg p-8 text-center hover:shadow-xl transition-shadow duration-300"
+                      >
+                        {/* Icon */}
+                        <div className="flex justify-center mb-6 mx-auto">
+                          <div className="relative h-20 w-20">
+                            <Image
+                              src={imageSrc}
+                              alt={license.heading || "License icon"}
+                              fill
+                              sizes="80px"
+                              className="object-contain"
+                              unoptimized={true}
+                              onError={(e) => {
+                                // console.error(`Failed to load image for ${license.heading}:`, imageSrc);
+                                // Try fallback
+                                const img = e.currentTarget as HTMLImageElement;
+                                if (img.src !== fallback) {
+                                  img.src = fallback;
+                                }
+                              }}
+                            />
+                          </div>
+                        </div>
+
+                        {/* Title */}
+                        <h3 className="text-xl font-semibold mb-4">
+                          {license.heading}
+                        </h3>
+
+                        {/* Description */}
+                        <p className="text-gray-600">{license.description}</p>
+                      </div>
+                    );
+                  }
+                )}
+              </div>
+            </section>
+          )}
+          {details?.subFreezones && details.subFreezones.length > 0 && (
+            <section className="bg-gray-50 px-8 md:px-16 lg:px-32 xl:px-48 py-16">
+              {/* Title */}
+              <div className="text-center mb-12">
+                <h2 className="text-3xl md:text-4xl font-bold text-blue font-oswald tracking-wide">
+                  LIST OF FREEZONE
+                </h2>
+              </div>
+
+              {/* Freezone Grid */}
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-6xl mx-auto">
+                {subfreezonelist.map((freezone, index) => (
+                  <Link
+                    key={index}
+                    href={`/freezone/${freezoneName}/${freezone.slug}`}
+                    className="bg-blue  text-yellow px-6 py-4 flex items-center gap-3 transition-all duration-300 hover:shadow-lg group"
+                  >
+                    {/* <Image
                     src="/images/thumb-point.webp"
                     className="w-5 h-5"
                     alt={"icom"}
                     width={5}
                     height={5}
                   /> */}
-                  <ArrowRight className="w-6 h-6 text-yellow-500" />
+                    <ArrowRight className="w-6 h-6 text-yellow-500" />
 
-                  <span className="font-raleway font-medium text-base">
-                    {freezone.name}
-                  </span>
-                </Link>
-              ))}
-            </div>
-          </section>)}
+                    <span className="font-raleway font-medium text-base">
+                      {freezone.name}
+                    </span>
+                  </Link>
+                ))}
+              </div>
+            </section>
+          )}
 
           {/* Business Entities Section */}
           {details?.businessEntities && details.businessEntities.length > 0 && (
@@ -482,7 +488,7 @@ const fallbackImages = [
           <ProcessCards />
 
           {/* Additional Info Section */}
-          <section className="bg-white px-8 md:px-16 lg:px-32 xl:px-48 py-16">
+          <section className="bg-white px-8 md:px-12 lg:px-12 xl:px-12 py-12">
             <div className="flex flex-col lg:flex-row gap-12 items-center">
               {/* Image */}
               <div className="flex-1 flex justify-center lg:justify-start">
@@ -491,8 +497,8 @@ const fallbackImages = [
                     src="/images/sin-why-choose.png"
                     alt="Why Choose Global Biz Setup"
                     className="w-full h-auto object-contain"
-                    width={800}
-                    height={600}
+                    width={500}
+                    height={400}
                   />
                 </div>
               </div>
