@@ -1,4 +1,6 @@
 // /components/offshore/ProcessCards.tsx
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import { useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
@@ -80,12 +82,12 @@ export const OffshoreProcessCards = ({ processes, offshoreName }: ProcessCardsPr
 
   return (
     <>
-      <div className="text-center mb-12">
+      <div className="text-center mb-12 pt-8">
         <h2 className="text-3xl md:text-4xl font-bold text-blue mb-2 font-oswald tracking-wide">
-          PROCESS TO START AN
+          PROCESS TO START A 
         </h2>
         <h3 className="text-3xl md:text-4xl font-bold text-yellow font-oswald tracking-wide">
-          OFFSHORE BUSINESS IN {offshoreName ? offshoreName.toUpperCase() : "THE OFFSHORE"}
+          BUSINESS ON THE OFFSHORE
         </h3>
       </div>
 

@@ -1,4 +1,6 @@
 // /app/offshore/[name]/page.tsx
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import React, { useEffect, useState } from "react";
@@ -10,6 +12,11 @@ interface Perk {
   image: string;
   description: string;
 }
+interface BusinessProcess {
+  image: string;
+  heading: string;
+  description: string;
+}
 
 interface OffshoreDetails {
   id: string;
@@ -17,6 +24,8 @@ interface OffshoreDetails {
   description: string;
   understanding: string[];
   prerequisites: string[];
+    benefits: string[];
+  buesinessProcess: BusinessProcess[]; 
   perks: Perk[];
   createdAt: string;
   updatedAt: string;
@@ -290,6 +299,53 @@ export default function OffshorePage() {
             </section>
           )}
 
+          {/* Benefits Section */}
+{details?.benefits && details.benefits.length > 0 && (
+  <section
+    className="relative bg-cover bg-center bg-no-repeat px-8 md:px-16 lg:px-32 xl:px-48 py-16"
+    style={{ backgroundImage: "url('/images/business-type-bg.jpg')" }}
+  >
+    <div className="absolute inset-0 opacity-90"></div>
+
+    <div className="relative z-10 flex flex-col lg:flex-row gap-12 items-center">
+      {/* Benefits List */}
+      <div className="flex-1">
+        <h2 className="text-3xl md:text-4xl font-bold text-white mb-2 font-oswald tracking-wide leading-tight uppercase">
+          ADVANTAGES OF SETTING UP A
+        </h2>
+        <h3 className="text-3xl md:text-4xl font-bold text-yellow mb-10 font-oswald tracking-wide">
+          COMPANY IN {offshoreData?.name?.toUpperCase()}
+        </h3>
+
+        <div className="space-y-2">
+          {details.benefits.map((benefit: string, index: number) => (
+            <div key={index} className="flex items-start gap-4">
+              <div className="flex-shrink-0 w-8 h-8 bg-yellow rounded-full flex items-center justify-center">
+                <svg
+                  className="w-5 h-5 text-[#1e3a5f]"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="3"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M5 13l4 4L19 7"
+                  />
+                </svg>
+              </div>
+              <span className="text-white text-xm lg:text-xm font-raleway leading-relaxed">
+                {benefit}
+              </span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+)}
+
           {details?.perks && details.perks.length > 0 && (
             <section className="bg-gray-50 px-4 md:px-8 lg:px-16 xl:px-24 py-16">
               {/* Title */}
@@ -379,9 +435,10 @@ export default function OffshorePage() {
           )}
 
              {/* Process Cards Section - Only show if data is present */}
-{offshoreData && details?.processes && details.processes.length > 0 && (
-  <OffshoreProcessCards
-    processes={details.processes}
+{/* Process Cards Section - Only show if data is present */}
+{offshoreData && details?.buesinessProcess && details.buesinessProcess.length > 0 && (
+  <OffshoreProcessCards 
+    processes={details.buesinessProcess}
     offshoreName={offshoreData.name}
   />
 )}
