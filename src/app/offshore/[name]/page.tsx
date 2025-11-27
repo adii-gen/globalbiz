@@ -346,47 +346,79 @@ export default function OffshorePage() {
   </section>
 )}
 
-          {details?.perks && details.perks.length > 0 && (
-            <section className="bg-gray-50 px-4 md:px-8 lg:px-16 xl:px-24 py-16">
-              {/* Title */}
-              <div className="text-center mb-12">
-                <h2 className="text-3xl md:text-4xl font-bold text-blue mb-2 font-oswald tracking-wide uppercase ">
-                  Perks of opting for
-                </h2>
-                <h3 className="text-3xl md:text-4xl font-bold text-yellow font-oswald tracking-wide">
-                  {offshoreData?.name?.toUpperCase()} BUSINESS SETUP
-                </h3>
+        {details?.perks && details.perks.length > 0 && (
+  <section className="bg-gray-50 px-4 md:px-8 lg:px-16 xl:px-24 py-16">
+    {/* Title */}
+    <div className="text-center mb-12">
+      <h2 className="text-3xl md:text-4xl font-bold text-blue mb-2 font-oswald tracking-wide uppercase">
+        Perks of opting for
+      </h2>
+      <h3 className="text-3xl md:text-4xl font-bold text-yellow font-oswald tracking-wide">
+        {offshoreData?.name?.toUpperCase()} BUSINESS SETUP
+      </h3>
+    </div>
+
+    {/* Perk Cards */}
+    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+      {details.perks.map((perk: Perk, index: number) => {
+       const fallbackImages = [
+    "/licenses/GeneralLicense.png",
+    "/licenses/IndustrialLicense.png",
+    "/licenses/PremiumConsultancy.png",
+    "/licenses/ServiceLicense.png",
+    "/licenses/TradingLicense.png",
+  ];
+
+        const fallback = fallbackImages[index % fallbackImages.length];
+
+        // Default source
+        let imageSrc = fallback;
+
+        // If perk.image exists
+        if (perk.image && typeof perk.image === "string" && perk.image.trim() !== "") {
+          if (perk.image.startsWith("/")) {
+            imageSrc = perk.image;
+          } else {
+            imageSrc = `/images/${perk.image}`;
+          }
+        }
+
+        return (
+          <div
+            key={index}
+            className="bg-white rounded-lg p-6 text-center hover:shadow-xl transition-shadow duration-300"
+          >
+            {/* Icon */}
+            <div className="flex justify-center mb-6">
+              <div className="relative h-16 w-32">
+                <Image
+                  src={imageSrc}
+                  alt={`perk-${index + 1}`}
+                  fill
+                  sizes="100px"
+                  className="object-contain"
+                  unoptimized={true}
+                  onError={(e) => {
+                    const img = e.currentTarget as HTMLImageElement;
+                    if (img.src !== fallback) {
+                      img.src = fallback;
+                    }
+                  }}
+                />
               </div>
+            </div>
 
-              {/* License Cards Grid */}
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
-                {details.perks.map((perk: Perk, index: number) => (
-                  <div
-                    key={index}
-                    className="bg-white rounded-lg p-6 text-center hover:shadow-xl transition-shadow duration-300"
-                  >
-                    {/* Icon */}
-                    <div className="flex justify-center mb-6">
-                      <Image
-                        src={`/images/license-icon-${index + 1}.png`}
-                        alt="image"
-                        className="w-40 h-20 object-contain"
-                        width={40}
-                        height={20}
-                      />
-                    </div>
+            {/* Description */}
+            <p className="text-gray-600 text-base leading-relaxed font-raleway">
+              {perk.description}
+            </p>
+          </div>
+        );
+      })}
+    </div>
+  </section>
+)}
 
-                    {/* Heading */}
-
-                    {/* Description */}
-                    <p className="text-gray-600 text-base leading-relaxed font-raleway">
-                      {perk.description}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </section>
-          )}
           {/* Prerequisites Section */}
           {details?.prerequisites && details.prerequisites.length > 0 && (
             <section className="bg-yellow px-8 md:px-16 lg:px-12 xl:px-12 py-12">

@@ -155,9 +155,9 @@ export default function MinimalPricingServices() {
 
     const colorMap = {
       'Startups': {
-        color: "from-blue-500 to-blue-600",
-        bgColor: "bg-blue-50",
-        borderColor: "border-blue-200"
+        color: "from-red-500 to-red-600",
+        bgColor: "bg-red-50",
+        borderColor: "border-red-200"
       },
       'SME': {
         color: "from-emerald-500 to-emerald-600",

@@ -280,52 +280,90 @@ export default function MainlandPage() {
                     )}
 
           {/* License Types Section */}
-          {details?.licenseTypes && details.licenseTypes.length > 0 && (
-            <section className="bg-gray-50 px-4 md:px-8 lg:px-16 xl:px-24 py-16">
-              {/* Title */}
-              <div className="text-center mb-12">
-                <h2 className="text-3xl md:text-4xl font-bold text-blue mb-2 font-oswald tracking-wide">
-                  TYPES OF LICENCES FOR BUSINESS SETUP
-                </h2>
-                <h3 className="text-3xl md:text-4xl font-bold text-yellow font-oswald tracking-wide">
-                  IN {mainlandData?.name?.toUpperCase()}
-                </h3>
+       {details?.licenseTypes && details.licenseTypes.length > 0 && (
+  <section className="bg-gray-50 px-4 md:px-8 lg:px-16 xl:px-24 py-16">
+    {/* Title */}
+    <div className="text-center mb-12">
+      <h2 className="text-3xl md:text-4xl font-bold text-blue mb-2 font-oswald tracking-wide">
+        TYPES OF LICENCES FOR BUSINESS SETUP
+      </h2>
+      <h3 className="text-3xl md:text-4xl font-bold text-yellow font-oswald tracking-wide">
+        IN {mainlandData?.name?.toUpperCase()}
+      </h3>
+    </div>
+
+    {/* License Cards Grid */}
+    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-8xl mx-auto">
+      {details.licenseTypes.map((license: LicenseType, index: number) => {
+        
+        // SAME fallback array like your original code
+        const fallbackImages = [
+          "/licenses/GeneralLicense.png",
+          "/licenses/IndustrialLicense.png",
+          "/licenses/PremiumConsultancy.png",
+          "/licenses/ServiceLicense.png",
+          "/licenses/TradingLicense.png",
+        ];
+
+        // Select fallback for current index
+        const fallback = fallbackImages[index % fallbackImages.length];
+
+        // Determine the final image source
+        let imageSrc = fallback;
+
+        if (
+          license.image &&
+          typeof license.image === "string" &&
+          license.image.trim() !== ""
+        ) {
+          if (license.image.startsWith("/")) {
+            imageSrc = license.image;
+          } else {
+            imageSrc = `/licenses/${license.image}`;
+          }
+        }
+
+        return (
+          <div
+            key={index}
+            className="bg-white rounded-lg p-8 text-center hover:shadow-xl transition-shadow duration-300"
+          >
+            {/* Icon */}
+            <div className="flex justify-center mb-6">
+              <div className="relative w-20 h-20 mx-auto">
+                <Image
+                  src={imageSrc}
+                  alt={license.heading || "License icon"}
+                  fill
+                  className="object-contain"
+                  unoptimized={true}
+                  sizes="80px"
+                  onError={(e) => {
+                    const img = e.currentTarget as HTMLImageElement;
+                    if (img.src !== fallback) {
+                      img.src = fallback;
+                    }
+                  }}
+                />
               </div>
+            </div>
 
-              {/* License Cards Grid */}
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-8xl mx-auto">
-                {details.licenseTypes.map(
-                  (license: LicenseType, index: number) => (
-                    <div
-                      key={index}
-                      className="bg-white rounded-lg p-8 text-center hover:shadow-xl transition-shadow duration-300"
-                    >
-                      {/* Icon */}
-                      <div className="flex justify-center mb-6">
-                        <Image
-                          src={`/images/license-icon-${index + 1}.png`}
-                          alt={license.heading}
-                          className="w-20 h-20 object-contain"
-                          width={200}
-                          height={200}
-                        />
-                      </div>
+            {/* Heading */}
+            <h3 className="text-xl font-semibold mb-4 font-oswald tracking-wide">
+              {license.heading}
+            </h3>
 
-                      {/* Heading */}
-                      <h3 className="text-xl font-semibold mb-4 font-oswald tracking-wide">
-                        {license.heading}
-                      </h3>
+            {/* Description */}
+            <p className="text-gray-600 text-base leading-relaxed font-raleway">
+              {license.description}
+            </p>
+          </div>
+        );
+      })}
+    </div>
+  </section>
+)}
 
-                      {/* Description */}
-                      <p className="text-gray-600 text-base leading-relaxed font-raleway">
-                        {license.description}
-                      </p>
-                    </div>
-                  )
-                )}
-              </div>
-            </section>
-          )}
 
           {/* Business Process Section */}
         
