@@ -166,12 +166,14 @@
 // };
 
 
-// /components/freezone/ProcessCards.tsx
+
+
+
+// /components/mainland/ProcessCards.tsx
 "use client";
 import { useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
-
 
 interface BusinessProcess {
   image: string;
@@ -251,7 +253,7 @@ export const ProcessCards = ({ processes, mainlandName }: ProcessCardsProps) => 
 
   return (
     <>
-      <div className="text-center mb-12">
+      <div className="text-center mb-12 pt-8">
         <h2 className="text-3xl md:text-4xl font-bold text-blue mb-2 font-oswald tracking-wide">
           PROCESS TO START A
         </h2>
@@ -284,56 +286,68 @@ export const ProcessCards = ({ processes, mainlandName }: ProcessCardsProps) => 
             </button>
           </div>
 
-            {/* Cards Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2">
-              {visibleCards.map((process, displayIndex) => (
+          {/* Cards Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2">
+            {visibleCards.map((process, displayIndex) => (
+              <div
+                key={`${process.heading}-${displayIndex}-${process.originalIndex}`}
+                className={`relative h-80 bg-transparent overflow-hidden cursor-pointer transition-all duration-300 border-r border-white/50 ${
+                  displayIndex > 0 && isAnimating
+                    ? "transform transition-transform duration-500 ease-in-out"
+                    : ""
+                }`}
+                onMouseEnter={() => setHoveredCard(displayIndex)}
+                onMouseLeave={() => setHoveredCard(null)}
+                style={{
+                  transform:
+                    hoveredCard === displayIndex
+                      ? "translateY(-10px)"
+                      : "translateY(0)",
+                  boxShadow:
+                    hoveredCard === displayIndex
+                      ? "0 20px 40px rgba(0,0,0,0.3)"
+                      : "0 4px 6px rgba(0,0,0,0.1)",
+                }}
+              >
+                {/* Default State */}
                 <div
-                  key={`${process.heading}-${displayIndex}-${process.originalIndex}`}
-                  className={`relative h-80 bg-transparent overflow-hidden cursor-pointer transition-all duration-300 border-r border-white/50 ${
-                    displayIndex > 0 && isAnimating
-                      ? "transform transition-transform duration-500 ease-in-out"
-                      : ""
+                  className={`absolute inset-0 flex flex-col items-center justify-center p-8 transition-opacity duration-300 ${
+                    hoveredCard === displayIndex ? "opacity-0" : "opacity-100"
                   }`}
-                  onMouseEnter={() => setHoveredCard(displayIndex)}
-                  onMouseLeave={() => setHoveredCard(null)}
-                  style={{
-                    transform:
-                      hoveredCard === displayIndex
-                        ? "translateY(-10px)"
-                        : "translateY(0)",
-                    boxShadow:
-                      hoveredCard === displayIndex
-                        ? "0 20px 40px rgba(0,0,0,0.3)"
-                        : "0 4px 6px rgba(0,0,0,0.1)",
-                  }}
                 >
-                  {/* Default State */}
-                  <div
-                    className={`absolute inset-0 flex flex-col items-center justify-center p-8 transition-opacity duration-300 ${
-                      hoveredCard === displayIndex ? "opacity-0" : "opacity-100"
-                    }`}
-                  >
-                    <Image
-                      src={getSafeImageUrl(process.image, `/images/process-${displayIndex + 1}.png`)}
-                      alt={process.heading}
-                      className="w-20 h-20 mb-6 object-contain"
-                      width={80}
-                      height={80}
-                      onError={(e) => {
-                        e.currentTarget.src = "/images/global.png";
-                      }}
-                    />
-                    <span className="text-yellow text-5xl font-bold font-oswald mb-4">
-                      {process.originalIndex === -1 ? "" : String(process.originalIndex + 1).padStart(2, "0")}
-                    </span>
-                    <h4 className="text-white text-xl font-oswald text-center leading-tight">
-                      {process.heading}
-                    </h4>
-                  </div>
+                  <Image
+                    src={getSafeImageUrl(process.image, `/images/process-${displayIndex + 1}.png`)}
+                    alt={process.heading}
+                    className="w-20 h-20 mb-6 object-contain"
+                    width={80}
+                    height={80}
+                    onError={(e) => {
+                      e.currentTarget.src = "/images/global.png";
+                    }}
+                  />
+                  <span className="text-yellow text-5xl font-bold font-oswald mb-4">
+                    {process.originalIndex === -1 ? "" : String(process.originalIndex + 1).padStart(2, "0")}
+                  </span>
+                  <h4 className="text-white text-xl font-oswald text-center leading-tight">
+                    {process.heading}
+                  </h4>
+                </div>
 
-                <div className="p-4 text-white">
-                  <h4 className="text-xl font-bold mb-2">{process.heading}</h4>
-                  <p className="text-sm opacity-80">{process.description}</p>
+                {/* Hover State */}
+                <div
+                  className={`absolute inset-0 bg-gradient-to-t from-transparent to-blue p-8 flex flex-col justify-center text-white transition-opacity duration-300 ${
+                    hoveredCard === displayIndex ? "opacity-100" : "opacity-0"
+                  }`}
+                >
+                  <span className="text-yellow text-4xl font-semibold font-oswald mb-3">
+                    {process.originalIndex === -1 ? "" : String(process.originalIndex + 1).padStart(2, "0")}
+                  </span>
+                  <h4 className="text-xl font-bold font-oswald mb-3">
+                    {process.heading}
+                  </h4>
+                  <p className="text-sm font-raleway leading-relaxed">
+                    {process.description}
+                  </p>
                 </div>
               </div>
             ))}
