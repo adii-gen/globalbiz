@@ -205,6 +205,7 @@
 'use client';
 
 import { Mail, MapPin, Phone, Facebook, Instagram, Linkedin } from "lucide-react";
+import Link from "next/link";
 import React, { useState, useEffect } from "react";
 
 interface Office {
@@ -364,7 +365,7 @@ const FooterSection: React.FC = () => {
         {/* Contact Us Button */}
         <div>
           <button className="px-4 bg-blue font-raleway text-white py-3 font-medium hover:bg-gray-800 transition-colors">
-            Contact Us
+            <Link href="/contactus">Contact Us</Link>
           </button>
         </div>
 
