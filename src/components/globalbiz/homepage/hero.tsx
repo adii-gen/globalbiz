@@ -89,7 +89,7 @@ const HeroSec = () => {
                 </p>
 
                 <div className="flex flex-wrap gap-4">
-                    <Link href={"/book-consultation"}>
+                    <Link href={"/contactus"}>
                         <Button
                             size="lg"
                             className="bg-yellow text-blue font-semibold px-8"

@@ -262,9 +262,9 @@ const FooterSection: React.FC = () => {
 //   ];
 
   const socialLinks = [
-    { icon: Facebook, url: "#", name: "Facebook" },
-    { icon: Instagram, url: "#", name: "Instagram" },
-    { icon: Linkedin, url: "#", name: "LinkedIn" }
+    { icon: Facebook, url: "https://www.facebook.com/globalbizsetup", name: "Facebook" },
+    { icon: Instagram, url: "https://www.instagram.com/globalbizsetup/", name: "Instagram" },
+    { icon: Linkedin, url: "https://www.linkedin.com/company/global-biz-setup/", name: "LinkedIn" }
   ];
 
 

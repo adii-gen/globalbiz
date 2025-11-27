@@ -110,7 +110,7 @@ const AboutUsSec = () => {
         </p>
 
         <div className="flex flex-wrap gap-4">
-          <Link href="/book-consultation">
+          <Link href="/contactus">
             <Button
               size="lg"
               className="bg-yellow text-dark-blue font-semibold px-8"
