@@ -290,7 +290,7 @@ const BlogCard = ({ blog, hoveredId, setHoveredId, formatDate }: {
   setHoveredId: (id: string | null) => void;
   formatDate: (date: string) => string;
 }) => {
-  const [imageSrc, setImageSrc] = useState(`/global/${blog.image}`);
+  const [imageSrc, setImageSrc] = useState(`/uploads/${blog.image}`);
 
   return (
     <div
@@ -301,14 +301,14 @@ const BlogCard = ({ blog, hoveredId, setHoveredId, formatDate }: {
     >
       {/* Image Container */}
       <div className="relative h-48 overflow-hidden">
-        <Image
+        <img
           src={imageSrc}
           alt={blog.title}
-          fill
-            height={192}
-          width={192}
+          // fill
+          //   height={192}
+          // width={192}
           className="object-cover transition-transform duration-300 group-hover:scale-110"
-          onError={() => setImageSrc("https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=600&h=400&fit=crop")}
+          onError={() => setImageSrc("/images/blogs.png")}
           
         />
 

@@ -472,19 +472,21 @@ export default function BlogDetailPage() {
       </div>
 
       {/* Main Content */}
-      <div className="max-w-7xl mx-auto px-4 py-8">
+      <div className="max-w-7xl mx-auto px-8 py-8">
         <div className="flex flex-col lg:flex-row gap-8">
           {/* Blog Content - 70% */}
           <div className="lg:w-9/12">
             {/* Blog Image */}
             <div className="relative h-80 mb-6 rounded-xl overflow-hidden">
-              <Image
+              <img
                 src={`/uploads/${currentBlog.image}`}
                 alt={currentBlog.title}
                 className="w-full h-full object-cover"
                 onError={(e) => {
-                  e.currentTarget.src = 'https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=800&h=500&fit=crop';
+                  e.currentTarget.src = '/blogs.png';
                 }}
+                height={500}
+                width={800}
               />
             </div>
 
@@ -520,7 +522,7 @@ export default function BlogDetailPage() {
             )}
 
             {/* Blog Content */}
-            <article className="prose prose-lg max-w-none">
+            <article className="prose  font-raleway prose-lg max-w-none">
               <div 
                 dangerouslySetInnerHTML={{ __html: currentBlog.description }}
                 className="text-gray-700 leading-relaxed"
@@ -573,8 +575,11 @@ export default function BlogDetailPage() {
                             alt={blog.title}
                             className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                             onError={(e) => {
-                              e.currentTarget.src = 'https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=200&h=200&fit=crop';
+                              e.currentTarget.src = '/images/blogs.png';
+                            
                             }}
+                            height={20}
+                            width={20}
                           />
                         </div>
                         
