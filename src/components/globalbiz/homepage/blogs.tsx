@@ -190,7 +190,6 @@
 'use client'
 import React, { useState, useRef, useEffect } from 'react';
 import { CalendarSearch, ChevronLeft, ChevronRight, Eye } from 'lucide-react';
-import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
 interface Blog {
