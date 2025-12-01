@@ -250,7 +250,8 @@
 //       >
 //         {/* Logo & Phone */}
 //         <div className="flex items-center gap-3 sm:gap-4 md:gap-10">
-//           <Link href="/">
+//           <Link
+// prefetch={true} href="/">
 //             <Image
 //               src="/global/logo-navbar.png"
 //               alt="Global Biz"
@@ -689,7 +690,8 @@ export default function Navbar() {
       >
         {/* Logo & Phone */}
         <div className="flex items-center gap-3 sm:gap-4 md:gap-10">
-          <Link href="/">
+          <Link
+prefetch={true} href="/">
             <Image
               src="/global/logo-navbar.png"
               alt="Global Biz"
@@ -751,6 +753,7 @@ export default function Navbar() {
         <div className="hidden lg:flex items-center gap-6 text-sm">
           {navLinks.map((link) => (
             <Link
+prefetch={true}
               key={link.name}
               href={link.href}
               className={`hover:text-[#f6d674] transition-colors duration-300 ${
@@ -781,6 +784,7 @@ export default function Navbar() {
 
           {endLinks.map((link) => (
             <Link
+prefetch={true}
               key={link.name}
               href={link.href}
               className={`hover:text-[#f6d674] transition-colors duration-300 ${
@@ -824,6 +828,7 @@ export default function Navbar() {
           <div className="flex flex-col space-y-4">
             {navLinks.map((link) => (
               <Link
+prefetch={true}
                 key={link.name}
                 href={link.href}
                 className="py-2 hover:text-[#f6d674] transition-colors border-b border-gray-600 text-white"
@@ -853,6 +858,7 @@ export default function Navbar() {
 
             {endLinks.map((link) => (
               <Link
+prefetch={true}
                 key={link.name}
                 href={link.href}
                 className="py-2 hover:text-[#f6d674] transition-colors border-b border-gray-600 text-white"

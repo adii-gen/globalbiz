@@ -152,7 +152,10 @@ export const FreezonesTable = pgTable(
     name: text("name").notNull(),
     slug: text("slug").notNull(), // NEW
 
-  }
+ },
+  (table) => [
+    uniqueIndex("freezones_slug_key").on(table.slug),
+  ]
 );
 
 
@@ -237,7 +240,14 @@ export const MainlandTable = pgTable(
     name: text("name").notNull(),
     slug: text("slug").notNull(), // NEW
 
-  }
+  },
+   (table) => [
+    // 🔥 CRITICAL: Add unique index on slug for fast lookups
+    uniqueIndex("mainland_slug_key").on(table.slug),
+    
+    // Optional: Regular index if you don't want unique constraint
+    // index("mainland_slug_idx").on(table.slug),
+  ]
 );
 
 export const mainlandDetailsTable = pgTable(
@@ -315,7 +325,10 @@ export const offshoreTable = pgTable(
     name: text("name").notNull(),
     slug: text("slug").notNull(), // NEW
 
-  }
+   },
+  (table) => [
+    uniqueIndex("offshore_slug_key").on(table.slug),
+  ]
 );
 
 
