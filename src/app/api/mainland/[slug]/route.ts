@@ -208,7 +208,10 @@
 //   }
 // }
 
-
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { db } from "@/db";
 import { MainlandTable, mainlandDetailsTable } from "@/db/schema";
@@ -281,23 +284,23 @@ export async function GET(
       });
     }
 
-    // Database query
+    // Database query - SELECT fields flat, not nested
     const dbStart = performance.now();
     const result = await db
       .select({
+        // Mainland fields
         id: MainlandTable.id,
         name: MainlandTable.name,
         slug: MainlandTable.slug,
-        details: {
-          id: mainlandDetailsTable.id,
-          mainlandId: mainlandDetailsTable.mainlandId,
-          description: mainlandDetailsTable.description,
-          benefits: mainlandDetailsTable.benefits,
-          licenseTypes: mainlandDetailsTable.licenseTypes,
-          buesinessProcess: mainlandDetailsTable.buesinessProcess,
-          createdAt: mainlandDetailsTable.createdAt,
-          updatedAt: mainlandDetailsTable.updatedAt,
-        },
+        // Details fields - flattened
+        detailsId: mainlandDetailsTable.id,
+        detailsMainlandId: mainlandDetailsTable.mainlandId,
+        description: mainlandDetailsTable.description,
+        benefits: mainlandDetailsTable.benefits,
+        licenseTypes: mainlandDetailsTable.licenseTypes,
+        buesinessProcess: mainlandDetailsTable.buesinessProcess,
+        detailsCreatedAt: mainlandDetailsTable.createdAt,
+        detailsUpdatedAt: mainlandDetailsTable.updatedAt,
       })
       .from(MainlandTable)
       .leftJoin(
@@ -317,14 +320,24 @@ export async function GET(
       );
     }
 
-    // Process response
+    // Process response - restructure the data
     const processStart = performance.now();
     const mainland = result[0];
+    
     const responseData = {
       id: mainland.id,
       name: mainland.name,
       slug: mainland.slug,
-      details: mainland.details.id ? mainland.details : null,
+      details: mainland.detailsId ? {
+        id: mainland.detailsId,
+        mainlandId: mainland.detailsMainlandId,
+        description: mainland.description,
+        benefits: mainland.benefits,
+        licenseTypes: mainland.licenseTypes,
+        buesinessProcess: mainland.buesinessProcess,
+        createdAt: mainland.detailsCreatedAt,
+        updatedAt: mainland.detailsUpdatedAt,
+      } : null,
     };
     timings.processResponse = performance.now() - processStart;
 
@@ -345,7 +358,12 @@ export async function GET(
     console.error("Mainland Fetch Error:", error);
     timings.total = performance.now() - startTime;
     return NextResponse.json(
-      { success: false, message: "Internal server error", timings },
+      { 
+        success: false, 
+        message: "Internal server error",
+        error: error instanceof Error ? error.message : "Unknown error",
+        timings 
+      },
       { status: 500 }
     );
   }
