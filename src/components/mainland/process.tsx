@@ -174,9 +174,9 @@ import Image from "next/image";
 
 
 interface BusinessProcess {
-  image: string;
+  image?: string;
   heading: string;
-  description: string;
+  description?: string;
 }
 
 interface ProcessCardsProps {
@@ -237,11 +237,12 @@ export const ProcessCards = ({ processes, mainlandName }: ProcessCardsProps) => 
 
     for (let i = 0; i < 3; i++) {
       const index = (currentIndex + i) % processes.length;
-      cards.push({ 
-        ...processes[index], 
-        image: getSafeImageUrl(processes[index]?.image),
-        originalIndex: index 
-      });
+     cards.push({
+  image: getSafeImageUrl(processes[index]?.image),
+  heading: processes[index].heading,
+  description: processes[index].description ?? "",
+  originalIndex: index,
+});
     }
 
     return cards;

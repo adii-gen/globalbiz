@@ -10,6 +10,7 @@ import FooterSection from '@/components/globalbiz/homepage/footer';
 import { Toaster } from "@/components/ui/toaster";
 import { Inter, Oswald, Raleway } from "next/font/google";
 import "./globals.css";
+import FooterVisibility from '@/components/globalbiz/homepage/footerWrapper';
 
 const inter = Inter({
   subsets: ["latin"],
@@ -49,7 +50,9 @@ export default function RootLayout({
           <Toaster />
           
           {/* Show footer only if NOT admin */}
-          {!isAdmin && <FooterSection />}
+          {!isAdmin && <FooterVisibility>
+    <FooterSection />
+  </FooterVisibility>}
 
         </body>
       </html>

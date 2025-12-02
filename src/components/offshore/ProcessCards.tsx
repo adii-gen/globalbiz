@@ -194,9 +194,9 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
 
 interface BusinessProcess {
-  image: string;
+  image?: string;
   heading: string;
-  description: string;
+  description?: string;
 }
 
 interface ProcessCardsProps {
@@ -245,7 +245,7 @@ const fallbackImages = [
     const introCard = {
       image: "/images/process-1.png",
       heading: "Process to Start a Business >>",
-      description: "",
+  description: "", // 👈 FIX
       originalIndex: -1,
     };
 
@@ -254,10 +254,11 @@ const fallbackImages = [
     for (let i = 0; i < 3; i++) {
       const index = (currentIndex + i) % processes.length;
       cards.push({
-        ...processes[index],
-        image: getImageSrc(processes[index]?.image, index),
-        originalIndex: index,
-      });
+  image: getImageSrc(processes[index]?.image, index),
+  heading: processes[index].heading,
+  description: processes[index].description ?? "",
+  originalIndex: index,
+});
     }
 
     return cards;
