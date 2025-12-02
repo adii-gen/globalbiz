@@ -1,3 +1,551 @@
+// /* eslint-disable @typescript-eslint/no-unused-vars */
+// /* eslint-disable @typescript-eslint/no-explicit-any */
+// "use client";
+
+// import React, { useEffect, useState } from "react";
+// import Link from "next/link";
+// import { useParams, useRouter } from "next/navigation";
+// import { ProcessCards } from "@/components/freezone/ProcessCards";
+// import Image from "next/image";
+// import { ArrowRight } from "lucide-react";
+
+// interface LicenseType {
+//   image: string;
+//   heading: string;
+//   description: string;
+// }
+
+// interface BusinessEntity {
+//   title: string;
+//   description: string;
+// }
+
+// interface FreezoneDetails {
+//   description: string;
+//   benefits: string[];
+//   licenseTypes: LicenseType[];
+//   businessEntities: BusinessEntity[];
+//   createdAt?: string;
+//   updatedAt?: string;
+//   subFreezones?: Array<{ name: string }>;
+// }
+
+// interface FreezoneData {
+//   id: string;
+//   name: string;
+//   slug: string;
+//   details: FreezoneDetails;
+// }
+
+// interface ApiResponse {
+//   success: boolean;
+//   data: FreezoneData;
+// }
+
+// export default function FreezonePage() {
+//   const params = useParams();
+//   const router = useRouter();
+//   const freezoneName = params.name as string;
+
+//   const [data, setData] = useState<ApiResponse | null>(null);
+//   const [error, setError] = useState<string | null>(null);
+//   const [loading, setLoading] = useState(true);
+//   const [subfreezonelist, setSubfreezoneList] = useState<
+//     Array<{ name: string; slug: string }>
+//   >([]);
+
+//   const fallbackImages = [
+//     "/licenses/GeneralLicense.png",
+//     "/licenses/IndustrialLicense.png",
+//     "/licenses/PremiumConsultancy.png",
+//     "/licenses/ServiceLicense.png",
+//     "/licenses/TradingLicense.png",
+//   ];
+//   useEffect(() => {
+//     const fetchFreezoneData = async () => {
+//       try {
+//         setLoading(true);
+//         setError(null);
+//         const res = await fetch(`/api/details/${freezoneName}`);
+
+//         if (!res.ok) {
+//           throw new Error(`Failed to fetch freezone data: ${res.status}`);
+//         }
+
+//         const responseData = await res.json();
+//         console.log("Fetched freezone data:", responseData);
+
+//         if (!responseData?.success) {
+//           throw new Error("API returned unsuccessful response");
+//         }
+
+//         setData(responseData);
+
+//         // Extract and format subfreezones
+//         if (responseData.data?.details?.subFreezones) {
+//           const formatted = responseData.data.details.subFreezones.map(
+//             (sub: any) => ({
+//               name: sub.name,
+//               slug: sub.name.toLowerCase().replace(/\s+/g, "-"),
+//             })
+//           );
+//           setSubfreezoneList(formatted);
+//         }
+//       } catch (err) {
+//         console.error("Error loading freezone details:", err);
+//         setError(
+//           err instanceof Error
+//             ? err.message
+//             : "An error occurred while loading freezone details"
+//         );
+//       } finally {
+//         setLoading(false);
+//       }
+//     };
+
+//     if (freezoneName) {
+//       fetchFreezoneData();
+//     }
+//   }, [freezoneName]);
+
+//   const freezoneData = data?.data;
+//   const details = freezoneData?.details;
+
+//   return (
+//     <div className=" mx-auto py-8">
+//       <div
+//         className="relative h-60 bg-cover bg-center flex items-center justify-center"
+//         style={{
+//           backgroundImage: "url('/images/freezone-bg.png')",
+//         }}
+//       >
+//         <h1 className="absolute bottom-5 left-1/2 -translate-x-1/2 z-10 text-white text-5xl font-oswald">
+//           {freezoneData?.name || "Freezone Details"}
+//         </h1>
+//         <div className="absolute inset-0 opacity-60"></div>
+//       </div>
+
+//       {error && (
+//         <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-6">
+//           <strong>Error:</strong> {error}
+//         </div>
+//       )}
+
+//       {loading && (
+//         <div className="text-center py-12">
+//           <div className="text-gray-500">Loading freezone details...</div>
+//         </div>
+//       )}
+
+//       {!loading && freezoneData && (
+//         <div className="space-y-6">
+//           {details?.description && (
+//             <section className="bg-gray-50 px-4 md:pl-8 lg:pl-12 xl:pl-16 pt-8 pb-4">
+//               <div className="flex flex-col lg:flex-row gap-12 items-center">
+//                 {/* TEXT CONTENT */}
+//                 <div className="flex-1 w-full">
+//                   <h2 className="text-3xl md:text-4xl font-bold text-blue mb-2 font-oswald tracking-wide leading-tight">
+//                     BUSINESS SETUP
+//                   </h2>
+//                   <h3 className="text-3xl md:text-4xl font-bold text-yellow mb-8 font-oswald tracking-wide">
+//                     IN {freezoneData?.name?.toUpperCase()}
+//                   </h3>
+
+//                   <div className="text-justify leading-relaxed space-y-4 font-raleway">
+//                     {details.description
+//                       .split("\n\n")
+//                       .map((paragraph: string, index: number) => (
+//                         <p key={index} className="text-sm">
+//                           {paragraph}
+//                         </p>
+//                       ))}
+//                   </div>
+//                 </div>
+
+//                 {/* IMAGE — HIDE ON MOBILE */}
+//                 <div className="hidden md:flex flex-1 justify-center lg:justify-end">
+//                   <div className="relative w-full max-w-2xl">
+//                     <Image
+//                       src="/images/dubai-mainland-about.jpg"
+//                       alt="City Skyline"
+//                       width={958}
+//                       height={538}
+//                       sizes="100vw"
+//                       className="w-full h-auto object-cover"
+//                     />
+//                   </div>
+//                 </div>
+//               </div>
+//             </section>
+//           )}
+
+//           {/* contact section */}
+
+//           <section className="bg-gray-50 px-8 md:px-16 lg:px-32 xl:px-48">
+//             <div className="grid lg:grid-cols-2 gap-12 items-center">
+//               <div className="relative flex justify-center lg:justify-start">
+//                 {/* Main circular image */}
+//                 <div className="relative z-10 w-full max-w-lg">
+//                   <Image
+//                     src="/images/talk-to-img.png"
+//                     alt="Business Consultation"
+//                     className="w-full h-auto"
+//                     width={800}
+//                     height={600}
+//                   />
+//                 </div>
+//               </div>
+
+//               {/* Contact Form */}
+//               <div>
+//                 <h2 className="text-3xl md:text-4xl font-bold text-blue mb-2 font-oswald tracking-wide text-center">
+//                   TALK TO OUR
+//                 </h2>
+//                 <h3 className="text-3xl md:text-4xl font-bold text-yellow mb-8 font-oswald tracking-wide text-center">
+//                   BUSINESS SETUP EXPERT
+//                 </h3>
+
+//                 <form className="space-y-5">
+//                   <input
+//                     type="text"
+//                     placeholder="Name"
+//                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#1e3a5f] transition-colors"
+//                   />
+
+//                   <input
+//                     type="email"
+//                     placeholder="Email"
+//                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#1e3a5f] transition-colors"
+//                   />
+
+//                   <input
+//                     type="tel"
+//                     placeholder="+91"
+//                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#1e3a5f] transition-colors"
+//                   />
+
+//                   <textarea
+//                     placeholder="Message"
+//                     rows={5}
+//                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#1e3a5f] transition-colors resize-none"
+//                   ></textarea>
+
+//                   <button
+//                     type="submit"
+//                     className="w-full bg-[#1e3a5f] text-white font-semibold py-4 rounded-lg hover:bg-[#2c5282] transition-colors duration-300"
+//                   >
+//                     Submit
+//                   </button>
+//                 </form>
+//               </div>
+//             </div>
+//           </section>
+
+//           {/* Benefits Section */}
+//           {details?.benefits && details.benefits.length > 0 && (
+//             <section
+//               className="relative bg-cover bg-center bg-no-repeat px-4 md:px-8 lg:px-18 xl:px-24 py-16"
+//               style={{ backgroundImage: "url('/images/business-type-bg.jpg')" }}
+//             >
+//               <div className="absolute inset-0 opacity-90"></div>
+
+//               <div className="relative z-10 flex flex-col lg:flex-row gap-12 items-center">
+//                 {/* Benefits List */}
+//                 <div className="flex flex-col lg:flex-row items-center gap-10">
+//                   <div className="flex-1">
+//                     <h2 className="text-3xl md:text-4xl font-bold text-white mb-2 font-oswald tracking-wide leading-tight">
+//                       BENEFITS OF SETTING UP A
+//                     </h2>
+//                     <h3 className="text-3xl md:text-4xl font-bold text-yellow mb-10 font-oswald tracking-wide">
+//                       BUSINESS IN THE {freezoneData?.name?.toUpperCase()}
+//                     </h3>
+
+//                     <div className="space-y-2">
+//                       {details.benefits.map(
+//                         (benefit: string, index: number) => (
+//                           <div key={index} className="flex items-start gap-4">
+//                             <div className="flex-shrink-0 w-8 h-8 bg-yellow rounded-full flex items-center justify-center">
+//                               <svg
+//                                 className="w-5 h-5 text-blue"
+//                                 fill="none"
+//                                 stroke="currentColor"
+//                                 strokeWidth="3"
+//                                 viewBox="0 0 24 24"
+//                               >
+//                                 <path
+//                                   strokeLinecap="round"
+//                                   strokeLinejoin="round"
+//                                   d="M5 13l4 4L19 7"
+//                                 />
+//                               </svg>
+//                             </div>
+//                             <span className="text-white text-xm lg:text-xm font-raleway leading-relaxed">
+//                               {benefit}
+//                             </span>
+//                           </div>
+//                         )
+//                       )}
+//                     </div>
+//                   </div>
+
+//                   {/* RIGHT SIDE – IMAGE */}
+//                   <div className="flex-1 flex justify-center">
+//                     <Image
+//                       src="/images/benefits.jpg"
+//                       alt="Benefits Image"
+//                       width={800}
+//                       height={1200}
+//                       className="rounded-lg object-cover"
+//                     />
+//                   </div>
+//                 </div>
+//               </div>
+//             </section>
+//           )}
+
+//           {/* License Types Section */}
+//           {details?.licenseTypes && details.licenseTypes.length > 0 && (
+//             <section className="bg-gray-50 px-8 md:px-16 lg:px-32 xl:px-48 py-16">
+//               {/* Title */}
+//               <div className="text-center mb-12">
+//                 <h2 className="text-3xl md:text-4xl font-bold text-blue mb-2 font-oswald tracking-wide">
+//                   TYPES OF LICENCES FOR BUSINESS SETUP
+//                 </h2>
+//                 <h3 className="text-3xl md:text-4xl font-bold text-yellow font-oswald tracking-wide">
+//                   IN {freezoneData?.name?.toUpperCase()}
+//                 </h3>
+//               </div>
+
+//               {/* License Cards Grid */}
+//               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+//                 {details.licenseTypes.map(
+//                   (license: LicenseType, index: number) => {
+//                     const fallbackImages = [
+//                       "/licenses/GeneralLicense.png",
+//                       "/licenses/IndustrialLicense.png",
+//                       "/licenses/PremiumConsultancy.png",
+//                       "/licenses/ServiceLicense.png",
+//                       "/licenses/TradingLicense.png",
+//                     ];
+
+//                     // Select fallback by index
+//                     const fallback =
+//                       fallbackImages[index % fallbackImages.length];
+
+//                     // Determine the image source with better validation
+//                     let imageSrc = fallback; // Default to fallback
+
+//                     if (
+//                       license.image &&
+//                       typeof license.image === "string" &&
+//                       license.image.trim() !== ""
+//                     ) {
+//                       // If it's already a full path starting with /
+//                       if (license.image.startsWith("/")) {
+//                         imageSrc = license.image;
+//                       }
+//                       // If it's just a filename
+//                       else {
+//                         imageSrc = `/licenses/${license.image}`;
+//                       }
+//                     }
+
+//                     // Debug log (remove after fixing)
+
+//                     return (
+//                       <div
+//                         key={index}
+//                         className="bg-white rounded-lg p-8 text-center hover:shadow-xl transition-shadow duration-300"
+//                       >
+//                         {/* Icon */}
+//                         <div className="flex justify-center mb-6 mx-auto">
+//                           <div className="relative h-20 w-20">
+//                             <Image
+//                               src={imageSrc}
+//                               alt={license.heading || "License icon"}
+//                               fill
+//                               sizes="80px"
+//                               className="object-contain"
+//                               unoptimized={true}
+//                               onError={(e) => {
+//                                 // console.error(`Failed to load image for ${license.heading}:`, imageSrc);
+//                                 // Try fallback
+//                                 const img = e.currentTarget as HTMLImageElement;
+//                                 if (img.src !== fallback) {
+//                                   img.src = fallback;
+//                                 }
+//                               }}
+//                             />
+//                           </div>
+//                         </div>
+
+//                         {/* Title */}
+//                         <h3 className="text-xl font-semibold mb-4">
+//                           {license.heading}
+//                         </h3>
+
+//                         {/* Description */}
+//                         <p className="text-gray-600">{license.description}</p>
+//                       </div>
+//                     );
+//                   }
+//                 )}
+//               </div>
+//             </section>
+//           )}
+//           {details?.subFreezones && details.subFreezones.length > 0 && (
+//             <section className="bg-gray-50 px-8 md:px-16 lg:px-32 xl:px-48 py-16">
+//               {/* Title */}
+//               <div className="text-center mb-12">
+//                 <h2 className="text-3xl md:text-4xl font-bold text-blue font-oswald tracking-wide">
+//                   LIST OF FREEZONE
+//                 </h2>
+//               </div>
+
+//               {/* Freezone Grid */}
+//               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-6xl mx-auto">
+//                 {subfreezonelist.map((freezone, index) => (
+//                   <Link
+//                     key={index}
+//                     href={`/freezone/${freezoneName}/${freezone.slug}`}
+//                     className="bg-blue  text-yellow px-6 py-4 flex items-center gap-3 transition-all duration-300 hover:shadow-lg group"
+//                   >
+//                     {/* <Image
+//                     src="/images/thumb-point.webp"
+//                     className="w-5 h-5"
+//                     alt={"icom"}
+//                     width={5}
+//                     height={5}
+//                   /> */}
+//                     <ArrowRight className="w-6 h-6 text-yellow-500" />
+
+//                     <span className="font-raleway font-medium text-base">
+//                       {freezone.name}
+//                     </span>
+//                   </Link>
+//                 ))}
+//               </div>
+//             </section>
+//           )}
+
+//           {/* Business Entities Section */}
+//           {details?.businessEntities && details.businessEntities.length > 0 && (
+//             <section className="bg-gray-100 px-4 md:px-8 lg:px-16 xl:px-24 py-16">
+//               {/* Title */}
+//               <div className="text-center mb-12">
+//                 <h2 className="text-3xl md:text-4xl font-bold text-blue mb-2 font-oswald tracking-wide">
+//                   TYPES OF BUSINESS ENTITIES ALLOWED
+//                 </h2>
+//                 <h3 className="text-3xl md:text-4xl font-bold text-yellow font-oswald tracking-wide">
+//                   IN {freezoneData?.name?.toUpperCase()}
+//                 </h3>
+//               </div>
+
+//               {/* Business Entity Cards */}
+//               <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
+//                 {details.businessEntities.map(
+//                   (entity: BusinessEntity, index: number) => (
+//                     <div key={index} className="bg-white relative pb-12">
+//                       <div
+//                         className={`${
+//                           index === 0
+//                             ? "bg-blue"
+//                             : index === 1
+//                             ? "bg-yellow"
+//                             : "bg-blue"
+//                         } text-white px-6 py-4`}
+//                       >
+//                         <h3 className="text-xl font-oswald">{entity.title}</h3>
+//                       </div>
+
+//                       {/* Content */}
+//                       <div className="px-6 py-6">
+//                         <p className="text-gray-600 text-base leading-relaxed font-oswald">
+//                           {entity.description}
+//                         </p>
+//                       </div>
+
+//                       {/* V-shape pointing up at bottom */}
+//                       <div className="absolute bottom-0 left-0 w-full h-12 overflow-hidden">
+//                         <svg
+//                           viewBox="0 0 400 60"
+//                           preserveAspectRatio="none"
+//                           className="w-full h-full"
+//                         >
+//                           <path
+//                             d="M0,60 L200,0 L400,60 L400,60 L0,60 Z"
+//                             fill="#f3f4f6"
+//                           />
+//                         </svg>
+//                       </div>
+//                     </div>
+//                   )
+//                 )}
+//               </div>
+//             </section>
+//           )}
+
+//           <ProcessCards />
+
+//           {/* Additional Info Section */}
+//           <section className="bg-white px-8 md:px-12 lg:px-12 xl:px-12 py-12">
+//             <div className="flex flex-col lg:flex-row gap-12 items-center">
+//               {/* Image */}
+//               <div className="flex-1 flex justify-center lg:justify-start">
+//                 <div className="relative w-full max-w-2xl">
+//                   <Image
+//                     src="/images/sin-why-choose.png"
+//                     alt="Why Choose Global Biz Setup"
+//                     className="w-full h-auto object-contain"
+//                     width={500}
+//                     height={400}
+//                   />
+//                 </div>
+//               </div>
+
+//               {/* Content */}
+//               <div className="flex-1">
+//                 <h2 className="text-3xl md:text-4xl font-bold text-blue mb-2 font-oswald tracking-wide leading-tight">
+//                   WHY CHOOSE
+//                 </h2>
+//                 <h3 className="text-3xl md:text-4xl font-bold text-yellow mb-6 font-oswald tracking-wide">
+//                   GLOBAL BIZ SETUP?
+//                 </h3>
+
+//                 <div className="text-gray-700 leading-relaxed font-raleway">
+//                   <p className="text-base mb-4">
+//                     <span className="text-[#00a8a8] font-semibold">
+//                       Global Biz Setup
+//                     </span>{" "}
+//                     is known for offering top-notch services in the industry for
+//                     Freezone company formation in UAE. Our services cover the
+//                     whole range of procedures and assistance that you may
+//                     require in{" "}
+//                     <span className="font-bold text-gray-900">
+//                       free zone business setup in Dubai
+//                     </span>
+//                     . Our team comprises certified and experienced consultants
+//                     who will assist you with every step of the procedure,
+//                     including registration, trade licence acquisition, and
+//                     notarization of documents. Schedule an appointment with us
+//                     to know more about the{" "}
+//                     <span className="font-bold text-gray-900">
+//                       Dubai Freezone company formation
+//                     </span>
+//                     .
+//                   </p>
+//                 </div>
+//               </div>
+//             </div>
+//           </section>
+//         </div>
+//       )}
+//     </div>
+//   );
+// }
+
+
+
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
@@ -8,33 +556,45 @@ import { useParams, useRouter } from "next/navigation";
 import { ProcessCards } from "@/components/freezone/ProcessCards";
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";
+import { useDetailsCache } from "@/hooks/useDetailsCache";
 
 interface LicenseType {
-  image: string;
+  image?: string;
   heading: string;
-  description: string;
+  description?: string;
 }
 
 interface BusinessEntity {
   title: string;
-  description: string;
+  description?: string;
 }
 
-interface FreezoneDetails {
-  description: string;
-  benefits: string[];
-  licenseTypes: LicenseType[];
-  businessEntities: BusinessEntity[];
-  createdAt?: string;
-  updatedAt?: string;
-  subFreezones?: Array<{ name: string }>;
+interface SubFreezone {
+  name: string;
+  description?: string;
+  image?: string;
+  benefits?: string[];
+  businessEntitiesAllowed?: Array<{
+    title: string;
+    description?: string;
+  }>;
 }
 
 interface FreezoneData {
   id: string;
   name: string;
   slug: string;
-  details: FreezoneDetails;
+  description: string | null;
+  benefits: string[] | null;
+  licenseTypes: LicenseType[] | null;
+  subFreezones: SubFreezone[] | null;
+  businessEntities: BusinessEntity[] | null;
+  buesinessProcess: any[] | null;
+  understanding: any | null;
+  prerequisites: any | null;
+  perks: any[] | null;
+  createdAt: string;
+  updatedAt: string;
 }
 
 interface ApiResponse {
@@ -46,8 +606,9 @@ export default function FreezonePage() {
   const params = useParams();
   const router = useRouter();
   const freezoneName = params.name as string;
+  const getDetail = useDetailsCache(state => state.getDetail);
 
-  const [data, setData] = useState<ApiResponse | null>(null);
+  const [data, setData] = useState<FreezoneData | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [subfreezonelist, setSubfreezoneList] = useState<
@@ -61,55 +622,85 @@ export default function FreezonePage() {
     "/licenses/ServiceLicense.png",
     "/licenses/TradingLicense.png",
   ];
+
+  // useEffect(() => {
+  //   const fetchFreezoneData = async () => {
+  //     try {
+  //       setLoading(true);
+  //       setError(null);
+  //       const res = await fetch(`/api/details/${freezoneName}`);
+
+  //       if (!res.ok) {
+  //         throw new Error(`Failed to fetch freezone data: ${res.status}`);
+  //       }
+
+  //       const responseData: ApiResponse = await res.json();
+  //       console.log("Fetched freezone data:", responseData);
+
+  //       if (!responseData?.success) {
+  //         throw new Error("API returned unsuccessful response");
+  //       }
+
+  //       setData(responseData.data);
+
+  //       // Extract and format subfreezones
+  //       if (responseData.data?.subFreezones) {
+  //         const formatted = responseData.data.subFreezones.map(
+  //           (sub: any) => ({
+  //             name: sub.name,
+  //             slug: sub.name.toLowerCase().replace(/\s+/g, "-"),
+  //           })
+  //         );
+  //         setSubfreezoneList(formatted);
+  //       }
+  //     } catch (err) {
+  //       console.error("Error loading freezone details:", err);
+  //       setError(
+  //         err instanceof Error
+  //           ? err.message
+  //           : "An error occurred while loading freezone details"
+  //       );
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
+
+  //   if (freezoneName) {
+  //     fetchFreezoneData();
+  //   }
+  // }, [freezoneName]);
+
   useEffect(() => {
-    const fetchFreezoneData = async () => {
+    const loadData = async () => {
       try {
         setLoading(true);
         setError(null);
-        const res = await fetch(`/api/freezones/${freezoneName}`);
-
-        if (!res.ok) {
-          throw new Error(`Failed to fetch freezone data: ${res.status}`);
-        }
-
-        const responseData = await res.json();
-        console.log("Fetched freezone data:", responseData);
-
-        if (!responseData?.success) {
-          throw new Error("API returned unsuccessful response");
-        }
-
-        setData(responseData);
-
-        // Extract and format subfreezones
-        if (responseData.data?.details?.subFreezones) {
-          const formatted = responseData.data.details.subFreezones.map(
-            (sub: any) => ({
-              name: sub.name,
-              slug: sub.name.toLowerCase().replace(/\s+/g, "-"),
-            })
-          );
+        
+        // This will use cache if available (instant!), otherwise fetch
+        const detailData = await getDetail(freezoneName);
+        setData(detailData);
+        
+        // Extract subfreezones
+        if (detailData?.subFreezones) {
+          const formatted = detailData.subFreezones.map((sub: any) => ({
+            name: sub.name,
+            slug: sub.name.toLowerCase().replace(/\s+/g, "-"),
+          }));
           setSubfreezoneList(formatted);
         }
       } catch (err) {
-        console.error("Error loading freezone details:", err);
-        setError(
-          err instanceof Error
-            ? err.message
-            : "An error occurred while loading freezone details"
-        );
+        setError(err instanceof Error ? err.message : "Failed to load data");
       } finally {
         setLoading(false);
       }
     };
 
     if (freezoneName) {
-      fetchFreezoneData();
+      loadData();
     }
-  }, [freezoneName]);
+  }, [freezoneName, getDetail]);
 
-  const freezoneData = data?.data;
-  const details = freezoneData?.details;
+  const freezoneData = data;
 
   return (
     <div className=" mx-auto py-8">
@@ -139,7 +730,7 @@ export default function FreezonePage() {
 
       {!loading && freezoneData && (
         <div className="space-y-6">
-          {details?.description && (
+          {freezoneData?.description && (
             <section className="bg-gray-50 px-4 md:pl-8 lg:pl-12 xl:pl-16 pt-8 pb-4">
               <div className="flex flex-col lg:flex-row gap-12 items-center">
                 {/* TEXT CONTENT */}
@@ -152,7 +743,7 @@ export default function FreezonePage() {
                   </h3>
 
                   <div className="text-justify leading-relaxed space-y-4 font-raleway">
-                    {details.description
+                    {freezoneData.description
                       .split("\n\n")
                       .map((paragraph: string, index: number) => (
                         <p key={index} className="text-sm">
@@ -180,7 +771,6 @@ export default function FreezonePage() {
           )}
 
           {/* contact section */}
-
           <section className="bg-gray-50 px-8 md:px-16 lg:px-32 xl:px-48">
             <div className="grid lg:grid-cols-2 gap-12 items-center">
               <div className="relative flex justify-center lg:justify-start">
@@ -242,7 +832,7 @@ export default function FreezonePage() {
           </section>
 
           {/* Benefits Section */}
-          {details?.benefits && details.benefits.length > 0 && (
+          {freezoneData?.benefits && freezoneData.benefits.length > 0 && (
             <section
               className="relative bg-cover bg-center bg-no-repeat px-4 md:px-8 lg:px-18 xl:px-24 py-16"
               style={{ backgroundImage: "url('/images/business-type-bg.jpg')" }}
@@ -261,7 +851,7 @@ export default function FreezonePage() {
                     </h3>
 
                     <div className="space-y-2">
-                      {details.benefits.map(
+                      {freezoneData.benefits.map(
                         (benefit: string, index: number) => (
                           <div key={index} className="flex items-start gap-4">
                             <div className="flex-shrink-0 w-8 h-8 bg-yellow rounded-full flex items-center justify-center">
@@ -304,7 +894,7 @@ export default function FreezonePage() {
           )}
 
           {/* License Types Section */}
-          {details?.licenseTypes && details.licenseTypes.length > 0 && (
+          {freezoneData?.licenseTypes && freezoneData.licenseTypes.length > 0 && (
             <section className="bg-gray-50 px-8 md:px-16 lg:px-32 xl:px-48 py-16">
               {/* Title */}
               <div className="text-center mb-12">
@@ -318,7 +908,7 @@ export default function FreezonePage() {
 
               {/* License Cards Grid */}
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-                {details.licenseTypes.map(
+                {freezoneData.licenseTypes.map(
                   (license: LicenseType, index: number) => {
                     const fallbackImages = [
                       "/licenses/GeneralLicense.png",
@@ -350,8 +940,6 @@ export default function FreezonePage() {
                       }
                     }
 
-                    // Debug log (remove after fixing)
-
                     return (
                       <div
                         key={index}
@@ -368,8 +956,6 @@ export default function FreezonePage() {
                               className="object-contain"
                               unoptimized={true}
                               onError={(e) => {
-                                // console.error(`Failed to load image for ${license.heading}:`, imageSrc);
-                                // Try fallback
                                 const img = e.currentTarget as HTMLImageElement;
                                 if (img.src !== fallback) {
                                   img.src = fallback;
@@ -393,7 +979,8 @@ export default function FreezonePage() {
               </div>
             </section>
           )}
-          {details?.subFreezones && details.subFreezones.length > 0 && (
+
+          {freezoneData?.subFreezones && freezoneData.subFreezones.length > 0 && (
             <section className="bg-gray-50 px-8 md:px-16 lg:px-32 xl:px-48 py-16">
               {/* Title */}
               <div className="text-center mb-12">
@@ -410,13 +997,6 @@ export default function FreezonePage() {
                     href={`/freezone/${freezoneName}/${freezone.slug}`}
                     className="bg-blue  text-yellow px-6 py-4 flex items-center gap-3 transition-all duration-300 hover:shadow-lg group"
                   >
-                    {/* <Image
-                    src="/images/thumb-point.webp"
-                    className="w-5 h-5"
-                    alt={"icom"}
-                    width={5}
-                    height={5}
-                  /> */}
                     <ArrowRight className="w-6 h-6 text-yellow-500" />
 
                     <span className="font-raleway font-medium text-base">
@@ -429,7 +1009,7 @@ export default function FreezonePage() {
           )}
 
           {/* Business Entities Section */}
-          {details?.businessEntities && details.businessEntities.length > 0 && (
+          {freezoneData?.businessEntities && freezoneData.businessEntities.length > 0 && (
             <section className="bg-gray-100 px-4 md:px-8 lg:px-16 xl:px-24 py-16">
               {/* Title */}
               <div className="text-center mb-12">
@@ -443,7 +1023,7 @@ export default function FreezonePage() {
 
               {/* Business Entity Cards */}
               <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
-                {details.businessEntities.map(
+                {freezoneData.businessEntities.map(
                   (entity: BusinessEntity, index: number) => (
                     <div key={index} className="bg-white relative pb-12">
                       <div

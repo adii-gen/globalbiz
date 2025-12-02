@@ -9,6 +9,9 @@ import BusinessSetupSection from '@/components/globalbiz/homepage/BusinessSetupS
 import TestimonialsSection from '@/components/globalbiz/homepage/testimonals'
 import BlogCarousel from '@/components/globalbiz/homepage/blogs'
 import ContactCallback from '@/components/globalbiz/homepage/contactus'
+import DetailsPrefetch from '@/components/globalbiz/homepage/DetailsPrefetch';
+import { db } from '@/db';
+import { details } from '@/db/schema';
 // Add metadata export
 export const metadata = {
   title: 'Business Setup in UAE | Dubai, Abu Dhabi & Free Zone Company Formation',
@@ -66,9 +69,26 @@ export const metadata = {
     google: 'your-google-verification-code', // Add when you get it from Google Search Console
   },
 }
-const Homepage = () => {
+async function getAllDetailSlugs() {
+  try {
+    const allDetails = await db
+      .select({ slug: details.slug })
+      .from(details);
+    
+    return allDetails.map(d => d.slug);
+  } catch (error) {
+    console.error('Failed to fetch detail slugs:', error);
+    return [];
+  }
+}
+
+export default async function Homepage() {
+    const allSlugs = await getAllDetailSlugs();
+
   return (
     <div>
+            <DetailsPrefetch slugs={allSlugs} />
+
     <HeroSec />
 
 <AboutUsSec/>
@@ -84,4 +104,3 @@ const Homepage = () => {
   )
 }
 
-export default Homepage

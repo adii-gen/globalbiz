@@ -152,7 +152,7 @@ export const FreezonesTable = pgTable(
     name: text("name").notNull(),
     slug: text("slug").notNull(), // NEW
 
- },
+  },
   (table) => [
     uniqueIndex("freezones_slug_key").on(table.slug),
   ]
@@ -241,10 +241,10 @@ export const MainlandTable = pgTable(
     slug: text("slug").notNull(), // NEW
 
   },
-   (table) => [
+  (table) => [
     // 🔥 CRITICAL: Add unique index on slug for fast lookups
     uniqueIndex("mainland_slug_key").on(table.slug),
-    
+
     // Optional: Regular index if you don't want unique constraint
     // index("mainland_slug_idx").on(table.slug),
   ]
@@ -325,7 +325,7 @@ export const offshoreTable = pgTable(
     name: text("name").notNull(),
     slug: text("slug").notNull(), // NEW
 
-   },
+  },
   (table) => [
     uniqueIndex("offshore_slug_key").on(table.slug),
   ]
@@ -348,12 +348,12 @@ export const offshoreDetailsTable = pgTable(
     // Benefits stored as array of bullet points
     understanding: jsonb("understanding")
       .$type<string[]>(), // array of strings
- benefits: jsonb("benefits")
+    benefits: jsonb("benefits")
       .$type<string[]>(), // array of strings
 
     prerequisites: jsonb("prerequisites")
       .$type<string[]>(), // array of strings
- buesinessProcess: jsonb("business_process")
+    buesinessProcess: jsonb("business_process")
       .$type<
         {
           image?: string;
@@ -361,7 +361,7 @@ export const offshoreDetailsTable = pgTable(
           description?: string;
         }[]
       >(),
-       perks: jsonb("perks")
+    perks: jsonb("perks")
       .$type<
         {
           image?: string;
@@ -389,18 +389,18 @@ export const PricingPlanTable = pgTable(
     revenue: varchar("revenue", { length: 100 }),
     budget: varchar("budget", { length: 100 }),
     compliance: varchar("compliance", { length: 100 }),
-    
+
     monthlyPrice: decimal("monthly_price", { precision: 12, scale: 2 }),
     annualPrice: decimal("annual_price", { precision: 12, scale: 2 }).notNull(),
     currency: varchar("currency", { length: 10 }).default("AED").notNull(),
     discountPercentage: integer("discount_percentage").default(0),
-    
+
     includedFeatures: jsonb("included_features").notNull(),
-    
+
     order: integer("order").notNull().default(0),
     isActive: boolean("is_active").default(true),
     isFeatured: boolean("is_featured").default(false),
-    
+
     createdAt: timestamp("created_at").defaultNow().notNull(),
     updatedAt: timestamp("updated_at").defaultNow().notNull(),
   },
@@ -417,27 +417,27 @@ export const ManagementDetails = pgTable(
     Name: varchar("name", { length: 255 }).notNull(),
     Designation: varchar("designation", { length: 255 }),
     Description: varchar("description", { length: 255 }),
-    
+
     createdAt: timestamp("created_at").defaultNow().notNull(),
     updatedAt: timestamp("updated_at").defaultNow().notNull(),
   }
 );
-export const Address=pgTable(
-  "address",{
-    id:uuid("id").defaultRandom().primaryKey().notNull(),
-    officeName: varchar("office_name",{length:255}).notNull(),
-    officeAddress:varchar("office_address",{length:255}).notNull(),
-    phone: text("phone"),
-    email: text("email").notNull(),
-    createdAt: timestamp("created_at").defaultNow().notNull(),
-    updatedAt: timestamp("updated_at").defaultNow().notNull(),
-  }
+export const Address = pgTable(
+  "address", {
+  id: uuid("id").defaultRandom().primaryKey().notNull(),
+  officeName: varchar("office_name", { length: 255 }).notNull(),
+  officeAddress: varchar("office_address", { length: 255 }).notNull(),
+  phone: text("phone"),
+  email: text("email").notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+}
 );
 
 
 
 export const blogs = pgTable('blogs', {
-    id:uuid("id").defaultRandom().primaryKey().notNull(),
+  id: uuid("id").defaultRandom().primaryKey().notNull(),
   url: text('url').notNull(),
   title: text('title').notNull(),
   short_description: text('short_description'),
@@ -458,3 +458,69 @@ export const blogs = pgTable('blogs', {
   published: timestamp('published')
 });
 
+export const details = pgTable('details', {
+  id: uuid("id").defaultRandom().primaryKey().notNull(),
+
+  // Basic Information
+  name: text("name").notNull(),
+  slug: text("slug").notNull(),
+  description: text("description"),
+
+  benefits: jsonb("benefits").$type<string[]>(), // array of strings
+  licenseTypes: jsonb("license_types").$type<
+    {
+      image?: string;
+      heading: string;
+      description?: string;
+    }[]
+  >(),
+  subFreezones: jsonb("sub_freezones").$type<
+    {
+      name: string;
+      description?: string;
+      image?: string;
+      benefits?: string[];
+      businessEntitiesAllowed?: {
+        title: string;
+        description?: string;
+      }[];
+    }[]
+  >(),
+  businessEntities: jsonb("business_entities")
+    .$type<
+      {
+        title: string;
+        description?: string;
+      }[]
+    >(),
+  buesinessProcess: jsonb("business_process")
+    .$type<
+      {
+        image?: string;
+        heading: string;
+        description?: string;
+      }[]
+    >(),
+  understanding: jsonb("understanding")
+    .$type<string[]>(),
+  prerequisites: jsonb("prerequisites")
+    .$type<string[]>(),
+  perks: jsonb("perks")
+    .$type<
+      {
+        image?: string;
+        description?: string;
+      }[]
+    >(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+
+
+    }
+,
+  (table) => {
+    return {
+      slugIndex: index("details_slug_idx").on(table.slug),
+    };
+  }
+);

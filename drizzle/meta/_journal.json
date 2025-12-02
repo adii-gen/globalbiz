@@ -162,6 +162,20 @@
       "when": 1764572603965,
       "tag": "0022_awesome_night_thrasher",
       "breakpoints": true
+    },
+    {
+      "idx": 23,
+      "version": "7",
+      "when": 1764580001798,
+      "tag": "0023_glorious_james_howlett",
+      "breakpoints": true
+    },
+    {
+      "idx": 24,
+      "version": "7",
+      "when": 1764587093272,
+      "tag": "0024_chief_may_parker",
+      "breakpoints": true
     }
   ]
 }
