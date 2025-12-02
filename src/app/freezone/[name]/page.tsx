@@ -722,11 +722,17 @@ export default function FreezonePage() {
         </div>
       )}
 
-      {loading && (
-        <div className="text-center py-12">
-          <div className="text-gray-500">Loading freezone details...</div>
-        </div>
-      )}
+     
+{loading && (
+  <div className="text-center py-12">
+    <div className="flex justify-center space-x-2">
+      <div className="w-2 h-2 bg-blue rounded-full animate-bounce"></div>
+      <div className="w-2 h-2 bg-blue rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
+      <div className="w-2 h-2 bg-blue rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+       <div className="w-2 h-2 bg-blue rounded-full animate-bounce" style={{ animationDelay: '0.3s' }}></div>
+    </div>
+  </div>
+)}
 
       {!loading && freezoneData && (
         <div className="space-y-6">
