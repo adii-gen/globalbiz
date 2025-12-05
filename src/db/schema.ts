@@ -152,10 +152,7 @@ export const FreezonesTable = pgTable(
     name: text("name").notNull(),
     slug: text("slug").notNull(), // NEW
 
-  },
-  (table) => [
-    uniqueIndex("freezones_slug_key").on(table.slug),
-  ]
+  }
 );
 
 

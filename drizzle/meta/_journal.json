@@ -176,6 +176,13 @@
       "when": 1764587093272,
       "tag": "0024_chief_may_parker",
       "breakpoints": true
+    },
+    {
+      "idx": 25,
+      "version": "7",
+      "when": 1764920955514,
+      "tag": "0025_naive_bushwacker",
+      "breakpoints": true
     }
   ]
 }

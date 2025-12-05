@@ -1,0 +1,1 @@
+DROP INDEX "freezones_slug_key";
