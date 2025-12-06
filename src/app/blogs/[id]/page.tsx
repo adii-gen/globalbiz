@@ -479,7 +479,7 @@ export default function BlogDetailPage() {
             {/* Blog Image */}
             <div className="relative h-80 mb-6 rounded-xl overflow-hidden">
               <img
-                src={`/uploads/${currentBlog.image}`}
+                src={`${currentBlog.image}`}
                 alt={currentBlog.title}
                 className="w-full h-full object-cover"
                 onError={(e) => {

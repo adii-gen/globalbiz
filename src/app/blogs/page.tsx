@@ -290,7 +290,7 @@ const BlogCard = ({ blog, hoveredId, setHoveredId, formatDate }: {
   setHoveredId: (id: string | null) => void;
   formatDate: (date: string) => string;
 }) => {
-  const [imageSrc, setImageSrc] = useState(`/uploads/${blog.image}`);
+  const [imageSrc, setImageSrc] = useState(`${blog.image}`);
 
   return (
     <div
