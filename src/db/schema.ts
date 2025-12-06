@@ -237,14 +237,8 @@ export const MainlandTable = pgTable(
     name: text("name").notNull(),
     slug: text("slug").notNull(), // NEW
 
-  },
-  (table) => [
-    // 🔥 CRITICAL: Add unique index on slug for fast lookups
-    uniqueIndex("mainland_slug_key").on(table.slug),
-
-    // Optional: Regular index if you don't want unique constraint
-    // index("mainland_slug_idx").on(table.slug),
-  ]
+  }
+  
 );
 
 export const mainlandDetailsTable = pgTable(
@@ -281,28 +275,6 @@ export const mainlandDetailsTable = pgTable(
           description?: string;
         }[]
       >(),
-    // mainland list pointer style data
-    // submainlands: jsonb("sub_mainlands").$type<
-    //   {
-    //     name: string;
-    //     description?: string;
-    //     image?: string;
-    //     benefits?: string[];
-    //     businessEntitiesAllowed?: {
-    //       title: string;
-    //       description?: string;
-    //     }[];
-    //   }[]
-    // >(),
-    // Business entities mapped as title + short description
-    // businessEntities: jsonb("business_entities")
-    //   .$type<
-    //     {
-    //       title: string;
-    //       description?: string;
-    //     }[]
-    //   >(),
-
     createdAt: timestamp("created_at").defaultNow().notNull(),
     updatedAt: timestamp("updated_at").defaultNow().notNull(),
   },
@@ -322,10 +294,7 @@ export const offshoreTable = pgTable(
     name: text("name").notNull(),
     slug: text("slug").notNull(), // NEW
 
-  },
-  (table) => [
-    uniqueIndex("offshore_slug_key").on(table.slug),
-  ]
+  }
 );
 
 
@@ -401,10 +370,14 @@ export const PricingPlanTable = pgTable(
     createdAt: timestamp("created_at").defaultNow().notNull(),
     updatedAt: timestamp("updated_at").defaultNow().notNull(),
   },
-  (table) => ({
-    orderIdx: index("pricing_plans_order_idx").on(table.order),
-    planNameKey: uniqueIndex("pricing_plans_plan_name_key").on(table.planName),
-  })
+  // (table) => ({
+  //       index("pricing_plans_order_idx").on(table.id),
+
+   
+  // })
+   (table) => [
+    index("pricing_plans_order_idx").on(table.id),
+  ]
 );
 
 export const ManagementDetails = pgTable(

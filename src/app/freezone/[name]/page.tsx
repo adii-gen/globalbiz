@@ -623,82 +623,82 @@ export default function FreezonePage() {
     "/licenses/TradingLicense.png",
   ];
 
-  // useEffect(() => {
-  //   const fetchFreezoneData = async () => {
-  //     try {
-  //       setLoading(true);
-  //       setError(null);
-  //       const res = await fetch(`/api/details/${freezoneName}`);
-
-  //       if (!res.ok) {
-  //         throw new Error(`Failed to fetch freezone data: ${res.status}`);
-  //       }
-
-  //       const responseData: ApiResponse = await res.json();
-  //       console.log("Fetched freezone data:", responseData);
-
-  //       if (!responseData?.success) {
-  //         throw new Error("API returned unsuccessful response");
-  //       }
-
-  //       setData(responseData.data);
-
-  //       // Extract and format subfreezones
-  //       if (responseData.data?.subFreezones) {
-  //         const formatted = responseData.data.subFreezones.map(
-  //           (sub: any) => ({
-  //             name: sub.name,
-  //             slug: sub.name.toLowerCase().replace(/\s+/g, "-"),
-  //           })
-  //         );
-  //         setSubfreezoneList(formatted);
-  //       }
-  //     } catch (err) {
-  //       console.error("Error loading freezone details:", err);
-  //       setError(
-  //         err instanceof Error
-  //           ? err.message
-  //           : "An error occurred while loading freezone details"
-  //       );
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   };
-
-  //   if (freezoneName) {
-  //     fetchFreezoneData();
-  //   }
-  // }, [freezoneName]);
-
   useEffect(() => {
-    const loadData = async () => {
+    const fetchFreezoneData = async () => {
       try {
         setLoading(true);
         setError(null);
-        
-        // This will use cache if available (instant!), otherwise fetch
-        const detailData = await getDetail(freezoneName);
-        setData(detailData);
-        
-        // Extract subfreezones
-        if (detailData?.subFreezones) {
-          const formatted = detailData.subFreezones.map((sub: any) => ({
-            name: sub.name,
-            slug: sub.name.toLowerCase().replace(/\s+/g, "-"),
-          }));
+        const res = await fetch(`/api/details/${freezoneName}`);
+
+        if (!res.ok) {
+          throw new Error(`Failed to fetch freezone data: ${res.status}`);
+        }
+
+        const responseData: ApiResponse = await res.json();
+        console.log("Fetched freezone data:", responseData);
+
+        if (!responseData?.success) {
+          throw new Error("API returned unsuccessful response");
+        }
+
+        setData(responseData.data);
+
+        // Extract and format subfreezones
+        if (responseData.data?.subFreezones) {
+          const formatted = responseData.data.subFreezones.map(
+            (sub: any) => ({
+              name: sub.name,
+              slug: sub.name.toLowerCase().replace(/\s+/g, "-"),
+            })
+          );
           setSubfreezoneList(formatted);
         }
       } catch (err) {
-        setError(err instanceof Error ? err.message : "Failed to load data");
+        console.error("Error loading freezone details:", err);
+        setError(
+          err instanceof Error
+            ? err.message
+            : "An error occurred while loading freezone details"
+        );
       } finally {
         setLoading(false);
       }
     };
 
     if (freezoneName) {
-      loadData();
+      fetchFreezoneData();
     }
-  }, [freezoneName, getDetail]);
+  }, [freezoneName]);
+
+  // useEffect(() => {
+  //   const loadData = async () => {
+  //     try {
+  //       setLoading(true);
+  //       setError(null);
+        
+  //       // This will use cache if available (instant!), otherwise fetch
+  //       const detailData = await getDetail(freezoneName);
+  //       setData(detailData);
+        
+  //       // Extract subfreezones
+  //       if (detailData?.subFreezones) {
+  //         const formatted = detailData.subFreezones.map((sub: any) => ({
+  //           name: sub.name,
+  //           slug: sub.name.toLowerCase().replace(/\s+/g, "-"),
+  //         }));
+  //         setSubfreezoneList(formatted);
+  //       }
+  //     } catch (err) {
+  //       setError(err instanceof Error ? err.message : "Failed to load data");
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
+
+  //   if (freezoneName) {
+  //     loadData();
+  //   }
+  // }, [freezoneName, getDetail]);
 
   const freezoneData = data;
 
