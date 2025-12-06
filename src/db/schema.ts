@@ -325,10 +325,8 @@ export const offshoreTable = pgTable(
     name: text("name").notNull(),
     slug: text("slug").notNull(), // NEW
 
-   },
-  (table) => [
-    uniqueIndex("offshore_slug_key").on(table.slug),
-  ]
+   }
+  
 );
 
 

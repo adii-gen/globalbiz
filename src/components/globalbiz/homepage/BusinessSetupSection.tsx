@@ -188,9 +188,9 @@ const BusinessSetupSection = () => {
                             Global Biz Setup is a provider your business fancy for business and creator entrepreneur milliate with experience ramie, tamened business huso oven requlation, company profesional, andri-manova² one warm to develop benefits and expertise for in custom-step leasy take of Global Biz services. We are indended solely enu approving requirements for establishment card and your business incarazzo our service. We are ensure file to fits you too, register with name board and Ministry of Labour.
                         </p>
 
-                        <button className="bg-[#fbb040] text-white font-semibold px-8 py-3 rounded hover:bg-[#e9a030] transition-colors font-sans text-sm">
+                        {/* <button className="bg-[#fbb040] text-white font-semibold px-8 py-3 rounded hover:bg-[#e9a030] transition-colors font-sans text-sm">
                             Contact Us
-                        </button>
+                        </button> */}
                     </div>
 
                     {/* Right Image */}

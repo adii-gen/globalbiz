@@ -108,7 +108,7 @@ const AboutUsSec = () => {
           your business setup in the UAE. We pride ourselves on being a trusted
           provider of end-to-end services for business setup in the UAE.
         </p>
-
+{/* 
         <div className="flex flex-wrap gap-4">
           <Link href="/contactus">
             <Button
@@ -134,7 +134,7 @@ const AboutUsSec = () => {
           >
             View Services
           </Button>
-        </div>
+        </div> */}
       </div>
     </section>
   );
