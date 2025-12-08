@@ -1,5 +1,7 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { db } from "@/db";
-import { eq, desc } from "drizzle-orm";
+import { eq } from "drizzle-orm";
 import { blogs } from "@/db/schema";
 import { NextRequest, NextResponse } from "next/server";
 

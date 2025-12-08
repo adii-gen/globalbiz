@@ -1,5 +1,5 @@
 import { db } from "@/db";
-import { FreezonesTable, FreezoneDetailsTable } from "@/db/schema";
+import { FreezoneDetailsTable } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import { NextRequest, NextResponse } from "next/server";
 

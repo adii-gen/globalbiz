@@ -4,8 +4,10 @@ import { eq } from "drizzle-orm";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(
+  
   req: NextRequest, 
-  context: { params: { id: string } }
+  context: { params: Promise<{ id: string }> }
+  
 ) {
   try {
     const { id } = await context.params;
@@ -64,7 +66,7 @@ export async function GET(
 // Optional: Add POST/PUT/DELETE methods if needed
 export async function PUT(
   req: NextRequest,
-  context: { params: { id: string } }
+  context: { params: Promise<{ id: string }> }
 ) {
   try {
     const { id } = await context.params;
@@ -109,7 +111,7 @@ export async function PUT(
 
 export async function DELETE(
   req: NextRequest,
-  context: { params: { id: string } }
+  context: { params: Promise<{ id: string }> }
 ) {
   try {
     const { id } = await context.params;

@@ -38,7 +38,10 @@ export async function GET() {
       data: offshore,
     });
   } catch (error) {
+         console.log(error)
     return NextResponse.json(
+ 
+      
       { success: false, message: "Failed to get data" },
       { status: 500 }
     );

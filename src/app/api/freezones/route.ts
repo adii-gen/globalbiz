@@ -1,5 +1,5 @@
 import { db } from "@/db";
-import { FreezoneDetailsTable, FreezonesTable } from "@/db/schema";
+import { FreezoneDetailsTable } from "@/db/schema";
 import { NextResponse } from "next/server";
 
 export async function GET() {
