@@ -588,7 +588,11 @@ export default function Navbar() {
               <div
                 key={item.name}
                 className="block py-2 hover:text-[#1f3b63] transition-colors cursor-pointer"
-                onClick={() => handleItemClick(item.href)}
+
+               onClick={() => {
+  console.log("Mainland ID 👉", item.id);
+  handleItemClick(item.href);
+}}
               >
                 {item.name}
               </div>
@@ -666,7 +670,7 @@ export default function Navbar() {
 
   const mainlandItems: DropdownItem[] = mainlands.map((item) => ({
     name: item.name,
-    href: `/mainland/${slugify(item.slug)}`,
+    href: `/mainland/${item.id}`,
   }));
 
   const offshoreItems: DropdownItem[] = offshores.map((item) => ({

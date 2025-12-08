@@ -32,7 +32,7 @@ interface ApiResponse {
 
 export default function SubFreezonePage() {
   const params = useParams();
-  const parentFreezone = params.name as string;
+  const id = params.id as string;
   const subfreezoneslug = params.subfreezones as string;
 
   const [subFreezone, setSubFreezone] = useState<SubFreezone | null>(null);
@@ -44,7 +44,7 @@ export default function SubFreezonePage() {
     const fetchSubFreezoneData = async () => {
       try {
         setLoading(true);
-        const res = await fetch(`/api/freezones/${parentFreezone}`);
+        const res = await fetch(`/api/freezones/${id}`);
 
         if (!res.ok) {
           throw new Error("Failed to fetch data");
@@ -76,7 +76,7 @@ export default function SubFreezonePage() {
     };
 
     fetchSubFreezoneData();
-  }, [parentFreezone, subfreezoneslug]);
+  }, [id, subfreezoneslug]);
 
   if (loading) {
     return (

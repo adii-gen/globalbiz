@@ -1,10 +1,13 @@
 import { db } from "@/db";
-import { MainlandTable } from "@/db/schema";
+import { mainlandDetailsTable } from "@/db/schema";
 import { NextResponse } from "next/server";
 
 export async function GET(){
     try {
-        const mainland= await db.select().from(MainlandTable);
+        const mainland= await db.select({
+                id: mainlandDetailsTable.id,
+                name: mainlandDetailsTable.name
+              }).from(mainlandDetailsTable);
         return NextResponse.json({
             success:true,
             data:mainland,

@@ -28,6 +28,7 @@ interface FreezoneDetails {
   createdAt?: string;
   updatedAt?: string;
   subFreezones?: Array<{ name: string }>;
+  name:string;
 }
 
 interface FreezoneData {
@@ -120,7 +121,7 @@ export default function FreezonePage() {
         }}
       >
         <h1 className="absolute bottom-5 left-1/2 -translate-x-1/2 z-10 text-white text-5xl font-oswald">
-          {freezoneData?.name || "Freezone Details"}
+          {details?.name || "Freezone Details"}
         </h1>
         <div className="absolute inset-0 opacity-60"></div>
       </div>
@@ -148,7 +149,7 @@ export default function FreezonePage() {
                     BUSINESS SETUP
                   </h2>
                   <h3 className="text-3xl md:text-4xl font-bold text-yellow mb-8 font-oswald tracking-wide">
-                    IN {freezoneData?.name?.toUpperCase()}
+                    IN {details?.name?.toUpperCase()}
                   </h3>
 
                   <div className="text-justify leading-relaxed space-y-4 font-raleway">
@@ -312,7 +313,7 @@ export default function FreezonePage() {
                   TYPES OF LICENCES FOR BUSINESS SETUP
                 </h2>
                 <h3 className="text-3xl md:text-4xl font-bold text-yellow font-oswald tracking-wide">
-                  IN {freezoneData?.name?.toUpperCase()}
+                  IN {details?.name?.toUpperCase()}
                 </h3>
               </div>
 

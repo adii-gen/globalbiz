@@ -27,13 +27,14 @@ interface MainlandDetails {
   buesinessProcess: BusinessProcess[];
   createdAt: string;
   updatedAt: string;
+  name:string;
 }
 
 interface MainlandData {
   id: string;
   name: string;
   slug: string;
-  details: MainlandDetails;
+  details: MainlandDetails[];   // ← ARRAY
 }
 
 interface ApiResponse {
@@ -43,7 +44,8 @@ interface ApiResponse {
 
 export default function MainlandPage() {
   const params = useParams();
-  const mainlandSlug = params.name as string;
+  const id = params.id as string;
+  console.log("id of mainland",id)
 
   const [data, setData] = useState<ApiResponse | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -54,7 +56,8 @@ export default function MainlandPage() {
       try {
         setLoading(true);
         setError(null);
-        const res = await fetch(`/api/mainland/${mainlandSlug}`);
+        console.log("sdfasdfdsaid ",id )
+        const res = await fetch(`/api/mainland/${id}`);
 
         if (!res.ok) {
           throw new Error(`Failed to fetch mainland data: ${res.status}`);
@@ -80,15 +83,14 @@ export default function MainlandPage() {
       }
     };
 
-    if (mainlandSlug) {
+    if (id) {
       fetchMainlandData();
     }
-  }, [mainlandSlug]);
+  }, [id]);
 
   const mainlandData = data?.data;
-  const details = mainlandData?.details;
-
-  return (
+const details = mainlandData?.details?.[0];
+ return (
     <div className="mx-auto py-8">
       <div
         className="relative h-60 bg-cover bg-center flex items-center justify-center"
@@ -97,7 +99,7 @@ export default function MainlandPage() {
         }}
       >
         <h1 className="absolute bottom-5 left-1/2 -translate-x-1/2 z-10 text-white text-5xl font-oswald">
-          {mainlandData?.name || "Mainland Details"}
+          {details?.name || "Mainland Details"}
         </h1>
         <div className="absolute inset-0 opacity-60"></div>
       </div>
@@ -126,7 +128,7 @@ export default function MainlandPage() {
                     BUSINESS SETUP
                   </h2>
                   <h3 className="text-3xl md:text-4xl font-bold text-yellow mb-8 font-oswald tracking-wide">
-                    IN {mainlandData?.name?.toUpperCase()}
+                    IN {details?.name?.toUpperCase()}
                   </h3>
 
                   <div className="text-justify leading-relaxed space-y-4 font-raleway">
@@ -288,7 +290,7 @@ export default function MainlandPage() {
         TYPES OF LICENCES FOR BUSINESS SETUP
       </h2>
       <h3 className="text-3xl md:text-4xl font-bold text-yellow font-oswald tracking-wide">
-        IN {mainlandData?.name?.toUpperCase()}
+        IN {details?.name?.toUpperCase()}
       </h3>
     </div>
 
@@ -370,7 +372,7 @@ export default function MainlandPage() {
 
          <ProcessCards 
   processes={details?.buesinessProcess || []} 
-  mainlandName={mainlandData?.name} 
+  mainlandName={details?.name} 
 />
 
           {/* Why Choose Section */}
