@@ -459,6 +459,7 @@ interface Offshore {
 
 interface DropdownItem {
   name: string;
+  id?:string;
   href: string;
 }
 
@@ -647,7 +648,8 @@ export default function Navbar() {
                   handleItemClick(e as any, item.href);
                 }}
               >
-                {item.name}
+                {item.id}
+
               </button>
             ))}
           </div>
@@ -659,7 +661,7 @@ export default function Navbar() {
   // Transform API data to dropdown items
   const freezoneItems: DropdownItem[] = freezones.map((item) => ({
     name: item.name,
-    href: `/freezone/${slugify(item.slug)}`,
+    href: `/freezone/${item.id}`,
   }));
 
   const mainlandItems: DropdownItem[] = mainlands.map((item) => ({
@@ -669,7 +671,7 @@ export default function Navbar() {
 
   const offshoreItems: DropdownItem[] = offshores.map((item) => ({
     name: item.name,
-    href: `/offshore/${slugify(item.slug)}`,
+    href: `/offshore/${item.id}`,
   }));
 
   return (

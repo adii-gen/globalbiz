@@ -1,0 +1,1 @@
+ALTER TABLE "offshore_details" ALTER COLUMN "offshore_name" DROP NOT NULL;

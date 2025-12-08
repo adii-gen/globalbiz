@@ -1,0 +1,1 @@
+DROP INDEX "offshore_slug_key";

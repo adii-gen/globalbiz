@@ -162,6 +162,34 @@
       "when": 1764572603965,
       "tag": "0022_awesome_night_thrasher",
       "breakpoints": true
+    },
+    {
+      "idx": 23,
+      "version": "7",
+      "when": 1764996741701,
+      "tag": "0023_daffy_nightshade",
+      "breakpoints": true
+    },
+    {
+      "idx": 24,
+      "version": "7",
+      "when": 1764997776992,
+      "tag": "0024_volatile_legion",
+      "breakpoints": true
+    },
+    {
+      "idx": 25,
+      "version": "7",
+      "when": 1764997999377,
+      "tag": "0025_free_bromley",
+      "breakpoints": true
+    },
+    {
+      "idx": 26,
+      "version": "7",
+      "when": 1765006253201,
+      "tag": "0026_tough_ezekiel",
+      "breakpoints": true
     }
   ]
 }

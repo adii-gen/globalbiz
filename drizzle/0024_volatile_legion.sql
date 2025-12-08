@@ -1,0 +1,1 @@
+ALTER TABLE "offshore_details" ADD COLUMN "offshore_name" text NOT NULL;

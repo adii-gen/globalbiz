@@ -29,13 +29,22 @@ interface OffshoreDetails {
   perks: Perk[];
   createdAt: string;
   updatedAt: string;
+  Name:string;
 }
 
 interface OffshoreData {
   id: string;
-  name: string;
-  slug: string;
-  details: OffshoreDetails;
+  offshoreId: string;
+  description: string;
+  understanding: string[];
+  prerequisites: string[];
+    benefits: string[];
+  buesinessProcess: BusinessProcess[]; 
+  perks: Perk[];
+  createdAt: string;
+  updatedAt: string;
+  Name:string;
+  details:any;
 }
 
 interface ApiResponse {
@@ -45,8 +54,9 @@ interface ApiResponse {
 
 export default function OffshorePage() {
   const params = useParams();
-  const offshoreSlug = params.name as string;
-
+  console.log("OffshorePage params:", params);
+  const Id = params.id as string;
+console.log("Received offshore id param:", Id);
   const [data, setData] = useState<ApiResponse | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
@@ -56,7 +66,7 @@ export default function OffshorePage() {
       try {
         setLoading(true);
         setError(null);
-        const res = await fetch(`/api/offshore/${offshoreSlug}`);
+        const res = await fetch(`/api/offshore/${Id}`);
 
         if (!res.ok) {
           throw new Error(`Failed to fetch offshore data: ${res.status}`);
@@ -82,14 +92,14 @@ export default function OffshorePage() {
       }
     };
 
-    if (offshoreSlug) {
+    if (Id) {
       fetchOffshoreData();
     }
-  }, [offshoreSlug]);
+  }, [Id]);
 
-  const offshoreData = data?.data;
-  const details = offshoreData?.details;
-
+const offshoreData = data?.data?.details;
+  console.log("Offshore Data:", offshoreData);
+  
   return (
     <div className="mx-auto py-8">
       <div
@@ -99,7 +109,7 @@ export default function OffshorePage() {
         }}
       >
         <h1 className="absolute bottom-5 left-1/2 -translate-x-1/2 z-10 text-white text-5xl font-oswald">
-          {offshoreData?.name || "Offshore Details"}
+          {offshoreData?.Name || "Offshore Details"}
         </h1>
         <div className="absolute inset-0 opacity-60"></div>
       </div>
@@ -119,7 +129,7 @@ export default function OffshorePage() {
       {!loading && offshoreData && (
         <div className="space-y-6">
           {/* Description Section */}
-          {details?.description && (
+          {offshoreData?.description && (
             <section className="bg-gray-50 px-4 md:pl-8 lg:pl-12 xl:pl-16 pt-8 pb-4">
               <div className="flex flex-col lg:flex-row gap-12 items-center">
                 {/* TEXT CONTENT */}
@@ -128,11 +138,11 @@ export default function OffshorePage() {
                     BUSINESS SETUP
                   </h2>
                   <h3 className="text-3xl md:text-4xl font-bold text-yellow mb-8 font-oswald tracking-wide">
-                    IN {offshoreData?.name?.toUpperCase()}
+                    IN {offshoreData?.Name?.toUpperCase()}
                   </h3>
 
                   <div className="text-justify leading-relaxed space-y-4 font-raleway">
-                    <p className="text-sm">{details.description}</p>
+                    <p className="text-sm">{offshoreData.description}</p>
                   </div>
                 </div>
 
@@ -214,7 +224,7 @@ export default function OffshorePage() {
           </section>
 
           {/* Understanding Section */}
-          {/* {details?.understanding && details.understanding.length > 0 && (
+          {/* {offshoreData?.understanding && offshoreData.understanding.length > 0 && (
             <section className="bg-white px-8 md:px-16 lg:px-32 xl:px-48 py-16">
               <div className="text-center mb-12">
                 <h2 className="text-3xl md:text-4xl font-bold text-blue mb-2 font-oswald tracking-wide">
@@ -226,7 +236,7 @@ export default function OffshorePage() {
               </div>
 
               <div className="space-y-4">
-                {details.understanding.map((item: string, index: number) => (
+                {offshoreData.understanding.map((item: string, index: number) => (
                   <div key={index} className="flex items-start gap-4">
                     <div className="flex-shrink-0 w-8 h-8 bg-blue rounded-full flex items-center justify-center">
                       <svg
@@ -251,7 +261,7 @@ export default function OffshorePage() {
               </div>
             </section>
           )} */}
-          {details?.understanding && details.understanding.length > 0 && (
+          {offshoreData?.understanding && offshoreData.understanding.length > 0 && (
             <section
               className="relative bg-cover bg-center bg-no-repeat px-8 md:px-16 lg:px-32 xl:px-48 py-16"
               style={{ backgroundImage: "url('/images/business-type-bg.jpg')" }}
@@ -269,7 +279,7 @@ export default function OffshorePage() {
                   </h3>
 
                   <div className="space-y-2">
-                    {details.understanding.map(
+                    {offshoreData.understanding.map(
                       (benefit: string, index: number) => (
                         <div key={index} className="flex items-start gap-4">
                           <div className="flex-shrink-0 w-8 h-8 bg-yellow rounded-full flex items-center justify-center">
@@ -300,7 +310,7 @@ export default function OffshorePage() {
           )}
 
           {/* Benefits Section */}
-{details?.benefits && details.benefits.length > 0 && (
+{offshoreData?.benefits && offshoreData.benefits.length > 0 && (
   <section
     className="relative bg-cover bg-center bg-no-repeat px-8 md:px-16 lg:px-32 xl:px-48 py-16"
     style={{ backgroundImage: "url('/images/business-type-bg.jpg')" }}
@@ -314,11 +324,11 @@ export default function OffshorePage() {
           ADVANTAGES OF SETTING UP A
         </h2>
         <h3 className="text-3xl md:text-4xl font-bold text-yellow mb-10 font-oswald tracking-wide">
-          COMPANY IN {offshoreData?.name?.toUpperCase()}
+          COMPANY IN {offshoreData?.Name?.toUpperCase()}
         </h3>
 
         <div className="space-y-2">
-          {details.benefits.map((benefit: string, index: number) => (
+          {offshoreData.benefits.map((benefit: string, index: number) => (
             <div key={index} className="flex items-start gap-4">
               <div className="flex-shrink-0 w-8 h-8 bg-yellow rounded-full flex items-center justify-center">
                 <svg
@@ -346,7 +356,7 @@ export default function OffshorePage() {
   </section>
 )}
 
-        {details?.perks && details.perks.length > 0 && (
+        {offshoreData?.perks && offshoreData.perks.length > 0 && (
   <section className="bg-gray-50 px-4 md:px-8 lg:px-16 xl:px-24 py-16">
     {/* Title */}
     <div className="text-center mb-12">
@@ -354,13 +364,13 @@ export default function OffshorePage() {
         Perks of opting for
       </h2>
       <h3 className="text-3xl md:text-4xl font-bold text-yellow font-oswald tracking-wide">
-        {offshoreData?.name?.toUpperCase()} BUSINESS SETUP
+        {offshoreData?.Name?.toUpperCase()} BUSINESS SETUP
       </h3>
     </div>
 
     {/* Perk Cards */}
     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
-      {details.perks.map((perk: Perk, index: number) => {
+      {offshoreData.perks.map((perk: Perk, index: number) => {
        const fallbackImages = [
     "/licenses/GeneralLicense.png",
     "/licenses/IndustrialLicense.png",
@@ -420,7 +430,7 @@ export default function OffshorePage() {
 )}
 
           {/* Prerequisites Section */}
-          {details?.prerequisites && details.prerequisites.length > 0 && (
+          {offshoreData?.prerequisites && offshoreData.prerequisites.length > 0 && (
             <section className="bg-yellow px-8 md:px-16 lg:px-12 xl:px-12 py-12">
               <div className="max-w-7xl mx-auto">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
@@ -444,12 +454,12 @@ export default function OffshorePage() {
                         What are the Process and Prerequisites
                       </h2>
                       <h3 className="text-3xl md:text-4xl font-oswald font-bold text-white uppercase mt-2">
-                        of {offshoreData?.name?.toUpperCase()} Business Setup
+                        of {offshoreData?.Name?.toUpperCase()} Business Setup
                       </h3>
                     </div>
 
                     <div className="space-y-3 mt-8">
-                      {details.prerequisites.map(
+                      {offshoreData.prerequisites.map(
                         (item: string, index: number) => (
                           <div key={index} className="flex items-start gap-3">
                             <div className="flex-shrink-0 w-3 h-3 bg-blue rounded-full mt-2"></div>
@@ -468,10 +478,10 @@ export default function OffshorePage() {
 
              {/* Process Cards Section - Only show if data is present */}
 {/* Process Cards Section - Only show if data is present */}
-{offshoreData && details?.buesinessProcess && details.buesinessProcess.length > 0 && (
+{offshoreData && offshoreData?.buesinessProcess && offshoreData.buesinessProcess.length > 0 && (
   <OffshoreProcessCards 
-    processes={details.buesinessProcess}
-    offshoreName={offshoreData.name}
+    processes={offshoreData.buesinessProcess}
+    offshoreName={offshoreData.Name}
   />
 )}
 
@@ -508,7 +518,7 @@ export default function OffshorePage() {
                     could not have been as easy as it is now. With a team of
                     highly specialized members, Global Biz Setup will help in
                     setting up all the documents needed in the process of{" "}
-                    {offshoreData?.name} business setup. For any consultants
+                    {offshoreData?.Name} business setup. For any consultants
                     regarding the same, our panel of professionals are right
                     there to assist and help you maximise your profile while
                     doing business abroad.
