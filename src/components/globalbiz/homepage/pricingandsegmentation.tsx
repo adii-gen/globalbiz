@@ -218,13 +218,13 @@ export default function MinimalPricingServices() {
       });
   };
 
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-white flex items-center justify-center">
-        <div className="animate-pulse text-gray-400">Loading...</div>
-      </div>
-    );
-  }
+  // if (loading) {
+  //   return (
+  //     <div className=" flex items-center justify-center">
+  //       <div className="animate-pulse "></div>
+  //     </div>
+  //   );
+  // }
 
   if (error) {
     return (

@@ -1,5 +1,5 @@
 import { db } from "@/db";
-import { offshoreDetailsTable, offshoreTable } from "@/db/schema";
+import { offshoreDetailsTable } from "@/db/schema";
 import { NextResponse } from "next/server";
 
 // export async function GET(){

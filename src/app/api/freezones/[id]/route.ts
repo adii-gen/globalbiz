@@ -1,24 +1,23 @@
-
 import { db } from "@/db";
 import { FreezonesTable, FreezoneDetailsTable } from "@/db/schema";
 import { eq } from "drizzle-orm";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
-
-export async function GET(req: Request, context: { params: Promise<{ id: string }> }) {
+export async function GET(
+  req: NextRequest, 
+  context: { params: Promise<{ id: string }> }
+) {
   try {
-    // Await the params first
     const { id } = await context.params;
 
-    if (!id) {
+    // Validate ID
+    if (!id || id.trim() === '') {
       return NextResponse.json(
-        { success: false, message: "Slug is required" },
+        { success: false, message: "Valid ID is required" },
         { status: 400 }
       );
     }
 
-    // Fetch main freezone by id
-   
     // Fetch details using freezone id
     const details = await db
       .select()
@@ -26,135 +25,125 @@ export async function GET(req: Request, context: { params: Promise<{ id: string 
       .where(eq(FreezoneDetailsTable.id, id))
       .limit(1);
 
-    return NextResponse.json({
-      success: true,
-      data: {
-       
-        details: details[0],
+    // Check if details found
+    if (!details || details.length === 0) {
+      return NextResponse.json(
+        { success: false, message: "Freezone details not found" },
+        { status: 404 }
+      );
+    }
+
+    // Return with caching headers
+    return NextResponse.json(
+      {
+        success: true,
+        data: {
+          details: details[0],
+        },
       },
-    });
+      {
+        headers: {
+          'Cache-Control': 'public, s-maxage=3600, stale-while-revalidate=7200',
+        }
+      }
+    );
+
   } catch (error) {
     console.error("Freezone Fetch Error:", error);
     return NextResponse.json(
-      { success: false, message: "Internal server error" },
+      { 
+        success: false, 
+        message: "Failed to fetch freezone details",
+        error: process.env.NODE_ENV === 'development' ? String(error) : undefined
+      },
       { status: 500 }
     );
   }
 }
 
+// PUT - Update freezone detail
+export async function PUT(
+  req: NextRequest,
+  context: { params: Promise<{ id: string }> }
+) {
+  try {
+    const { id } = await context.params;
+    const body = await req.json();
 
+    if (!id) {
+      return NextResponse.json(
+        { success: false, message: "ID is required" },
+        { status: 400 }
+      );
+    }
 
+    const updated = await db
+      .update(FreezoneDetailsTable)
+      .set({
+        ...body,
+        updatedAt: new Date(),
+      })
+      .where(eq(FreezoneDetailsTable.id, id))
+      .returning();
 
-// /* eslint-disable @typescript-eslint/no-unused-vars */
-// /* eslint-disable @typescript-eslint/no-explicit-any */
-// import { db } from "@/db";
-// import { FreezonesTable, FreezoneDetailsTable } from "@/db/schema";
-// import { eq } from "drizzle-orm";
-// import { NextResponse } from "next/server";
+    if (!updated || updated.length === 0) {
+      return NextResponse.json(
+        { success: false, message: "Freezone detail not found" },
+        { status: 404 }
+      );
+    }
 
-// // In-memory cache: Map of id -> freezone data
-// const cache = new Map<string, { data: any; timestamp: number }>();
-// const CACHE_DURATION = 60 * 60 * 1000; // 1 hour
+    return NextResponse.json({
+      success: true,
+      data: updated[0],
+    });
 
-// export async function GET(
-//   req: Request,
-//   context: { params: Promise<{ id: string }> }
-// ) {
-//   try {
-//     // Await the params
-//     const { id } = await context.params;
+  } catch (error) {
+    console.error("Freezone Update Error:", error);
+    return NextResponse.json(
+      { success: false, message: "Failed to update freezone detail" },
+      { status: 500 }
+    );
+  }
+}
 
-//     if (!id) {
-//       return NextResponse.json(
-//         { success: false, message: "Slug is required" },
-//         { status: 400 }
-//       );
-//     }
+// DELETE - Delete freezone detail
+export async function DELETE(
+  req: NextRequest,
+  context: { params: Promise<{ id: string }> }
+) {
+  try {
+    const { id } = await context.params;
 
-//     const now = Date.now();
-//     const cached = cache.get(id);
+    if (!id) {
+      return NextResponse.json(
+        { success: false, message: "ID is required" },
+        { status: 400 }
+      );
+    }
 
-//     // Return cached data if valid
-//     if (cached && now - cached.timestamp < CACHE_DURATION) {
-//       return NextResponse.json(
-//         {
-//           success: true,
-//           data: cached.data,
-//           cached: true,
-//         },
-//         {
-//           headers: {
-//             "Cache-Control": "public, s-maxage=3600, stale-while-revalidate=86400",
-//           },
-//         }
-//       );
-//     }
+    const deleted = await db
+      .delete(FreezoneDetailsTable)
+      .where(eq(FreezoneDetailsTable.id, id))
+      .returning();
 
-//     // OPTIMIZATION 1: Use a single JOIN query instead of two separate queries
-//     const result = await db
-//       .select().from(FreezoneDetailsTable).where(eq(FreezoneDetailsTable.id,id))
+    if (!deleted || deleted.length === 0) {
+      return NextResponse.json(
+        { success: false, message: "Freezone detail not found" },
+        { status: 404 }
+      );
+    }
 
-//     const responseData = {
-//      data:result[0]
-//     };
+    return NextResponse.json({
+      success: true,
+      message: "Freezone detail deleted successfully",
+    });
 
-//     // Update cache
-//     cache.set(id, {
-//       data: responseData,
-//       timestamp: now,
-//     });
-
-//     return NextResponse.json(
-//       {
-//         success: true,
-//         data: responseData,
-//         cached: false,
-//       },
-//       {
-//         headers: {
-//           "Cache-Control":
-//             "public, s-maxage=3600, stale-while-revalidate=86400",
-//         },
-//       }
-//     );
-//   } catch (error) {
-//     console.error("Freezone Fetch Error:", error);
-//     return NextResponse.json(
-//       { success: false, message: "Internal server error" },
-//       { status: 500 }
-//     );
-//   }
-// }
-
-// // OPTIONAL: Add a revalidation endpoint to clear cache
-// // export async function POST(
-// //   req: Request,
-// //   context: { params: Promise<{ id: string }> }
-// // ) {
-// //   try {
-// //     const { slug } = await context.params;
-    
-// //     // Clear specific cache entry
-// //     if (slug) {
-// //       cache.delete(slug);
-// //       return NextResponse.json({
-// //         success: true,
-// //         message: `Cache cleared for ${slug}`,
-// //       });
-// //     }
-    
-// //     // Clear all cache
-// //     cache.clear();
-// //     return NextResponse.json({
-// //       success: true,
-// //       message: "All cache cleared",
-// //     });
-// //   } catch (error) {
-// //     console.error("Error Occured to create freezone:", error);
-// //     return NextResponse.json(
-      
-// //       { success: false, message: "Failed to clear cache" },
-// //       { status: 500 }
-// //     );
-// //   }
-// // }
+  } catch (error) {
+    console.error("Freezone Delete Error:", error);
+    return NextResponse.json(
+      { success: false, message: "Failed to delete freezone detail" },
+      { status: 500 }
+    );
+  }
+}
