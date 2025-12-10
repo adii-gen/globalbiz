@@ -267,6 +267,7 @@
 import React, { useState, useEffect } from 'react';
 import Image from "next/image";
 import { CalendarSearch, Eye } from 'lucide-react';
+import Loader from '@/components/loader';
 
 interface Blog {
   id: string;
@@ -437,14 +438,7 @@ export default function BlogsPage() {
       );
 
   if (loading) {
-    return (
-      <div className="min-h-screen bg-white flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-yellow mx-auto"></div>
-          <p className="mt-4 text-gray-600">Loading blogs...</p>
-        </div>
-      </div>
-    );
+  return <Loader />
   }
 
   if (error) {

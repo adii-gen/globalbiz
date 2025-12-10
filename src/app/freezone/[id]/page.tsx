@@ -8,6 +8,7 @@ import { useParams, useRouter } from "next/navigation";
 import { ProcessCards } from "@/components/freezone/ProcessCards";
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";
+import Loader from "@/components/loader";
 
 interface LicenseType {
   image: string;
@@ -133,9 +134,7 @@ export default function FreezonePage() {
       )}
 
       {loading && (
-        <div className="text-center py-12">
-          <div className="text-gray-500">Loading freezone details...</div>
-        </div>
+       <Loader />
       )}
 
       {!loading && freezoneData && (

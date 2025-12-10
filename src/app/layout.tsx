@@ -49,7 +49,7 @@ export default function RootLayout({
           <Toaster />
           
           {/* Show footer only if NOT admin */}
-          {!isAdmin && <FooterSection />}
+          {/* {!isAdmin && <FooterSection />} */}
 
         </body>
       </html>

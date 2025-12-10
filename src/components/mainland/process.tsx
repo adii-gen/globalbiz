@@ -331,8 +331,11 @@ export const ProcessCards = ({ processes, mainlandName }: ProcessCardsProps) => 
                     </h4>
                   </div>
 
-                <div className="p-4 text-white">
-                  <h4 className="text-xl font-bold mb-2">{process.heading}</h4>
+<div
+  className={`absolute inset-0 flex flex-col items-center justify-center p-8 text-white transition-opacity duration-300 ${
+    hoveredCard === displayIndex ? "opacity-100" : "opacity-0"
+  }`}
+>                  <h4 className="text-xl font-bold mb-2">{process.heading}</h4>
                   <p className="text-sm opacity-80">{process.description}</p>
                 </div>
               </div>

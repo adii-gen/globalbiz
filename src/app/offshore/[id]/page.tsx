@@ -7,6 +7,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import Image from "next/image";
 import { OffshoreProcessCards } from "@/components/offshore/ProcessCards";
+import Loader from "@/components/loader";
 
 interface Perk {
   image: string;
@@ -121,9 +122,7 @@ const offshoreData = data?.data?.details;
       )}
 
       {loading && (
-        <div className="text-center py-12">
-          <div className="text-gray-500">Loading offshore details...</div>
-        </div>
+       <Loader />
       )}
 
       {!loading && offshoreData && (

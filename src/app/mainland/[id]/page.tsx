@@ -5,6 +5,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import Image from "next/image";
 import { ProcessCards } from "@/components/mainland/process";
+import Loader from "@/components/loader";
 
 interface LicenseType {
   image: string;
@@ -111,9 +112,7 @@ const details = mainlandData?.details?.[0];
       )}
 
       {loading && (
-        <div className="text-center py-12">
-          <div className="text-gray-500">Loading mainland details...</div>
-        </div>
+      <Loader />
       )}
 
       {!loading && mainlandData && (
